@@ -5,3 +5,8 @@ repo_root_style = "#8bcbfb"
 [git_branch]
 style = "bright-black"
 
+[shell]
+disabled = false
+
+[time]
+disabled = false
