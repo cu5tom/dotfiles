@@ -1,4 +1,27 @@
 return {
+  {
+    "michaelrommel/nvim-silicon",
+    lazy = true,
+    cmd = "Silicon",
+    init = function()
+      local wk = require("which-key")
+      wk.register({
+        ["<leader>sc"] = { ":Silicon<CR>", "Snapshot Code" },
+      }, { mode = "v" })
+    end,
+    config = function()
+      require("nvim-silicon").setup({
+        --        font = "CascadiaCodeNF",
+        language = function()
+          return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()), ":e")
+        end,
+        output = "~/_snapshots/" .. os.date("!%Y-%m-%dT%H-%M-%SZ") .. "_code.png",
+        --        theme = "habamax",
+        wslclipboard = "always",
+        wslclipboardcopy = "delete",
+      })
+    end,
+  },
   -- Create annotations with one keybind and jump your cursor in the inserted annotation
   {
     "danymat/neogen",
