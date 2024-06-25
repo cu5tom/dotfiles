@@ -6,7 +6,7 @@ return {
     init = function()
       local wk = require("which-key")
       wk.register({
-        ["<leader>sc"] = { ":Silicon<CR>", "Snapshot Code" },
+        ["<leader>cs"] = { ":Silicon<CR>", "Snapshot Code" },
       }, { mode = "v" })
     end,
     config = function()
