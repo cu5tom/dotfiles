@@ -1,4 +1,6 @@
 return {
+  -- Silicon need rust to be installed, then: cargo install silicon
+  -- Troubleshooting: https://github.com/Aloxaf/silicon/issues/11
   {
     "michaelrommel/nvim-silicon",
     lazy = true,
