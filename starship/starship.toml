@@ -7,6 +7,3 @@ style = "bright-black"
 
 [shell]
 disabled = false
-
-[time]
-disabled = false
