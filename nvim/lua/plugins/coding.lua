@@ -85,34 +85,45 @@ return {
   -- Better increase/decrease
   {
     "monaqa/dial.nvim",
-    keys = {
-      {
-        "<C-a>",
-        function()
-          require("dial.map").inc_normal()
-        end,
-        exps = true,
-        desc = "Increment",
-      },
-      {
-        "<C-x>",
-        function()
-          require("dial.map").dec_normal()
-        end,
-        exps = true,
-        desc = "Decrement",
-      },
-    },
+    -- keys = {
+    --   {
+    --     "<C-a>",
+    --     function()
+    --       require("dial.map").inc_normal()
+    --     end,
+    --     exps = true,
+    --     desc = "Increment",
+    --   },
+    --   {
+    --     "<C-x>",
+    --     function()
+    --       require("dial.map").dec_normal()
+    --     end,
+    --     exps = true,
+    --     desc = "Decrement",
+    --   },
+    -- },
     config = function()
       local augend = require("dial.augend")
       require("dial.config").augends:register_group({
         default = {
           augend.integer.alias.decimal,
           augend.integer.alias.hex,
-          augend.date.alias["%d.%m.%Y"],
+          augend.date.alias["%H:%M"],
+          augend.date.new({
+            word = false,
+            pattern = "%Y-%m-%d",
+            default_kind = "day",
+            only_valid = true,
+          }),
           augend.constant.alias.bool,
           augend.semver.alias.semver,
-          augend.constant.alias.new({ elements = { "let", "const" } }),
+          augend.constant.new({
+            elements = { "let", "const" },
+          }),
+          augend.hexcolor.new({
+            case = "lower",
+          }),
         },
       })
     end,
