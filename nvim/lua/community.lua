@@ -9,20 +9,26 @@ return {
   "AstroNvim/astrocommunity",
   -- import/override with your plugins folder
   --{ import = "astrocommunity.lsp.coc-nvim" },
+  -- Editing support
   { import = "astrocommunity.editing-support.dial-nvim" },
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
   { import = "astrocommunity.editing-support.nvim-treesitter-context" },
   { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
+  -- File explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
+  -- Fuzzy finder
   { import = "astrocommunity.fuzzy-finder.fzf-lua" },
+  -- Git
   { import = "astrocommunity.git.blame-nvim" },
   { import = "astrocommunity.git.gitgraph-nvim" },
+  -- Lsp
   { import = "astrocommunity.lsp.garbage-day-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
   { import = "astrocommunity.lsp.lsplinks-nvim" },
   { import = "astrocommunity.lsp.ts-error-translator-nvim" },
+  -- Pack
   { import = "astrocommunity.pack.astro" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.html-css" },
