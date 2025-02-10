@@ -30,7 +30,7 @@ return {
   { import = "astrocommunity.lsp.ts-error-translator-nvim" },
   -- Pack
   { import = "astrocommunity.pack.astro" },
-  { import = "astrocommunity.pack.go" },
+  -- { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },
