@@ -28,6 +28,8 @@ return {
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
   { import = "astrocommunity.lsp.lsplinks-nvim" },
   { import = "astrocommunity.lsp.ts-error-translator-nvim" },
+  -- Motion
+  { import = "astrocommunity.motion.harpoon" },
   -- Pack
   { import = "astrocommunity.pack.astro" },
   -- { import = "astrocommunity.pack.go" },
