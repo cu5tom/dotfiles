@@ -23,6 +23,8 @@ return {
   -- Git
   { import = "astrocommunity.git.blame-nvim" },
   { import = "astrocommunity.git.gitgraph-nvim" },
+  -- Icon
+  { import = "astrocommunity.icon.mini-icons" },
   -- Lsp
   { import = "astrocommunity.lsp.garbage-day-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
