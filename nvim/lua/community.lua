@@ -45,6 +45,8 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.vue" },
   { import = "astrocommunity.pack.yaml" },
+  -- Terminal integration
+  { import = "astrocommunity.terminal-integration.vim-tmux-yank" },
   -- Utility
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
