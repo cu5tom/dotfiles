@@ -28,6 +28,7 @@ return {
   { import = "astrocommunity.lsp.inc-rename-nvim" },
   { import = "astrocommunity.lsp.lsp-signature-nvim" },
   { import = "astrocommunity.lsp.lsplinks-nvim" },
+  { import = "astrocommunity.lsp.lspsaga-nvim" },
   { import = "astrocommunity.lsp.ts-error-translator-nvim" },
   -- Motion
   { import = "astrocommunity.motion.harpoon" },
