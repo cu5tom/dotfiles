@@ -8,7 +8,8 @@
 return {
   "AstroNvim/astrocommunity",
   -- import/override with your plugins folder
-  --{ import = "astrocommunity.lsp.coc-nvim" },
+  -- Color scheme
+  { import = "astrocommunity.colorscheme.nordic-nvim" },
   -- Editing support
   { import = "astrocommunity.editing-support.dial-nvim" },
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
@@ -43,4 +44,7 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.vue" },
   { import = "astrocommunity.pack.yaml" },
+  -- Utility
+  { import = "astrocommunity.utility.hover-nvim" },
+  { import = "astrocommunity.utility.noice-nvim" },
 }
