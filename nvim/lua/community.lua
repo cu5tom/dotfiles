@@ -19,7 +19,7 @@ return {
   -- File explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- Fuzzy finder
-  { import = "astrocommunity.fuzzy-finder.fzf-lua" },
+  -- { import = "astrocommunity.fuzzy-finder.fzf-lua" },
   -- Git
   { import = "astrocommunity.git.blame-nvim" },
   { import = "astrocommunity.git.gitgraph-nvim" },
