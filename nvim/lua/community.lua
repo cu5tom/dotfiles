@@ -36,6 +36,7 @@ return {
   { import = "astrocommunity.motion.harpoon" },
   -- Pack
   { import = "astrocommunity.pack.astro" },
+  { import = "astrocommunity.pack.full-dadbod" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.html-css" },
   { import = "astrocommunity.pack.json" },
