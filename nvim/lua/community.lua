@@ -16,6 +16,7 @@ return {
   { import = "astrocommunity.editing-support.nvim-treesitter-context" },
   { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
+  { import = "astrocommunity.editing-support.vim-doge" },
   -- File explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- Fuzzy finder
@@ -45,12 +46,13 @@ return {
   { import = "astrocommunity.pack.mdx" },
   { import = "astrocommunity.pack.php" },
   { import = "astrocommunity.pack.tailwindcss" },
+  { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.vue" },
   { import = "astrocommunity.pack.yaml" },
   -- Terminal integration
   { import = "astrocommunity.terminal-integration.vim-tmux-yank" },
   -- Utility
-  { import = "astrocommunity.utility.hover-nvim" },
+  -- { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
 }
