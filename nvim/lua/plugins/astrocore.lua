@@ -60,9 +60,17 @@ return {
           desc = "Close buffer from tabline",
         },
 
+        ["<Leader>fp"] = {
+          function()
+            require("telescope.builtin").find_files {
+              cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy"),
+            }
+          end,
+          desc = "Find in plugins",
+        },
         -- DB mappings
         ["<Leader>D"] = { desc = "Database" },
-        ["<Leader>De"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle explorer" }
+        ["<Leader>De"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle explorer" },
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
