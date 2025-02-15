@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   "MeanderingProgrammer/markdown.nvim",
   opts = {},
