@@ -50,6 +50,10 @@ return {
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.vue" },
   { import = "astrocommunity.pack.yaml" },
+  -- Snippet
+  { import = "astrocommunity.snippet.mini-snippets" },
+  -- Syntax
+  { import = "astrocommunity.syntax.hlargs-nvim" },
   -- Terminal integration
   { import = "astrocommunity.terminal-integration.vim-tmux-yank" },
   -- Utility
