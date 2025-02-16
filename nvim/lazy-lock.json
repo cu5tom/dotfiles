@@ -46,6 +46,7 @@
   "mini.bufremove": { "branch": "main", "commit": "1ee294a97e091d3cf967974df622c0d887890dc2" },
   "mini.icons": { "branch": "main", "commit": "ec61af6e606fc89ee3b1d8f2f20166a3ca917a36" },
   "mini.snippets": { "branch": "main", "commit": "c9fc2dac03fa86e976b95b62724145d7cf4d9721" },
+  "monorepo.nvim": { "branch": "main", "commit": "256a302900d6af6e032f1f2bf4f2407bd4569fe8" },
   "multiple-cursors.nvim": { "branch": "main", "commit": "3915468ed5f4469732d178f39e7d555b8e7c3f2e" },
   "neo-tree.nvim": { "branch": "main", "commit": "e96fd85bf18bc345dab332b345098fa5460dffac" },
   "neoconf.nvim": { "branch": "main", "commit": "d0f2fc2c67f03100ddca63e20124b7d0b60ef30c" },
