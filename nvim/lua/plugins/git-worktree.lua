@@ -9,10 +9,9 @@ return {
     config = function ()
       require("telescope").load_extension("git_worktree")
 
-      which_key.add({ "W", desc = "Git worktrees", mode = "n"})
-      which_key.add({ "Wf", function()
+      which_key.add({ "<leader>gw", function()
         require("telescope").extensions.git_worktree.git_worktree()
-      end, desc = "Find worktree", mode = "n"})
+      end, desc = "Git worktrees", mode = "n"})
     end
   }
 }
