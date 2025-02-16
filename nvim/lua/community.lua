@@ -10,6 +10,8 @@ return {
   -- import/override with your plugins folder
   -- Color scheme
   { import = "astrocommunity.colorscheme.nordic-nvim" },
+  -- Docker
+  { import = "astrocommunity.docker.lazydocker" },
   -- Editing support
   { import = "astrocommunity.editing-support.dial-nvim" },
   { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
