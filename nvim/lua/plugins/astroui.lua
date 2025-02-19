@@ -24,16 +24,16 @@ return {
     -- Icons can be configured throughout the interface
     icons = {
       -- configure the loading of the lsp in the status line
-      LSPLoading1 = "1 ⠋",
-      LSPLoading2 = "2 ⠙",
-      LSPLoading3 = "3 ⠹",
-      LSPLoading4 = "4 ⠸",
-      LSPLoading5 = "5 ⠼",
-      LSPLoading6 = "6 ⠴",
-      LSPLoading7 = "7 ⠦",
-      LSPLoading8 = "8 ⠧",
-      LSPLoading9 = "9 ⠇",
-      LSPLoading10 = "10 ⠏",
+      LSPLoading1 = "⠋",
+      LSPLoading2 = "⠙",
+      LSPLoading3 = "⠹",
+      LSPLoading4 = "⠸",
+      LSPLoading5 = "⠼",
+      LSPLoading6 = "⠴",
+      LSPLoading7 = "⠦",
+      LSPLoading8 = "⠧",
+      LSPLoading9 = "⠇",
+      LSPLoading10 = "⠏",
     },
   },
 }
