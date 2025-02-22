@@ -14,6 +14,7 @@ set.fillchars = { eob = " " }
 set.foldlevel = 99
 set.foldlevelstart = 99
 set.ignorecase = true
+set.inccommand = "split"
 set.infercase = true
 set.jumpoptions = {}
 set.laststatus = 3
@@ -23,6 +24,7 @@ set.number = true
 set.preserveindent = true
 set.pumheight = 10
 set.relativenumber = true
+set.scrolloff = 10
 set.shiftround = true
 set.shiftwidth = 0
 set.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })
@@ -31,7 +33,7 @@ set.signcolumn = "yes"
 set.smartcase = true
 set.tabstop = 2
 set.termguicolors = true
-set.timeoutlen = 500
+set.timeoutlen = 300
 set.title = true
 set.undofile = true
 set.updatetime = 300

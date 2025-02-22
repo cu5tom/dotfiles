@@ -66,7 +66,10 @@ return {
       require("mason-nvim-dap").setup({
         automatic_installation = true,
         handlers = {},
-        ensure_installed = {}
+        ensure_installed = {
+          "js-debug-adapter",
+          "php-debug-adapter"
+        }
       })
 
       dapui.setup({})

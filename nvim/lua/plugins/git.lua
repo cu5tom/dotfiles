@@ -1,3 +1,4 @@
+---@type LazySpec[]
 return {
   {
     "kdheepak/lazygit.nvim",
@@ -13,7 +14,8 @@ return {
       "nvim-lua/plenary.nvim"
     },
     keys = {
-      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+      { "<leader>gc", "<cmd>LazyGitConfig<cr>", desc = "LazyGitConfig" }
     }
   }
 }

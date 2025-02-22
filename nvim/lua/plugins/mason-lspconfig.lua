@@ -1,4 +1,4 @@
----@type LazySpec
+---@type LazySpec[]
 return {
   {
     "williamboman/mason.nvim",
@@ -9,7 +9,22 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "lua_ls" }
+      ensure_installed = {
+        "astro",
+        "cssls",
+        "emmet_ls",
+        "html",
+        "jinja_lsp",
+        "jsonls",
+        "lua_ls",
+        "marksman",
+        "mdx_analyzer",
+        "phpactor",
+        "somesass_ls",
+        "ts_ls",
+        "volar",
+        "yamlls"
+      }
     }
   },
   {
