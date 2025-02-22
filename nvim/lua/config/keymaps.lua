@@ -1,12 +1,14 @@
 local wk = require("which-key")
 
 wk.add({
+  -- Debug
+  { "<leader>d", group = "Debug" },
   -- Packages
   { "<leader>p", group = "Packages" },
   { "<leader>pl", "<cmd>Lazy<cr>", desc = "Lazy" },
   { "<leader>pm", "<cmd>Mason<cr>", desc = "Mason" },
   -- Find
-  { "<leader>f", group = "Find" },
+  { "<leader>f", group = "Search" },
   { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
   { "<leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Find diagnostics" },
   { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file(s)" },
@@ -20,7 +22,7 @@ wk.add({
   { "<leader>fr", "<cmd>Telescope registers<cr>", desc = "Find registers" },
   { "<leader>fv", "<cmd>Telescope vim_options<cr>", desc = "Find vim options" },
   -- File explorer
-  { "<leader>e", "<cmd>Neotree toggle=true<cr>", desc = "Toggle explorer" },
+  { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
   -- Git
   { "<leader>g", group = "Git" },
   {
