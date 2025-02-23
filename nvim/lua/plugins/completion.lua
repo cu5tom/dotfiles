@@ -62,7 +62,7 @@ return {
           -- ),
           ["<C-c>"] = cmp.mapping.complete({}),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<Down>"] = cmp.mapping(
+          ["<C-j>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
                 cmp.select_next_item()
@@ -72,7 +72,7 @@ return {
             end,
             {"i" ,"s"}
           ),
-          ["<Up>"] = cmp.mapping(
+          ["<C-k>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
                 cmp.select_prev_item()
