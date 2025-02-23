@@ -70,9 +70,16 @@ return {
         }
       })
 
-      telescope.load_extension("fzf")
-      telescope.load_extension("ui-select")
+      pcall(require("telescope").load_extension, "fzf")
+      pcall(require("telescope").load_extension, "ui-select")
 
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find existing buffers" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
+      vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find diagnostics" })
+      vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Find resume" })
+      vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find by grep" })
 
     end
   }

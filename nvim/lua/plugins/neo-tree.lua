@@ -64,6 +64,8 @@ return {
         }
       })
 
+      vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
+
       vim.api.nvim_create_autocmd("TermClose", {
         desc = "Refresh Neo-Tree sources on closing lazygit.",
         callback = function ()
