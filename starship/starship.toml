@@ -3,10 +3,10 @@ palette = "nord"
 [directory]
 style = "fg:white"
 format = "[$path ]($style)"
-repo_root_style = "fg:blue"
+repo_root_style = "fg:teal"
 
 [git_branch]
-style = "fg:teal"
+style = "fg:gray"
 format = "[on](white) [$branch ]($style)"
 
 [git_status]
