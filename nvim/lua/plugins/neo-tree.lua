@@ -37,7 +37,7 @@ return {
     },
     config = function ()
       require("neo-tree").setup({
-        commands = {},
+        commands = { "NeoTree" },
         filesystem = {
           follow_current_file = {
             enabled = true
