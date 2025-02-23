@@ -1,5 +1,4 @@
 -- local wk = require("which-key")
--- TODO: update neo-tree buffer aufter lazygit close
 ---@type LazySpec
 return {
   {
@@ -65,6 +64,18 @@ return {
         }
       })
 
+      vim.api.nvim_create_autocmd("TermClose", {
+        desc = "Refresh Neo-Tree sources on closing lazygit.",
+        callback = function ()
+          local manager_avail, manager = pcall(require, "neo-tree.sources.manager")
+          if manager_avail then
+            for _, source in ipairs({ "filesystem", "git_status", "buffers" }) do
+              manager.refresh(source)
+            end
+          end
+        end,
+        pattern = "*lazygit*"
+      })
       -- wk.add({ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" })
     end
   }
