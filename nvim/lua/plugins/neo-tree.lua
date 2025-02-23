@@ -1,3 +1,4 @@
+-- local wk = require("which-key")
 
 ---@type LazySpec
 return {
@@ -16,7 +17,7 @@ return {
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- "nvim-tree/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
       {
         "s1n7ax/nvim-window-picker",
@@ -54,7 +55,17 @@ return {
             ["<space>"] = false
           }
         },
+        buffers = {
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = false,
+            group_empty_dirs = true,
+            show_unloaded = true
+          }
+        }
       })
+
+      -- wk.add({ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" })
     end
   }
 }

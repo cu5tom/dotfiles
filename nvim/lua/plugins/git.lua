@@ -17,5 +17,24 @@ return {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
       { "<leader>gc", "<cmd>LazyGitConfig<cr>", desc = "LazyGitConfig" }
     }
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      signs = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "-" },
+        changedelete = { text = "~" },
+      },
+      signs_staged = {
+        add = { text = "+" },
+        change = { text = "~" },
+        delete = { text = "_" },
+        topdelete = { text = "-" },
+        changedelete = { text = "~" },
+      },
+    }
   }
 }
