@@ -1,9 +1,30 @@
+palette = "nord"
+
 [directory]
-style = "#aaaaaa"
-repo_root_style = "#8bcbfb"
+style = "fg:purple"
+format = "[$path ]($style)"
+repo_root_style = "fg:blue"
 
 [git_branch]
-style = "bright-black"
+style = "fg:green"
+format = "[on](white) [$branch ]($style)"
+
+[git_status]
+style = "fg:red"
+format = "([$all_status$ahead_behind]($style) )"
 
 [shell]
 disabled = false
+
+[palettes.nord]
+dark_blue = "#61afef"
+blue = "#81a1c1"
+teal = "88c0d0"
+red = "#bf616a"
+orange = "#d08770"
+green = "#a3be8c"
+yellow = "#ebcb8b"
+purple = "#b48ead"
+gray = "#434c5e"
+black = "#2e3440"
+white = "#d8dee9"
