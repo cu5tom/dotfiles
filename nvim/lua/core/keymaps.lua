@@ -9,7 +9,7 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
 -- Save file
-vim.keymap.set({"n", "i"}, "<C-s>", "<cmd>w<cr>", opts)
+vim.keymap.set({"n", "i"}, "<C-s>", "<cmd>w<cr><Esc>", opts)
 
 -- Move window focus
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", opts)
