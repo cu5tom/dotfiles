@@ -1,5 +1,5 @@
 -- local wk = require("which-key")
-
+-- TODO: update neo-tree buffer aufter lazygit close
 ---@type LazySpec
 return {
   {
