@@ -17,6 +17,12 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", opts)
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
 
+-- Resize window (respecting `v:count`)
+vim.keymap.set("n", "<C-Left>",  "'<Cmd>vertical resize -' . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Down>",  "'<Cmd>resize -'          . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Up>",    "'<Cmd>resize +'          . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Increase window height" })
+vim.keymap.set("n", "<C-Right>", "'<Cmd>vertical resize +' . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Increase window width" })
+
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
 vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
