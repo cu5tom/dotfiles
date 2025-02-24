@@ -114,9 +114,18 @@ return {
             "vue",
           },
         },
+        twiggy_language_server = {
+          filetypes = { "html", "njk" },
+        },
         volar = {},
         yamlls = {}
       }
+
+      vim.filetype.add({
+        extension = {
+          njk = "html",
+        }
+      })
 
       require("mason").setup()
 
