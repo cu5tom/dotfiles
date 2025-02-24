@@ -192,7 +192,7 @@ return {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
-        symbols = { error = "e", warn = "w", info = "i", hint = "h" },
+        symbols = { error = "\u{ea87}", warn = "\u{f071}", info = "\u{f129}" },
         colored = false,
         update_in_insert = false,
         always_visible = false,
@@ -202,7 +202,27 @@ return {
       local diff = {
         "diff",
         colored = false,
-        symbols = { added = "a", modified = "m", removed = "r" },
+        symbols = { added = "\u{eadc}", modified = "\u{eade}", removed = "\u{eadf}" },
+        cond = hide_in_width
+      }
+
+      local lsp_clients = {
+        "lsp_clients",
+        fmt = function ()
+          local bufnr = vim.api.nvim_get_current_buf()
+          local clients = vim.lsp.buf_get_clients(bufnr)
+          if next(clients) == nil then
+            return ""
+          end
+
+          local c = {}
+          for _, client in pairs(clients) do
+            table.insert(c, client.name)
+          end
+          return "\u{f085} " .. table.concat(c, "|")
+        end,
+        update_in_insert = false,
+        always_visible = false,
         cond = hide_in_width
       }
 
@@ -219,7 +239,7 @@ return {
           lualine_a = { mode },
           lualine_b = { "branch" },
           lualine_c = { filename },
-          lualine_x = { diagnostics, diff, { "encoding", cond = hide_in_width }, { "filetype", cond = hide_in_width } },
+          lualine_x = { lsp_clients, diagnostics, diff, { "encoding", cond = hide_in_width }, { "filetype", cond = hide_in_width } },
           lualine_y = { "location" },
           lualine_z = { "progress" },
         },
