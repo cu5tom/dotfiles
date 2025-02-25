@@ -28,8 +28,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
 vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
 
 -- Find and center
-vim.keymap.set("n", "n", "nzzv", opts)
-vim.keymap.set("n", "N", "Nzzv", opts)
+vim.keymap.set("n", "n", "nzz", opts)
+vim.keymap.set("n", "N", "Nzz", opts)
 
 -- Tabs
 vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", opts)
