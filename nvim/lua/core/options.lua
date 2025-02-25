@@ -47,3 +47,5 @@ vim.opt.wrap = false
 vim.opt.writebackup = false
 
 vim.wo.signcolumn = "yes"
+
+-- vim.lsp.set_log_level("debug")

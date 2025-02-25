@@ -3,7 +3,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
+      { "williamboman/mason.nvim", opts = {} },
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       {
@@ -43,19 +43,74 @@ return {
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, "Workspace List Folders")
 
+          ---@param client vim.lsp.Client
+          ---@param method vim.lsp.protocol.Method
+          ---@param bufnr? integer
+          local function client_supports_method(client, method, bufnr)
+            if vim.fn.has "nvim-0.11" == 1 then
+              return client:supports_method(method, bufnr)
+            else
+              return client:supports_method(method, { bufnr = bufnr })
+            end
+          end
+
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+          --if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
           if client and client.server_capabilities.documentHighlightProvider then
+            local highlight_augroup = vim.api.nvim_create_augroup("nvim-lsp-highlight", { clear = false })
+
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI"}, {
               buffer = event.buf,
               callback = vim.lsp.buf.document_highlight,
+              group = highlight_augroup
             })
 
             vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI"}, {
               buffer = event.buf,
               callback = vim.lsp.buf.clear_references,
+              group = highlight_augroup
+            })
+
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("nvim-lsp-detach", { clear = true }),
+              callback = function (event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds({ group = "nvim-lsp-highlight", buffer = event2.buf })
+              end
             })
           end
+
+          if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+            map("<leader>th", function ()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+            end, "Toggle Inlay Hints")
+          end
         end
+      })
+
+      vim.diagnostic.config({
+        severity_sort = true,
+        float = {
+          border = "rounded",
+          source = "if_many"
+        },
+        underline = {
+          severity = vim.diagnostic.severity.ERROR
+        },
+        virtual_text = {
+          source = "if_many",
+          spacing = 2,
+          format = function(diagnostic)
+            local diagnostic_message = {
+              [vim.diagnostic.severity.ERROR] = diagnostic.message,
+              [vim.diagnostic.severity.WARN] = diagnostic.message,
+              [vim.diagnostic.severity.INFO] = diagnostic.message,
+              [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+
+            return diagnostic_message[diagnostic.severity]
+          end
+        }
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -68,7 +123,6 @@ return {
         html = {
           filetypes = { "html", "njk" }
         },
-        jinja_lsp = {},
         jsonls = {},
         lua_ls = {
           -- cmd = {...},
@@ -99,25 +153,75 @@ return {
         phpactor = {},
         somesass_ls = {},
         ts_ls = {
-          -- init_options = {
-          --   plugins = {
-          --     {
-          --       name = "@vue/typescript-plugin",
-          --       location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-          --       languages = {"javascript", "typescript", "vue"},
-          --     }
-          --   }
-          -- },
-          -- filetypes = {
-          --   "javascript",
-          --   "typescript",
-          --   "vue",
-          -- },
+          init_options = {
+            plugins = {
+              {
+                name = "@vue/typescript-plugin",
+                location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
+                languages = { "vue" },
+                configNamespace = "typescript",
+                enableForWorkspaceTypeScriptVersions = true,
+              }
+            }
+          },
+          filetypes = {
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "vue",
+          },
+          settings = {
+            typescript = {
+              tsserver = {
+                useSyntaxServer = false,
+              },
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
         },
         twiggy_language_server = {
           filetypes = { "html", "njk" },
         },
-        volar = {},
+        volar = {
+          init_options = {
+            vue = {
+              hybridMode = false
+            }
+          },
+          filetypes = { "vue" },
+          settings = {
+            typescript = {
+              inlayHints = {
+                enumMemberValues = {
+                  enabled = true,
+                },
+                functionLikeReturnTypes = {
+                  enabled = true,
+                },
+                propertyDeclarationTypes = {
+                  enabled = true,
+                },
+                parameterTypes = {
+                  enabled = true,
+                  suppressWhenArgumentMatchesName = true,
+                },
+                variableTypes = {
+                  enabled = true,
+                },
+              },
+            },
+          },
+        },
         yamlls = {}
       }
 
@@ -127,11 +231,18 @@ return {
         }
       })
 
-      require("mason").setup()
+      -- require("mason").setup()
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        "stylua"
+        "cssls",
+        "emmet_ls",
+        "html",
+        "jsonls",
+        "somesass_ls",
+        "stylua",
+        "ts_ls",
+        "volar"
       })
       require("mason-tool-installer").setup({
         ensure_installed = ensure_installed

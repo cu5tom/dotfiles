@@ -6,8 +6,6 @@ return {
         "bash",
         "go",
         "html",
-        "jinja",
-        "jinja_inline",
         "json",
         "lua",
         "markdown",

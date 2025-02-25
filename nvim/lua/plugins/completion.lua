@@ -33,21 +33,53 @@ return {
       cmp.setup({
         completion = { completeopt = "menu,menuone,noselect" },
         formatting = {
-          fields = { "abbr", "kind", "menu"},
-          format = function (entry, vim_item)
-            vim_item.menu = ({
-              nvim_lsp = "[LSP]",
-              luasnip = "[Snippet]",
-              buffer = "[Buffer]",
-              path = "[Path]"
-            })[entry.source.name]
-            return vim_item
-          end
+          fields = {
+            cmp.ItemField.Kind,
+            cmp.ItemField.Abbr,
+            cmp.ItemField.Menu
+          },
+          format = lspkind.cmp_format({
+            mode = "symbol_text",
+            maxwidth = {
+              menu = 50,
+              abbr = 50,
+            },
+            ellipsis_char = "...",
+            show_labelDetails = true,
+            before = function (entry, vim_item)
+              local types = require("cmp.types")
+              local str = require("cmp.utils.str")
+
+              local word = entry:get_insert_text()
+              if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+                word = vim.lsp.util.parse_snippet(word)
+              end
+
+              word = str.oneline(word)
+              if entry.completion_item.insertTextFormat then
+                word = word .. "~"
+              end
+
+              vim_item.abbr = word
+              return vim_item
+            end
+          })
+          -- format = function (entry, vim_item)
+          --   vim_item.menu = ({
+          --     nvim_lsp = "[LSP]",
+          --     luasnip = "[Snippet]",
+          --     buffer = "[Buffer]",
+          --     path = "[Path]"
+          --   })[entry.source.name]
+          --   return vim_item
+          -- end
         },
         sources = {
-          { name = "buffer" },
+          -- { name = "buffer" },
+          { name = "buffer", keyword_length = 5, max_item_count = 5 },
           { name = "luasnip" },
           { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
           { name = "path" },
         },
         mapping = {
@@ -60,12 +92,12 @@ return {
           --   }),
           --   { "i", "c" }
           -- ),
-          ["<C-c>"] = cmp.mapping.complete({}),
+          ["<C-Space>"] = cmp.mapping.complete({}),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-j>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
-                cmp.select_next_item()
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
               else
                 fallback()
               end
@@ -75,7 +107,7 @@ return {
           ["<C-k>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
-                cmp.select_prev_item()
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
               else
                 fallback()
               end
@@ -102,6 +134,12 @@ return {
             require("luasnip").lsp_expand(args.body)
           end
         }
+      })
+
+      require("cmp").setup.cmdline(":", {
+	      sources = {
+		      { name = "cmdline", keyword_length = 2 },
+	      },
       })
 
       vim.keymap.set({ "i", "s" }, "<c-k>", function ()
