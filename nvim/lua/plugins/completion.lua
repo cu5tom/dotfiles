@@ -64,15 +64,6 @@ return {
               return vim_item
             end
           })
-          -- format = function (entry, vim_item)
-          --   vim_item.menu = ({
-          --     nvim_lsp = "[LSP]",
-          --     luasnip = "[Snippet]",
-          --     buffer = "[Buffer]",
-          --     path = "[Path]"
-          --   })[entry.source.name]
-          --   return vim_item
-          -- end
         },
         sources = {
           -- { name = "buffer" },
@@ -83,21 +74,12 @@ return {
           { name = "path" },
         },
         mapping = {
-          -- ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          -- ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          -- ["<C-y>"] = cmp.mapping(
-          --   cmp.mapping.confirm({
-          --     behavior = cmp.ConfirmBehavior.Insert,
-          --     select = true
-          --   }),
-          --   { "i", "c" }
-          -- ),
           ["<C-Space>"] = cmp.mapping.complete({}),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-j>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
               else
                 fallback()
               end
@@ -111,23 +93,23 @@ return {
               else
                 fallback()
               end
-            end,
-            {"i" ,"s"}
-          ),
-          ["<Tab>"] = cmp.mapping(function (fallback)
-            if ls.expand_or_locally_jumpable() then
-              ls.expand_or_jump()
-            else
-              fallback()
-            end
-          end, {"i", "s"}),
-          ["<S-Tab>"] = cmp.mapping(function (fallback)
-            if ls.locally_jumpable(-1) then
-              ls.jump(-1)
-            else
-              fallback()
-            end
-          end, {"i", "s" })
+            end, {"i" ,"s" }),
+          ["<Tab>"] = cmp.mapping(
+            function (fallback)
+              if ls.expand_or_locally_jumpable() then
+                ls.expand_or_jump()
+              else
+                fallback()
+              end
+            end, {"i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(
+            function (fallback)
+              if ls.locally_jumpable(-1) then
+                ls.jump(-1)
+              else
+                fallback()
+              end
+            end, {"i", "s" })
         },
         snippet = {
           expand = function(args)
