@@ -226,14 +226,6 @@ return {
         yamlls = {}
       }
 
-      vim.filetype.add({
-        extension = {
-          njk = "html",
-        }
-      })
-
-      -- require("mason").setup()
-
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "biome",
@@ -279,5 +271,15 @@ return {
       { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble: Location List" },
       { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix List" },
     }
-  }
+  },
+  {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neo-tree/neo-tree.nvim"
+    },
+    config = function ()
+      require("lsp-file-operations").setup()
+    end
+  },
 }

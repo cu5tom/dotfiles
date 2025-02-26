@@ -48,4 +48,10 @@ vim.opt.writebackup = false
 
 vim.wo.signcolumn = "yes"
 
+vim.filetype.add({
+  extension = {
+    njk = "html",
+  }
+})
+
 -- vim.lsp.set_log_level("debug")
