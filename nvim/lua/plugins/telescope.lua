@@ -14,6 +14,7 @@ return {
         end
       },
       "nvim-telescope/telescope-ui-select.nvim",
+      "folke/todo-comments.nvim"
     },
     opts = {},
     config = function ()
@@ -77,10 +78,15 @@ return {
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find existing buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help" })
       vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find diagnostics" })
-      vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Find resume" })
-      vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word" })
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find by grep" })
-
+      vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Find recent" })
+      vim.keymap.set("n", "<leader>fl", builtin.resume, { desc = "Find resume" })
+      vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor in cwd" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find word in cwd" })
+      vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find keymaps" })
+      vim.keymap.set("n", "<leader>fn", function() 
+        builtin.find_files({ cwd = vim.fn.stdpath("config")}) 
+      end, { desc = "Find Neovim files" })
+      vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todo"})
     end
   }
 }

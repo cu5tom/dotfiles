@@ -1,22 +1,60 @@
 ---@type LazySpec
+--- dsfasfdsafdasfdsaf
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
     opts = {},
-    config = function ()
-      require("ibl").setup()
-    end
   },
   {
     "folke/todo-comments.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {}
+    opts = {},
+    config = function()
+      local todo_comments = require("todo-comments")
+
+      vim.keymap.set("n", "]t", function()
+        todo_comments.jump_next()
+      end, { desc = "Next todo comment" })
+
+      vim.keymap.set("n", "[t", function()
+        todo_comments.jump_prev()
+      end, { desc = "Previous todo comment" })
+
+      todo_comments.setup()
+    end
   },
   {
     "RRethy/vim-illuminate"
+  },
+  -- TODO: fix surround
+  -- {
+  --   "roobert/surround-ui.nvim",
+  --   dependencies = {
+  --     "kylechui/nvim-surround",
+  --     "folke/which-key.nvim"
+  --   },
+  --   config = function()
+  --     local test = "sadasd sa dadasDASDASdasdadl"
+  --     require("surround-ui").setup({
+  --       root_key = "S"
+  --     })
+  --   end
+  -- },
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      top_down = false
+    },
+    config = function ()
+      vim.notify = require("notify")
+    end
+  },
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy"
   },
   {
     "willothy/nvim-cokeline",
@@ -94,81 +132,10 @@ return {
       })
     end
   },
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   dependencies = {
-  --     "moll/vim-bbye",
-  --     "nvim-tree/nvim-web-devicons",
-  --     "nvim-tree/nvim-tree.lua"
-  --   },
-  --
-  --   -- event = { "BufNewFile", "BufReadPost" },
-  --   config = function()
-  --     require("bufferline").setup({
-  --       options = {
-  --         mode = "buffers",
-  --         themable = true,
-  --         close_command = "Bdelete! %d",
-  --         right_mouse_command = "Bdelete! %d",
-  --         left_mouse_command = "buffer %d",
-  --         middle_mouse_command = nil,
-  --         -- buffer_close_icon = "X",
-  --         -- close_icon = "X",
-  --         path_components = 1,
-  --         -- modified_icon = "m",
-  --         -- left_trunc_marker = ""
-  --         -- right_trunc_marker = ""
-  --         max_name_length = 30,
-  --         max_prefix_length = 30,
-  --         tab_size = 21,
-  --         -- diagnostics = true,
-  --         -- diagnostics_update_in_insert = false,
-  --         -- diagnostics_indicator = function(count, level)
-  --         --   local icon = level:match("error") and " " or " "
-  --         --   return " " .. icon .. count
-  --         -- end,
-  --         -- color_icons = true,
-  --         -- show_buffer_icons = true,
-  --         -- show_buffer_close_icons = true,
-  --         -- show_close_icon = true,
-  --         -- persist_buffer_sort = true,
-  --         -- separattor_style = { "|", "|" },
-  --         -- enforce_regular_taps = true,
-  --         -- always_show_bufferline = false,
-  --         -- show_tab_indicators = false,
-  --         -- indicator = { style = "none" },
-  --         -- icon_pinned = ""
-  --         -- minimum_padding = 1,
-  --         -- maximum_padding = 5,
-  --         -- maximum_length = 15,
-  --         -- sort_by = "insert_at_end",
-  --         offsets = {
-  --           filetype = "neo-tree",
-  --           text = "File Explorer",
-  --           highlight = "Directory",
-  --           -- text_align = "left"
-  --         },
-  --       },
-  --       highlights = {
-  --         separator = {
-  --           fg = "#434c5e"
-  --         },
-  --         buffer_selected = {
-  --           bold = true,
-  --           italic = false,
-  --         },
-  --         -- separator_selected = {}
-  --         -- tab_selected = {}
-  --         -- background = {}
-  --         -- indicator_selected = {}
-  --         -- fill = {}
-  --       }
-  --     })
-  --   end
-  -- },
   {
     "nvim-lualine/lualine.nvim",
     config = function ()
+      local lazy_status = require("lazy.status")
       local colors = {}
 
       local mode = {
@@ -239,7 +206,18 @@ return {
           lualine_a = { mode },
           lualine_b = { "branch" },
           lualine_c = { filename },
-          lualine_x = { lsp_clients, diagnostics, diff, { "encoding", cond = hide_in_width }, { "filetype", cond = hide_in_width } },
+          lualine_x = {
+            lsp_clients,
+            diagnostics,
+            diff,
+            {
+              lazy_status.updates,
+              cond = lazy_status.has_updates,
+              color = { fg = "#ff9e64" }
+            },
+            { "encoding", cond = hide_in_width }, 
+            { "filetype", cond = hide_in_width } 
+          },
           lualine_y = { "location" },
           lualine_z = { "progress" },
         },

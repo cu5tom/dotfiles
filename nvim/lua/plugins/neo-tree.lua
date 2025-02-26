@@ -78,7 +78,6 @@ return {
         end,
         pattern = "*lazygit*"
       })
-      -- wk.add({ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" })
     end
   }
 }
