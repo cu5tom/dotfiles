@@ -2,15 +2,20 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    event = { "InsertEnter" },
     lazy = false,
     priority = 100,
     dependencies = {
       { "hrsh7th/cmp-buffer", lazy = true },
       { "hrsh7th/cmp-path", lazy = true },
       { "hrsh7th/cmp-nvim-lsp", lazy = true },
-      { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
+      {
+        "L3MON4D3/LuaSnip",
+        build = "make install_jsregexp"
+      },
       { "onsails/lspkind.nvim" },
-      { "saadparwaiz1/cmp_luasnip" }
+      { "saadparwaiz1/cmp_luasnip" },
+      { "rafamadriz/friendly-snippets" }
     },
     opts = {},
     -- opts = function(_, opts)
@@ -21,18 +26,20 @@ return {
     --   })
     -- end,
     config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+
       local lspkind = require("lspkind")
       lspkind.init({})
 
-      local ls = require("luasnip")
-      ls.config.set_config({
+      local luasnip = require("luasnip")
+      luasnip.config.set_config({
         history = false,
         updateevents = "TextChanged, TextChangedI"
       })
 
       local cmp = require("cmp")
       cmp.setup({
-        completion = { completeopt = "menu,menuone,noselect" },
+        completion = { completeopt = "menu,menuone,noselect,preview" },
         formatting = {
           fields = {
             cmp.ItemField.Kind,
@@ -41,40 +48,37 @@ return {
           },
           format = lspkind.cmp_format({
             mode = "symbol_text",
-            maxwidth = {
-              menu = 50,
-              abbr = 50,
-            },
+            maxwidth = 50,
             ellipsis_char = "...",
             show_labelDetails = true,
-            before = function (entry, vim_item)
-              local types = require("cmp.types")
-              local str = require("cmp.utils.str")
-
-              local word = entry:get_insert_text()
-              if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
-                word = vim.lsp.util.parse_snippet(word)
-              end
-
-              word = str.oneline(word)
-              if entry.completion_item.insertTextFormat then
-                word = word .. "~"
-              end
-
-              vim_item.abbr = word
-              return vim_item
-            end
+            -- before = function (entry, vim_item)
+            --   local types = require("cmp.types")
+            --   local str = require("cmp.utils.str")
+            --
+            --   local word = entry:get_insert_text()
+            --   if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+            --     word = str.get_word(word)
+            --   end
+            --
+            --   word = str.oneline(word)
+            --   if entry.completion_item.insertTextFormat then
+            --     word = word .. "~"
+            --   end
+            --
+            --   vim_item.abbr = word
+            --   return vim_item
+            -- end
           })
         },
         sources = {
-          { name = "buffer", keyword_length = 5, max_item_count = 5 },
           { name = "luasnip" },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
+          { name = "buffer", keyword_length = 5, max_item_count = 5 },
           { name = "path" },
         },
         mapping = {
-          ["<C-Space>"] = cmp.mapping.complete({}),
+          ["<C-c>"] = cmp.mapping.complete({}),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-j>"] = cmp.mapping(
             function(fallback)
@@ -96,16 +100,16 @@ return {
             end, {"i" ,"s" }),
           ["<Tab>"] = cmp.mapping(
             function (fallback)
-              if ls.expand_or_locally_jumpable() then
-                ls.expand_or_jump()
+              if luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
               else
                 fallback()
               end
             end, {"i", "s" }),
           ["<S-Tab>"] = cmp.mapping(
             function (fallback)
-              if ls.locally_jumpable(-1) then
-                ls.jump(-1)
+              if luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
               else
                 fallback()
               end
@@ -125,14 +129,14 @@ return {
       })
 
       vim.keymap.set({ "i", "s" }, "<c-k>", function ()
-        if ls.expand_or_locally_jumpable() then
-          ls.expand_or_jump()
+        if luasnip.expand_or_locally_jumpable() then
+          luasnip.expand_or_jump()
         end
       end, { silent = true })
 
       vim.keymap.set({ "i", "s" }, "<c-j", function ()
-        if ls.locally_jumpable(-1) then
-          ls.jump(-1)
+        if luasnip.locally_jumpable(-1) then
+          luasnip.jump(-1)
         end
       end, { silent = true })
     end
