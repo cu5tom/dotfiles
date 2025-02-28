@@ -118,6 +118,7 @@ return {
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
       local servers = {
+        ["angular-language-server"] = {},
         astro = {},
         cssls = {},
         emmet_ls = {},
@@ -228,6 +229,8 @@ return {
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        "angular-language-server",
+        "astro",
         "biome",
         "cssls",
         "djlint",
