@@ -82,7 +82,7 @@ return {
         mapping = {
           ["<C-c>"] = cmp.mapping.complete({}),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-j>"] = cmp.mapping(
+          ["<Down>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -92,7 +92,7 @@ return {
             end,
             {"i" ,"s"}
           ),
-          ["<C-k>"] = cmp.mapping(
+          ["<Up>"] = cmp.mapping(
             function(fallback)
               if cmp.visible() then
                 cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
