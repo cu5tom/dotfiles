@@ -24,26 +24,6 @@ return {
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
         callback = function(event)
-          local map = function (keys, func, desc)
-            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-          end
-
-          map("gd", builtin.lsp_definitions, "Goto Definition")
-          map("gr", builtin.lsp_references, "Goto References")
-          map("gI", builtin.lsp_implementations, "Goto Implementation")
-          map("<leader>D", builtin.lsp_type_definitions, "Type Definition")
-          map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
-          map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
-          map("<leader>cr", vim.lsp.buf.rename, "Rename")
-          map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-          map("K", vim.lsp.buf.hover, "Hover Documentation")
-          map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-          map("wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
-          map("wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-          map("wl", function ()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, "Workspace List Folders")
-
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
           ---@param bufnr? integer
@@ -54,8 +34,36 @@ return {
               return client:supports_method(method, { bufnr = bufnr })
             end
           end
-
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+          local map = function (keys, func, desc)
+            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+          end
+
+          if client and client.server_capabilities.definitionProvider then
+            map("gd", builtin.lsp_definitions, "Goto Definition")
+          end
+          if client and client.server_capabilities.declarationProvider then
+            map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+          end
+          if client and client.server_capabilities.referencesProvider then
+            map("gr", builtin.lsp_references, "Goto References")
+          end
+          if client and client.server_capabilities.implementationProvider then
+            map("gI", builtin.lsp_implementations, "Goto Implementation")
+          end
+          map("<leader>D", builtin.lsp_type_definitions, "Type Definition")
+          map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
+          map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
+          map("<leader>cr", vim.lsp.buf.rename, "Rename")
+          map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+          map("K", vim.lsp.buf.hover, "Hover Documentation")
+          map("wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
+          map("wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
+          map("wl", function ()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end, "Workspace List Folders")
+
           -- --if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
           -- if client and client.server_capabilities.documentHighlightProvider then
           --   local highlight_augroup = vim.api.nvim_create_augroup("nvim-lsp-highlight", { clear = false })
@@ -153,7 +161,18 @@ return {
         marksman = {},
         mdx_analyzer = {},
         phpactor = {},
-        somesass_ls = {},
+        somesass_ls = {
+          -- cmd = { "some-sass-language-server", "--stdio", "--loglevel debug" },
+          -- capabilities = {
+          --   textDocument = {
+          --     completion = {
+          --       completionItem = {
+          --         snippetSupport = true
+          --       }
+          --     }
+          --   }
+          -- }
+        },
         ts_ls = {
           init_options = {
             plugins = {
@@ -241,6 +260,7 @@ return {
         "gotests",
         "html",
         "jsonls",
+        "phpactor",
         "php-cs-fixer",
         "somesass_ls",
         "stylua",
