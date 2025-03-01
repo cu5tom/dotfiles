@@ -1,5 +1,3 @@
----@type vim.Option
-
 vim.opt.autoindent = true
 vim.opt.backspace = vim.list_extend(vim.opt.backspace:get(), { "nostop" })
 vim.opt.breakindent = true
@@ -19,7 +17,7 @@ vim.opt.formatoptions:remove({ "c" , "r", "o" })
 vim.opt.ignorecase = true
 vim.opt.inccommand = "split"
 vim.opt.infercase = true
-vim.opt.iskeyword:append("-")
+vim.opt.iskeyword:append("-", "$")
 vim.opt.jumpoptions = {}
 vim.opt.laststatus = 3
 vim.opt.linebreak = true
