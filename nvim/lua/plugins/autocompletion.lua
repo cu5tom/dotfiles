@@ -7,8 +7,10 @@ return {
     priority = 100,
     dependencies = {
       { "hrsh7th/cmp-buffer", lazy = true },
+      { "hrsh7th/cmp-cmdline", lazy = true },
       { "hrsh7th/cmp-path", lazy = true },
       { "hrsh7th/cmp-nvim-lsp", lazy = true },
+      { "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
       {
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp"
@@ -122,10 +124,32 @@ return {
         }
       })
 
-      require("cmp").setup.cmdline(":", {
-	      sources = {
-		      { name = "cmdline", keyword_length = 2 },
-	      },
+      cmp.setup.filetype({ "sql" }, {
+        sources = {
+          { name = "vim-dadbod-completion" },
+          { name = "buffer" }
+        }
+      })
+
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" }
+        }
+      })
+
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+	      sources = cmp.config.sources({
+	        { name = "path "}
+	      }, {
+	        {
+            name = "cmdline",
+            option = {
+              ignore_cmds = { "Man", "!" }
+            }
+	        }
+	      }),
       })
 
       vim.keymap.set({ "i", "s" }, "<c-k>", function ()
