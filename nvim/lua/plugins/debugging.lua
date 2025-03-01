@@ -7,6 +7,7 @@ return {
       "nvim-neotest/nvim-nio",
       "williamboman/mason.nvim",
       "jay-babu/mason-nvim-dap.nvim",
+      "theHamsta/nvim-dap-virtual-text"
     },
     keys = {
       {
@@ -62,7 +63,7 @@ return {
     config = function ()
       local dap = require("dap")
       local dapui = require("dapui")
-      
+
       require("mason-nvim-dap").setup({
         automatic_installation = true,
         handlers = {},
@@ -77,6 +78,8 @@ return {
       dap.listeners.after.event_initialized["dapui_config"] = dapui.open
       dap.listeners.before.event_terminated["dapui_config"] = dapui.close
       dap.listeners.before.event_exited["dapui_config"] = dapui.close
+
+      require("nvim-dap-virtual-text").setup()
     end
   }
 }
