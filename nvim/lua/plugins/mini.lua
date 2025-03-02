@@ -3,6 +3,7 @@ return {
   {
     "echasnovski/mini.nvim",
     config = function()
+      require("mini.ai").setup { n_lines = 500 }
       -- require("mini.basics").setup()
 
       -- require("mini.diff").setup()
@@ -15,13 +16,13 @@ return {
 
       -- require("mini.notify").setup()
 
-      require("mini.pairs").setup()
+      -- require("mini.pairs").setup()
 
       -- require("mini.statusline").setup({
       --   use_icons = true
       -- })
       --
-      -- require("mini.surround").setup()
-    end
-  }
+      require("mini.surround").setup()
+    end,
+  },
 }

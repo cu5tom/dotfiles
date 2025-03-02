@@ -9,20 +9,18 @@ return {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
-        cond = function ()
-          return vim.fn.executable "make" == 1
-        end
+        cond = function() return vim.fn.executable "make" == 1 end,
       },
       "nvim-telescope/telescope-ui-select.nvim",
-      "folke/todo-comments.nvim"
+      "folke/todo-comments.nvim",
     },
     opts = {},
-    config = function ()
-      local telescope = require("telescope")
-      local actions = require("telescope.actions")
-      local builtin = require("telescope.builtin")
+    config = function()
+      local telescope = require "telescope"
+      local actions = require "telescope.actions"
+      local builtin = require "telescope.builtin"
 
-      telescope.setup({
+      telescope.setup {
         defaults = {
           mappings = {
             i = {
@@ -31,9 +29,9 @@ return {
               ["<C-l>"] = actions.select_default,
             },
             n = {
-              ["q"] = actions.close
-            }
-          }
+              ["q"] = actions.close,
+            },
+          },
         },
         pickers = {
           find_files = {
@@ -46,30 +44,28 @@ return {
             mappings = {
               n = {
                 ["d"] = actions.delete_buffer,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         live_grep = {
           file_ignore_patterns = { ".git", ".venv" },
-          additional_args = function ()
-            return { "--hidden" }
-          end
+          additional_args = function() return { "--hidden" } end,
         },
         path_display = {
           filename_first = {
             reverse_directories = true,
-          }
+          },
         },
         extensions = {
           ["ui-select"] = {
-            require("telescope.themes").get_dropdown()
-          }
+            require("telescope.themes").get_dropdown(),
+          },
         },
         git_files = {
-          previewer = false
-        }
-      })
+          previewer = false,
+        },
+      }
 
       pcall(require("telescope").load_extension, "fzf")
       pcall(require("telescope").load_extension, "ui-select")
@@ -83,10 +79,24 @@ return {
       vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Find word under cursor in cwd" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find word in cwd" })
       vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find keymaps" })
-      vim.keymap.set("n", "<leader>fn", function() 
-        builtin.find_files({ cwd = vim.fn.stdpath("config")}) 
-      end, { desc = "Find Neovim files" })
-      vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todo"})
-    end
-  }
+      vim.keymap.set(
+        "n",
+        "<leader>fn",
+        function() builtin.find_files { cwd = vim.fn.stdpath "config" } end,
+        { desc = "Find Neovim files" }
+      )
+      vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todo" })
+      vim.keymap.set(
+        "n",
+        "<leader>/",
+        function()
+          builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
+            winblend = 10,
+            previewer = false,
+          })
+        end,
+        { desc = "Fuzzily find in current buffer" }
+      )
+    end,
+  },
 }

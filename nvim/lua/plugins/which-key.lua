@@ -1,4 +1,3 @@
-
 ---@type LazySpec
 return {
   {
@@ -6,11 +5,20 @@ return {
     event = "VeryLazy",
     opts_extend = { "spec", "disable.ft", "disable.bt" },
     opts = {
+      delay = 0,
       icons = {
         group = vim.g.icons_enabled ~= false and "" or "+",
-	      rules = false,
-	      separator = "-"
-      }
-    }
+        rules = false,
+        separator = "-",
+      },
+      spec = {
+        { "<leader>b", group = "Buffer" },
+        { "<leader>c", group = "Code" },
+        { "<leader>d", group = "Debug" },
+        { "<leader>f", group = "Find" },
+        { "<leader>g", group = "Git", mode = { "n", "v" } },
+        { "<leader>x", group = "Trouble" },
+      },
+    },
   },
 }
