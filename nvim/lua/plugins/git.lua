@@ -16,6 +16,9 @@ return {
     keys = {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
       { "<leader>gc", "<cmd>LazyGitConfig<cr>", desc = "LazyGitConfig" },
+      { "<leader>gf", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGitCurrentFile" },
+      { "<leader>gF", "<cmd>LazyGitFilter<cr>", desc = "LazyGitFilter" },
+      { "<leader>gB", "<cmd>LazyGitFilterCurrentFile<cr>", desc = "LazyGitFilterCurrentFile" },
     },
   },
   {
@@ -88,7 +91,7 @@ return {
         map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Preview hunk" })
         map("n", "<leader>gb", gitsigns.blame_line, { desc = "Blame line" })
         map("n", "<leader>gd", gitsigns.diffthis, { desc = "Diff against index" })
-        map("n", "<leader>gd", function() gitsigns.diffthis "@" end, { desc = "Diff against last commit" })
+        map("n", "<leader>gD", function() gitsigns.diffthis "@" end, { desc = "Diff against last commit" })
         map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "Toggle show line blame" })
         map("n", "<leader>gtd", gitsigns.preview_hunk_inline, { desc = "Toggle show deleted" })
       end,
