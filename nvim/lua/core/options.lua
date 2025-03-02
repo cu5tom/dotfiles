@@ -28,6 +28,7 @@ vim.opt.pumheight = 10
 vim.opt.relativenumber = true
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")
 vim.opt.scrolloff = 10
+vim.opt.sessionoptions = "curdir,folds,globals,help,tabpages,terminal,winsize"
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })

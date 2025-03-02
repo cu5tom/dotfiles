@@ -32,10 +32,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
 vim.keymap.set("n", "n", "nzz", opts)
 vim.keymap.set("n", "N", "Nzz", opts)
 
--- Tabs
-vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", opts)
-vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", opts)
-
 -- Indenting
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)

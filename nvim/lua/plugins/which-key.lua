@@ -17,6 +17,7 @@ return {
         { "<leader>d", group = "Debug" },
         { "<leader>f", group = "Find" },
         { "<leader>g", group = "Git", mode = { "n", "v" } },
+        { "<leader>t", group = "Tabs" },
         { "<leader>x", group = "Trouble" },
       },
     },

@@ -1,4 +1,3 @@
--- TODO: add formatting
 return {
   "tpope/vim-sleuth",
   {
