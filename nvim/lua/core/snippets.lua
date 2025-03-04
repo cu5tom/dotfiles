@@ -25,3 +25,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*"
 })
+
+P = function (v)
+  print(vim.inspect(v))
+  return v
+end
+
+RELOAD = function (...)
+  return require("plenary.reload").reload_module(...)
+end
+
+R = function (name)
+  RELOAD(name)
+  return require(name)
+end
