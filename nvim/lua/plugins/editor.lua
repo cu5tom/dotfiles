@@ -1,6 +1,12 @@
 ---@type LazySpec
 return {
   {
+    "cu5tom/package-info.nvim",
+    ft = "json",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+  },
+  {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
     main = "ibl",
@@ -9,12 +15,12 @@ return {
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
-      require("colorizer").setup({
+      require("colorizer").setup {
         "*",
         css = { rgb_fn = true },
-        html = { names = false }
-      })
-    end
+        html = { names = false },
+      }
+    end,
   },
   {
     "folke/todo-comments.nvim",
