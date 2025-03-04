@@ -20,13 +20,6 @@ return {
       { "rafamadriz/friendly-snippets" },
     },
     opts = {},
-    -- opts = function(_, opts)
-    --   opts.sources = opts.sources or {}
-    --   table.insert(opts.sources, {
-    --     name = "lazydev",
-    --     group_index = 0
-    --   })
-    -- end,
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
 
