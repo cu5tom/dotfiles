@@ -38,3 +38,6 @@ vim.keymap.set("v", ">", ">gv", opts)
 
 -- Keep last yanked when pasting
 vim.keymap.set("v", "p", '"_dP')
+
+-- Execute current buffer
+vim.keymap.set("n", "<Space><Space>x", "<cmd>w<cr><cmd>source %<cr>", vim.tbl_extend("force", opts, { desc = "Execute current buffer" }))
