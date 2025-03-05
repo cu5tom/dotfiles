@@ -7,12 +7,6 @@ return {
     opts = {},
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    main = "ibl",
-    opts = {},
-  },
-  {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup {
@@ -27,29 +21,20 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
-    config = function()
-      local todo_comments = require "todo-comments"
-
-      vim.keymap.set("n", "]t", function() todo_comments.jump_next() end, { desc = "Next todo comment" })
-
-      vim.keymap.set("n", "[t", function() todo_comments.jump_prev() end, { desc = "Previous todo comment" })
-
-      todo_comments.setup()
-    end,
+    keys = {
+      { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+    },
+    -- config = function()
+    --   local todo_comments = require "todo-comments"
+    --
+    --   vim.keymap.set("n", "]t", function() todo_comments.jump_next() end, { desc = "Next todo comment" })
+    --   vim.keymap.set("n", "[t", function() todo_comments.jump_prev() end, { desc = "Previous todo comment" })
+    --
+    --   todo_comments.setup()
+    -- end,
   },
   {
     "RRethy/vim-illuminate",
-  },
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      top_down = false,
-    },
-    config = function() vim.notify = require "notify" end,
-  },
-  {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
   },
   -- {
   --   "willothy/nvim-cokeline",
@@ -143,7 +128,6 @@ return {
       vim.api.nvim_set_keymap("n", "<leader>tp", ":$tabp<CR>", { desc = "Previous tab", noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>tmp", ":$-tabmove<CR>", { desc = "Move tab to the left", noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>tmn", ":$+tabmove<CR>", { desc = "New tab", noremap = true })
-      -- configs...
     end,
   },
   {

@@ -5,6 +5,7 @@ return {
     build = ":TSUpdate",
     dependencies = { "windwp/nvim-ts-autotag" },
     opts = {
+      auto_install = true,
       ensure_installed = {
         "bash",
         "css",
@@ -19,6 +20,7 @@ return {
         "markdown_inline",
         "query",
         "regex",
+        "scss",
         "sql",
         "toml",
         "tsx",
@@ -26,21 +28,22 @@ return {
         "typescript",
         "vim",
         "vimdoc",
-        "yaml"
-      }
+        "vue",
+        "yaml",
+      },
     },
-    config = function ()
-      local treesitter = require("nvim-treesitter.configs")
+    config = function()
+      local treesitter = require "nvim-treesitter.configs"
 
-      treesitter.setup({
+      treesitter.setup {
         highlight = {
-          enable = true
+          enable = true,
         },
         indent = {
-          enable = true
+          enable = true,
         },
         autotag = {
-          enable = true
+          enable = true,
         },
         incremental_selection = {
           enable = true,
@@ -49,16 +52,15 @@ return {
             node_incremental = "<C-space>",
             node_decremental = "<bs>",
             scope_incremental = false,
-          }
-        }
-      })
-    end
+          },
+        },
+      }
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    config = function ()
-
+    config = function()
       require("treesitter-context").setup()
-    end
-  }
+    end,
+  },
 }

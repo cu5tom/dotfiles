@@ -19,7 +19,7 @@ return {
       },
     },
     config = function()
-      local builtin = require "telescope.builtin"
+      -- local builtin = require "telescope.builtin"
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -40,21 +40,21 @@ return {
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
 
-          if client and client.server_capabilities.definitionProvider then
-            map("gd", builtin.lsp_definitions, "Goto Definition")
-          end
-          if client and client.server_capabilities.declarationProvider then
-            map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-          end
-          if client and client.server_capabilities.referencesProvider then
-            map("gr", builtin.lsp_references, "Goto References")
-          end
-          if client and client.server_capabilities.implementationProvider then
-            map("gI", builtin.lsp_implementations, "Goto Implementation")
-          end
-          map("<leader>cD", builtin.lsp_type_definitions, "Type Definition")
-          map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
-          map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
+          -- if client and client.server_capabilities.definitionProvider then
+          --   map("gd", builtin.lsp_definitions, "Goto Definition")
+          -- end
+          -- if client and client.server_capabilities.declarationProvider then
+          --   map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+          -- end
+          -- if client and client.server_capabilities.referencesProvider then
+          --   map("gr", builtin.lsp_references, "Goto References")
+          -- end
+          -- if client and client.server_capabilities.implementationProvider then
+          --   map("gI", builtin.lsp_implementations, "Goto Implementation")
+          -- end
+          -- map("<leader>cD", builtin.lsp_type_definitions, "Type Definition")
+          -- map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
+          -- map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
