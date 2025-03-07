@@ -16,6 +16,40 @@ return {
       scope = {},
       scratch = {},
       statuscolumn = {},
+      terminal = {
+        bo = {
+          filetype = "snacks_terminal",
+        },
+        wo = {},
+        keys = {
+          q = "hide",
+          gf = function(self)
+            local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
+            if f == "" then
+              Snacks.notify.warn "No file under cursor"
+            else
+              self:hide()
+              vim.schedule(function() vim.cmd("e " .. f) end)
+            end
+          end,
+          term_normal = {
+            "<esc>",
+            function(self)
+              self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+              if self.esc_timer:is_active() then
+                self.esc_timer:stop()
+                vim.cmd "stopinsert"
+              else
+                self.esc_timer:start(200, 0, function() end)
+                return "<esc>"
+              end
+            end,
+            mode = "t",
+            expr = true,
+            desc = "Double escape to normal mode",
+          },
+        },
+      },
     },
     keys = {
       { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
@@ -38,7 +72,7 @@ return {
       { "<leader>fr", function() Snacks.picker.recent { filter = { cwd = true } } end, desc = "Recent" },
       { "<leader>fs", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
       -- Buffers
-      { "<leader>bd.", function() Snacks.bufdelete.delete() end, desc = "Delete Buffer" },
+      { "<leader>bdd", function() Snacks.bufdelete.delete() end, desc = "Delete Buffer" },
       { "<leader>bda", function() Snacks.bufdelete.all() end, desc = "Delete all Buffers" },
       { "<leader>bdo", function() Snacks.bufdelete.other() end, desc = "Delete other Buffers" },
       -- Git
@@ -82,6 +116,7 @@ return {
       { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto Type Definition" },
       { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
       { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+      { "<leader>T", function() Snacks.terminal.toggle() end },
     },
   },
 }
