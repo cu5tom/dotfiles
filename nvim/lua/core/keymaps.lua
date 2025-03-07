@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
+vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 
 local opts = { noremap = true, silent = true }
 
@@ -10,7 +10,7 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
 -- Save file
-vim.keymap.set({"n", "i"}, "<C-s>", "<cmd>w<cr><Esc>", opts)
+vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr><Esc>", opts)
 
 -- Move window focus
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", opts)
@@ -19,10 +19,30 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
 
 -- Resize window (respecting `v:count`)
-vim.keymap.set("n", "<C-Left>",  "'<Cmd>vertical resize -' . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Decrease window width" })
-vim.keymap.set("n", "<C-Down>",  "'<Cmd>resize -'          . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Decrease window height" })
-vim.keymap.set("n", "<C-Up>",    "'<Cmd>resize +'          . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Increase window height" })
-vim.keymap.set("n", "<C-Right>", "'<Cmd>vertical resize +' . v:count1 . '<CR>'", { expr = true, replace_keycodes = false, desc = "Increase window width" })
+vim.keymap.set(
+  "n",
+  "<C-Left>",
+  "'<Cmd>vertical resize -' . v:count1 . '<CR>'",
+  { expr = true, replace_keycodes = false, desc = "Decrease window width" }
+)
+vim.keymap.set(
+  "n",
+  "<C-Down>",
+  "'<Cmd>resize -'          . v:count1 . '<CR>'",
+  { expr = true, replace_keycodes = false, desc = "Decrease window height" }
+)
+vim.keymap.set(
+  "n",
+  "<C-Up>",
+  "'<Cmd>resize +'          . v:count1 . '<CR>'",
+  { expr = true, replace_keycodes = false, desc = "Increase window height" }
+)
+vim.keymap.set(
+  "n",
+  "<C-Right>",
+  "'<Cmd>vertical resize +' . v:count1 . '<CR>'",
+  { expr = true, replace_keycodes = false, desc = "Increase window width" }
+)
 
 -- Vertical scroll and center
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
@@ -40,4 +60,22 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "p", '"_dP')
 
 -- Execute current buffer
-vim.keymap.set("n", "<Space><Space>x", "<cmd>w<cr><cmd>source %<cr>", vim.tbl_extend("force", opts, { desc = "Execute current buffer" }))
+vim.keymap.set(
+  "n",
+  "<Space><Space>x",
+  "<cmd>w<cr><cmd>source %<cr>",
+  vim.tbl_extend("force", opts, { desc = "Execute current buffer" })
+)
+
+-- Terminal
+-- local job_id = 0
+-- vim.keymap.set("n", "<space>Ts", function()
+--   vim.cmd.vnew()
+--   vim.cmd.term()
+--   vim.cmd.wincmd "J"
+--   vim.api.nvim_win_set_height(0, 15)
+--
+--   job_id = vim.bo.channel
+-- end, vim.tbl_extend("force", opts, { desc = "New Terminal" }))
+
+-- vim.keymap.set("n", "<space>example", function() vim.fn.chansend(job_id, { "ls -la\r\n" }) end)
