@@ -19,6 +19,7 @@ return {
         { "<leader>g", group = "Git", mode = { "n", "v" } },
         { "<leader>s", group = "Search" },
         { "<leader>t", group = "Tabs" },
+        { "<leader>T", group = "Terminal" },
         { "<leader>u", group = "UI" },
         { "<leader>x", group = "Trouble" },
       },
