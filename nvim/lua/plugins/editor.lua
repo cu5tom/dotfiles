@@ -1,12 +1,6 @@
 ---@type LazySpec
 return {
   {
-    "cu5tom/package-info.nvim",
-    ft = "json",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {},
-  },
-  {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup {
