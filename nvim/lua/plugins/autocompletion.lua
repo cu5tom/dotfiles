@@ -18,6 +18,14 @@ return {
       { "onsails/lspkind.nvim" },
       { "saadparwaiz1/cmp_luasnip" },
       { "rafamadriz/friendly-snippets" },
+      { 
+        "David-Kunz/cmp-npm",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        ft = "json",
+        config = function()
+          require("cmp-npm").setup({})
+        end
+      },
     },
     opts = {},
     config = function()
@@ -68,13 +76,14 @@ return {
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "buffer", keyword_length = 5, max_item_count = 5 },
-          { name = "path" },
           { name = "nvim_lsp_signature_help" },
+          { name = "npm", keyword_length = 4 },
+          -- { name = "buffer", keyword_length = 5, max_item_count = 5 },
+          { name = "path" },
         },
         mapping = {
           ["<C-c>"] = cmp.mapping.complete {},
-          ["<CR>"] = cmp.mapping.confirm { select = true },
+          ["<CR>"] = cmp.mapping.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace },
           ["<Down>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
