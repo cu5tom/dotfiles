@@ -8,10 +8,45 @@ return {
     opts = {
       bigfile = {},
       dim = {},
-      explorer = {},
+      explorer = {
+        replace_netrw = true,
+      },
       indent = {},
       lazygit = {},
-      picker = {},
+      picker = {
+        sources = {
+          explorer = {
+            hidden = true,
+            ignored = true,
+            exclude = {
+              "**/.git/*",
+              "**/node_modules/**/*",
+              "**/.yarn/cache/*",
+              "**/.yarn/releases/*",
+              "**/.pnpm-store/*",
+            },
+            include = {
+              "**/.env",
+              "**/.npmrc",
+            },
+          },
+          files = {
+            hidden = true,
+            ignored = true,
+            exclude = {
+              "**/.git/*",
+              "**/node_modules/*",
+              "**/.yarn/cache/*",
+              "**/.yarn/releases/*",
+              "**/.pnpm-store/*",
+            },
+            include = {
+              "**/.env",
+              "**/.npmrc",
+            },
+          },
+        },
+      },
       notifier = {},
       scope = {},
       scratch = {},
