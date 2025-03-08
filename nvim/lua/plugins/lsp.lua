@@ -133,7 +133,18 @@ return {
         html = {
           filetypes = { "html", "njk" },
         },
-        jsonls = {},
+        jsonls = {
+          settings = {
+            json = {
+              schemas = {
+                {
+                  fileMatch = { "package.json" },
+                  url = "https://json.schemastore.org/package.json"
+                }
+              }
+            }
+          }
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = {...},
