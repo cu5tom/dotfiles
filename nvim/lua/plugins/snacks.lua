@@ -12,12 +12,14 @@ return {
         replace_netrw = true,
       },
       indent = {},
+      input = {},
       lazygit = {},
       picker = {
+        layout = { preset = "ivy" },
         sources = {
           explorer = {
-            hidden = true,
-            ignored = true,
+            hidden = false,
+            ignored = false,
             exclude = {
               "**/.git/*",
               "**/node_modules/**/*",
@@ -46,45 +48,52 @@ return {
             },
           },
         },
+        win = {
+          input = {
+            keys = {
+              -- ["<Esc>"] = { "close", mode = { "n", "i" } },
+            },
+          },
+        },
       },
       notifier = {},
       scope = {},
       scratch = {},
       statuscolumn = {},
-      terminal = {
-        bo = {
-          filetype = "snacks_terminal",
-        },
-        wo = {},
-        keys = {
-          q = "hide",
-          gf = function(self)
-            local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
-            if f == "" then
-              Snacks.notify.warn "No file under cursor"
-            else
-              self:hide()
-              vim.schedule(function() vim.cmd("e " .. f) end)
-            end
-          end,
-          term_normal = {
-            "<esc>",
-            function(self)
-              self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
-              if self.esc_timer:is_active() then
-                self.esc_timer:stop()
-                vim.cmd "stopinsert"
-              else
-                self.esc_timer:start(200, 0, function() end)
-                return "<esc>"
-              end
-            end,
-            mode = "t",
-            expr = true,
-            desc = "Double escape to normal mode",
-          },
-        },
-      },
+      -- terminal = {
+      --   bo = {
+      --     filetype = "snacks_terminal",
+      --   },
+      --   wo = {},
+      --   keys = {
+      --     q = "hide",
+      --     gf = function(self)
+      --       local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
+      --       if f == "" then
+      --         Snacks.notify.warn "No file under cursor"
+      --       else
+      --         self:hide()
+      --         vim.schedule(function() vim.cmd("e " .. f) end)
+      --       end
+      --     end,
+      --     term_normal = {
+      --       "<esc>",
+      --       function(self)
+      --         self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+      --         if self.esc_timer:is_active() then
+      --           self.esc_timer:stop()
+      --           vim.cmd "stopinsert"
+      --         else
+      --           self.esc_timer:start(200, 0, function() end)
+      --           return "<esc>"
+      --         end
+      --       end,
+      --       mode = "t",
+      --       expr = true,
+      --       desc = "Double escape to normal mode",
+      --     },
+      --   },
+      -- },
     },
     keys = {
       { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
@@ -107,9 +116,9 @@ return {
       { "<leader>fr", function() Snacks.picker.recent { filter = { cwd = true } } end, desc = "Recent" },
       { "<leader>fs", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
       -- Buffers
-      { "<leader>bdd", function() Snacks.bufdelete.delete() end, desc = "Delete Buffer" },
-      { "<leader>bda", function() Snacks.bufdelete.all() end, desc = "Delete all Buffers" },
-      { "<leader>bdo", function() Snacks.bufdelete.other() end, desc = "Delete other Buffers" },
+      { "<leader>bd", function() Snacks.bufdelete.delete() end, desc = "Delete Buffer" },
+      { "<leader>ba", function() Snacks.bufdelete.all() end, desc = "Delete all Buffers" },
+      { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete other Buffers" },
       -- Git
       { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
       { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
