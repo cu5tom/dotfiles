@@ -53,4 +53,6 @@ vim.filetype.add({
   }
 })
 
+vim.g.have_nerd_font = true
+
 -- vim.lsp.set_log_level("debug")
