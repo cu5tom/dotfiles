@@ -18,7 +18,7 @@ return {
       { "onsails/lspkind.nvim" },
       { "saadparwaiz1/cmp_luasnip" },
       { "rafamadriz/friendly-snippets" },
-      { 
+      {
         "David-Kunz/cmp-npm",
         dependencies = { "nvim-lua/plenary.nvim" },
         ft = "json",

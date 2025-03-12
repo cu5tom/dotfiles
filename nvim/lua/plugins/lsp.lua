@@ -7,6 +7,7 @@ return {
       { "williamboman/mason.nvim", opts = {} },
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "hrsh7th/cmp-nvim-lsp",
       {
         "j-hui/fidget.nvim",
         opts = {
@@ -34,6 +35,7 @@ return {
               return client:supports_method(method, { bufnr = bufnr })
             end
           end
+
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
           local map = function(keys, func, desc)
@@ -55,6 +57,7 @@ return {
           -- map("<leader>cD", builtin.lsp_type_definitions, "Type Definition")
           -- map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
           -- map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
+
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -112,7 +115,7 @@ return {
             [vim.diagnostic.severity.WARN] = " ",
             [vim.diagnostic.severity.INFO] = " ",
             [vim.diagnostic.severity.HINT] = " ",
-          }
+          },
         } or {},
         virtual_text = {
           source = "if_many",
@@ -130,8 +133,11 @@ return {
         },
       }
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      -- local cmp = require("cmp")
+      local cmp_lsp = require "cmp_nvim_lsp"
+
+      local capabilities =
+        vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
       local servers = {
         ["angular-language-server"] = {},
@@ -147,11 +153,11 @@ return {
               schemas = {
                 {
                   fileMatch = { "package.json" },
-                  url = "https://json.schemastore.org/package.json"
-                }
-              }
-            }
-          }
+                  url = "https://json.schemastore.org/package.json",
+                },
+              },
+            },
+          },
         },
         lua_ls = {
           -- cmd = {...},
@@ -159,7 +165,9 @@ return {
           -- capabilities = {},
           settings = {
             Lua = {
-              runtime = { version = "LuaJIT" },
+              runtime = {
+                version = "Lua 5.1" --[[ "LuaJIT" ]],
+              },
               workspace = {
                 checkThirdParty = false,
                 library = {
@@ -173,6 +181,7 @@ return {
               telemetry = { enable = false },
               diagnostics = {
                 disable = { "missing-fields" },
+                globals = { "after_each", "before_each", "describe", "it", "vim" },
               },
             },
           },

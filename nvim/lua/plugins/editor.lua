@@ -147,7 +147,7 @@ return {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
-        symbols = { error = "\u{ea87}", warn = "\u{f071}", info = "\u{f129}" },
+        symbols = { error = "\u{ea87} ", warn = "\u{f071} ", info = "\u{f129} " },
         colored = false,
         update_in_insert = false,
         always_visible = false,
@@ -157,7 +157,7 @@ return {
       local diff = {
         "diff",
         colored = false,
-        symbols = { added = "\u{eadc}", modified = "\u{eade}", removed = "\u{eadf}" },
+        symbols = { added = "\u{eadc} ", modified = "\u{eade} ", removed = "\u{eadf} " },
         cond = hide_in_width,
       }
 
