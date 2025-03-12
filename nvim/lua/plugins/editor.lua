@@ -1,6 +1,16 @@
 ---@type LazySpec
 return {
   {
+    "mbbill/undotree",
+    opts = {},
+    config = function()
+      vim.g.undotree_WindowLayout = 4
+    end,
+    keys = {
+      { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Undotree Toggle" }
+    }
+  },
+  {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup {
