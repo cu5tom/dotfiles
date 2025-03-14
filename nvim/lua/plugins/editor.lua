@@ -157,7 +157,7 @@ return {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
-        symbols = { error = "\u{ea87} ", warn = "\u{f071} ", info = "\u{f129} " },
+        symbols = { error = " ", warn = " ", info = " " },
         colored = false,
         update_in_insert = false,
         always_visible = false,
@@ -167,7 +167,7 @@ return {
       local diff = {
         "diff",
         colored = false,
-        symbols = { added = "\u{eadc} ", modified = "\u{eade} ", removed = "\u{eadf} " },
+        symbols = { added = " ", modified = " ", removed = " " },
         cond = hide_in_width,
       }
 
@@ -182,7 +182,7 @@ return {
           for _, client in pairs(clients) do
             table.insert(c, client.name)
           end
-          return "\u{f085} " .. table.concat(c, ", ")
+          return " " .. table.concat(c, ", ")
         end,
         update_in_insert = false,
         always_visible = false,
