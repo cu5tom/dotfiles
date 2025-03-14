@@ -13,8 +13,8 @@ vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr><Esc>", opts)
 
 -- Navigate quickfix list
--- vim.keymap.set("n", "<C-x>", "<Cmd>cnext<CR>", vim.tbl_extend("force", opts, { desc = "Next Quickfix Item" }))
--- vim.keymap.set("n", "<C-y>", "<Cmd>cprev<CR>", vim.tbl_extend("force", opts, { desc = "Prev Quickfix Item" }))
+vim.keymap.set("n", "<M-x>", "<Cmd>cnext<CR>", vim.tbl_extend("force", opts, { desc = "Next Quickfix Item" }))
+vim.keymap.set("n", "<M-y>", "<Cmd>cprev<CR>", vim.tbl_extend("force", opts, { desc = "Prev Quickfix Item" }))
 
 -- Move window focus
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", opts)
