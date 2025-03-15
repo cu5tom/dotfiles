@@ -142,13 +142,13 @@ return {
 
       local mode = {
         "mode",
-        fmt = function(str) return str end,
+        fmt = function(str) return string.sub(str, 1, 1) end,
       }
 
       local filename = {
         "filename",
         file_status = true,
-        path = 0,
+        path = 1,
       }
 
       local hide_in_width = function() return vim.fn.winwidth(0) > 100 end
@@ -158,7 +158,7 @@ return {
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
         symbols = { error = " ", warn = " ", info = " " },
-        colored = false,
+        colored = true,
         update_in_insert = false,
         always_visible = false,
         cond = hide_in_width,
@@ -166,28 +166,28 @@ return {
 
       local diff = {
         "diff",
-        colored = false,
+        colored = true,
         symbols = { added = " ", modified = " ", removed = " " },
         cond = hide_in_width,
       }
 
-      local lsp_clients = {
-        "lsp_clients",
-        fmt = function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          local clients = vim.lsp.buf_get_clients(bufnr)
-          if next(clients) == nil then return "" end
-
-          local c = {}
-          for _, client in pairs(clients) do
-            table.insert(c, client.name)
-          end
-          return " " .. table.concat(c, ", ")
-        end,
-        update_in_insert = false,
-        always_visible = false,
-        cond = hide_in_width,
-      }
+      -- local lsp_clients = {
+      --   "lsp_clients",
+      --   fmt = function()
+      --     local bufnr = vim.api.nvim_get_current_buf()
+      --     local clients = vim.lsp.buf_get_clients(bufnr)
+      --     if next(clients) == nil then return "" end
+      --
+      --     local c = {}
+      --     for _, client in pairs(clients) do
+      --       table.insert(c, client.name)
+      --     end
+      --     return " " .. table.concat(c, ", ")
+      --   end,
+      --   update_in_insert = false,
+      --   always_visible = false,
+      --   cond = hide_in_width,
+      -- }
 
       require("lualine").setup {
         options = {
@@ -200,12 +200,13 @@ return {
         },
         sections = {
           lualine_a = { mode },
-          lualine_b = { "branch" },
+          lualine_b = { "branch", diff, diagnostics },
           lualine_c = { filename },
           lualine_x = {
-            lsp_clients,
-            diagnostics,
-            diff,
+            { "lsp_status" },
+            -- lsp_clients,
+            -- diagnostics,
+            -- diff,
             {
               lazy_status.updates,
               cond = lazy_status.has_updates,
