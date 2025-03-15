@@ -1,6 +1,73 @@
 ---@type LazySpec
 return {
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
+    config = function()
+      local ok, harpoon = pcall(require, "harpoon")
+      if not ok then
+        return
+      end
+
+      harpoon:setup({})
+
+      local function normalize_list(list)
+        local normalized = {}
+        for _, v in pairs(list) do
+          if v ~= nil then
+            table.insert(normalized, v)
+          end
+        end
+
+        return normalized
+      end
+
+      local function harpoon_picker()
+        local items = {}
+        local list = normalize_list(harpoon:list().items)
+
+        for _, item in ipairs(list) do
+          table.insert(items, {
+            file = item.value,
+            text = item.value,
+          })
+        end
+
+        return items
+      end
+
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add" })
+      vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+      vim.keymap.set("n", "<leader>fh", function()
+        Snacks.picker({
+          title = "Harpoon",
+          finder = harpoon_picker,
+          win = {
+            input = {
+              keys = {
+                ["dd"] = { "harpoon_delete", mode = { "n", "x" } }
+              },
+            },
+            list = {
+              keys = {
+                ["dd"] = { "harpoon_delete", mode = { "n", "x" } }
+              },
+            }
+          },
+          actions = {
+            harpoon_delete = function(picker, item)
+              local to_be_removed = item or picker:selected()
+              harpoon:list():remove({ value = to_be_removed.text })
+              harpoon:list().items = normalize_list(harpoon:list().items)
+              picker:find({ refreash = true })
+            end
+          },
+        })
+      end, { desc = "Harpoon" })
+    end
+  },
+  {
     "mbbill/undotree",
     opts = {},
     config = function() vim.g.undotree_WindowLayout = 4 end,
