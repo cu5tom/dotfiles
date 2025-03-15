@@ -99,14 +99,14 @@ return {
     event = "VimEnter",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local theme = {
-        fill = "TablineFill",
-        head = "Tabline",
-        current_tab = "TablineSel",
-        tab = "Tabline",
-        win = "Tabline",
-        tail = "Tabline",
-      }
+      -- local theme = {
+      --   fill = "TablineFill",
+      --   head = "Tabline",
+      --   current_tab = "TablineSel",
+      --   tab = "Tabline",
+      --   win = "Tabline",
+      --   tail = "Tabline",
+      -- }
 
       require("tabby").setup {
         preset = "active_wins_at_tail",
@@ -136,7 +136,7 @@ return {
     "nvim-lualine/lualine.nvim",
     config = function()
       local lazy_status = require "lazy.status"
-      local colors = {}
+      -- local colors = {}
 
       local mode = {
         "mode",
@@ -225,6 +225,23 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { "filename" },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { "filename" },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        extensions = { "lazy", "mason", "nvim-dap-ui", "oil", "quickfix", "trouble" },
       }
     end,
   },
