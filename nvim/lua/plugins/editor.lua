@@ -3,12 +3,10 @@ return {
   {
     "mbbill/undotree",
     opts = {},
-    config = function()
-      vim.g.undotree_WindowLayout = 4
-    end,
+    config = function() vim.g.undotree_WindowLayout = 4 end,
     keys = {
-      { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Undotree Toggle" }
-    }
+      { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Undotree Toggle" },
+    },
   },
   {
     "norcalli/nvim-colorizer.lua",
@@ -203,7 +201,7 @@ return {
           lualine_b = { "branch", diff, diagnostics },
           lualine_c = { filename },
           lualine_x = {
-            { "lsp_status" },
+            { "lsp_status", click = function() vim.cmd ":LspInfo" end },
             -- lsp_clients,
             -- diagnostics,
             -- diff,
@@ -211,6 +209,7 @@ return {
               lazy_status.updates,
               cond = lazy_status.has_updates,
               color = { fg = "#ff9e64" },
+              click = function() vim.cmd ":Lazy" end,
             },
             { "encoding", cond = hide_in_width },
             { "filetype", cond = hide_in_width },
