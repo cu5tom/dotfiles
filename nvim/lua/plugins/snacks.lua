@@ -22,7 +22,7 @@ return {
             ignored = false,
             exclude = {
               "**/.git/*",
-              "**/node_modules/**/*",
+              "**/node_modules/*",
               "**/.yarn/cache/*",
               "**/.yarn/releases/*",
               "**/.pnpm-store/*",
