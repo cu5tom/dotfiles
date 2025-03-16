@@ -141,7 +141,13 @@ return {
 
       local servers = {
         ["angular-language-server"] = {},
-        astro = {},
+        astro = {
+          init_options = {
+            typescript = {
+              sdk = "/usr/local/lib/node_modules/typescript/lib"
+            }
+          },
+        },
         cssls = {},
         emmet_ls = {},
         html = {
@@ -280,6 +286,7 @@ return {
         "jsonls",
         "phpactor",
         "php-cs-fixer",
+        "prettierd",
         "somesass_ls",
         "stylua",
         "ts_ls",

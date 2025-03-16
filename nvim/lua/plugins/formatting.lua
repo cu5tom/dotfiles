@@ -43,6 +43,7 @@ return {
       --   }
       -- end,
       formatters_by_ft = {
+        astro = { "prettierd" },
         css = { "biome" },
         javascript = { "biome" },
         lua = { "stylua" },
