@@ -150,6 +150,7 @@ return {
         },
         cssls = {},
         emmet_ls = {},
+        eslint_d = {},
         html = {
           filetypes = { "html", "njk" },
         },
