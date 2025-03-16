@@ -84,14 +84,14 @@ return {
         mapping = {
           ["<C-c>"] = cmp.mapping.complete {},
           ["<CR>"] = cmp.mapping.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace },
-          ["<Down>"] = cmp.mapping(function(fallback)
+          ["<M-Down>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
             else
               fallback()
             end
           end, { "i", "s" }),
-          ["<Up>"] = cmp.mapping(function(fallback)
+          ["<M-Up>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
             else
