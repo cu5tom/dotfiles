@@ -15,7 +15,7 @@ return {
       input = {},
       lazygit = {},
       picker = {
-        layout = { preset = "ivy" },
+        -- layout = { preset = "ivy" },
         sources = {
           explorer = {
             hidden = false,
