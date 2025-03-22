@@ -70,7 +70,7 @@ return {
               local to_be_removed = item or picker:selected()
               harpoon:list():remove({ value = to_be_removed.text })
               harpoon:list().items = normalize_list(harpoon:list().items)
-              picker:find({ refreash = true })
+              picker:find({ refresh = true })
             end
           },
         })
