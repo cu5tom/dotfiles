@@ -289,6 +289,7 @@ return {
               click = function() vim.cmd ":Lazy" end,
             },
             { "encoding", cond = hide_in_width },
+            { "fileformat", cond = hide_in_width },
             { "filetype", cond = hide_in_width },
           },
           lualine_y = { "location" },
