@@ -22,11 +22,9 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
     config = function()
       local ok, harpoon = pcall(require, "harpoon")
-      if not ok then
-        return
-      end
+      if not ok then return end
 
-      harpoon:setup({
+      harpoon:setup {
         global_settings = {
           save_on_toggle = false,
           save_on_change = true,
@@ -36,14 +34,12 @@ return {
           mark_branch = true,
           tabline = false,
         },
-      })
+      }
 
       local function normalize_list(list)
         local normalized = {}
         for _, v in pairs(list) do
-          if v ~= nil then
-            table.insert(normalized, v)
-          end
+          if v ~= nil then table.insert(normalized, v) end
         end
 
         return normalized
@@ -66,32 +62,32 @@ return {
       vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add" })
       vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
       vim.keymap.set("n", "<leader>fh", function()
-        Snacks.picker({
+        Snacks.picker {
           title = "Harpoon",
           finder = harpoon_picker,
           win = {
             input = {
               keys = {
-                ["dd"] = { "harpoon_delete", mode = { "n", "x" } }
+                ["dd"] = { "harpoon_delete", mode = { "n", "x" } },
               },
             },
             list = {
               keys = {
-                ["dd"] = { "harpoon_delete", mode = { "n", "x" } }
+                ["dd"] = { "harpoon_delete", mode = { "n", "x" } },
               },
-            }
+            },
           },
           actions = {
             harpoon_delete = function(picker, item)
               local to_be_removed = item or picker:selected()
-              harpoon:list():remove({ value = to_be_removed.text })
+              harpoon:list():remove { value = to_be_removed.text }
               harpoon:list().items = normalize_list(harpoon:list().items)
-              picker:find({ refresh = true })
-            end
+              picker:find { refresh = true }
+            end,
           },
-        })
+        }
       end, { desc = "Harpoon" })
-    end
+    end,
   },
   {
     "mbbill/undotree",
