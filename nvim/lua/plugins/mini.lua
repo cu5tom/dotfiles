@@ -33,6 +33,10 @@ return {
       --   use_icons = true
       -- })
       --
+      require("mini.sessions").setup({
+        autoread = true
+      })
+
       require("mini.surround").setup()
     end,
   },
