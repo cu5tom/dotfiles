@@ -329,12 +329,12 @@ return {
       { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix List" },
     },
   },
-  {
-    "antosha417/nvim-lsp-file-operations",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-neo-tree/neo-tree.nvim",
-    },
-    config = function() require("lsp-file-operations").setup() end,
-  },
+  -- {
+  --   "antosha417/nvim-lsp-file-operations",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-neo-tree/neo-tree.nvim",
+  --   },
+  --   config = function() require("lsp-file-operations").setup() end,
+  -- },
 }
