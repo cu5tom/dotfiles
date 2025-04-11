@@ -148,7 +148,17 @@ return {
             }
           },
         },
-        cssls = {},
+        cssls = {
+          capabilities = {
+            textDocument = {
+              completion = {
+                completionItem = {
+                  snippetSupport = true
+                }
+              }
+            }
+          }
+        },
         emmet_ls = {},
         eslint_d = {},
         html = {
