@@ -7,6 +7,7 @@ return {
       { "williamboman/mason.nvim", opts = {} },
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      "hrsh7th/cmp-nvim-lsp",
       {
         "j-hui/fidget.nvim",
         opts = {
@@ -34,6 +35,7 @@ return {
               return client:supports_method(method, { bufnr = bufnr })
             end
           end
+
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
           local map = function(keys, func, desc)
@@ -55,6 +57,7 @@ return {
           -- map("<leader>cD", builtin.lsp_type_definitions, "Type Definition")
           -- map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
           -- map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
+
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -106,6 +109,14 @@ return {
         underline = {
           severity = vim.diagnostic.severity.ERROR,
         },
+        signs = vim.g.have_nerd_font and {
+          text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+            [vim.diagnostic.severity.HINT] = " ",
+          },
+        } or {},
         virtual_text = {
           source = "if_many",
           spacing = 2,
@@ -122,14 +133,34 @@ return {
         },
       }
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      -- local cmp = require("cmp")
+      local cmp_lsp = require "cmp_nvim_lsp"
+
+      local capabilities =
+        vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
       local servers = {
         ["angular-language-server"] = {},
-        astro = {},
-        cssls = {},
+        astro = {
+          init_options = {
+            typescript = {
+              sdk = "/usr/local/lib/node_modules/typescript/lib"
+            }
+          },
+        },
+        cssls = {
+          capabilities = {
+            textDocument = {
+              completion = {
+                completionItem = {
+                  snippetSupport = true
+                }
+              }
+            }
+          }
+        },
         emmet_ls = {},
+        eslint_d = {},
         html = {
           filetypes = { "html", "njk" },
         },
@@ -139,11 +170,11 @@ return {
               schemas = {
                 {
                   fileMatch = { "package.json" },
-                  url = "https://json.schemastore.org/package.json"
-                }
-              }
-            }
-          }
+                  url = "https://json.schemastore.org/package.json",
+                },
+              },
+            },
+          },
         },
         lua_ls = {
           -- cmd = {...},
@@ -151,7 +182,9 @@ return {
           -- capabilities = {},
           settings = {
             Lua = {
-              runtime = { version = "LuaJIT" },
+              runtime = {
+                version = "Lua 5.1" --[[ "LuaJIT" ]],
+              },
               workspace = {
                 checkThirdParty = false,
                 library = {
@@ -165,6 +198,7 @@ return {
               telemetry = { enable = false },
               diagnostics = {
                 disable = { "missing-fields" },
+                globals = { "after_each", "before_each", "describe", "it", "vim" },
               },
             },
           },
@@ -208,6 +242,7 @@ return {
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayEnumMemberValueHints = true,
               },
+              telemetry = { enable = false },
             },
           },
         },
@@ -241,6 +276,7 @@ return {
                   enabled = true,
                 },
               },
+              telemetry = { enable = false },
             },
           },
         },
@@ -263,6 +299,7 @@ return {
         "jsonls",
         "phpactor",
         "php-cs-fixer",
+        "prettierd",
         "somesass_ls",
         "stylua",
         "ts_ls",
@@ -302,12 +339,12 @@ return {
       { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix List" },
     },
   },
-  {
-    "antosha417/nvim-lsp-file-operations",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-neo-tree/neo-tree.nvim",
-    },
-    config = function() require("lsp-file-operations").setup() end,
-  },
+  -- {
+  --   "antosha417/nvim-lsp-file-operations",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-neo-tree/neo-tree.nvim",
+  --   },
+  --   config = function() require("lsp-file-operations").setup() end,
+  -- },
 }

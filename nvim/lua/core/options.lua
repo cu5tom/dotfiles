@@ -2,7 +2,7 @@ vim.opt.autoindent = true
 vim.opt.backspace = vim.list_extend(vim.opt.backspace:get(), { "nostop" })
 vim.opt.breakindent = true
 vim.opt.clipboard = "unnamedplus"
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.confirm = true
 vim.opt.copyindent = true
@@ -52,5 +52,7 @@ vim.filetype.add({
     njk = "html",
   }
 })
+
+vim.g.have_nerd_font = true
 
 -- vim.lsp.set_log_level("debug")

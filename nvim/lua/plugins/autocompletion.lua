@@ -11,6 +11,7 @@ return {
       { "hrsh7th/cmp-path", lazy = true },
       { "hrsh7th/cmp-nvim-lsp", lazy = true },
       { "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
+      { "hrsh7th/cmp-nvim-lua", lazy = true },
       {
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp",
@@ -18,7 +19,7 @@ return {
       { "onsails/lspkind.nvim" },
       { "saadparwaiz1/cmp_luasnip" },
       { "rafamadriz/friendly-snippets" },
-      { 
+      {
         "David-Kunz/cmp-npm",
         dependencies = { "nvim-lua/plenary.nvim" },
         ft = "json",
@@ -42,56 +43,74 @@ return {
 
       local cmp = require "cmp"
       cmp.setup {
+        experimental = {
+          ghost_text = true
+        },
         completion = { completeopt = "menu,menuone,noselect,preview" },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         formatting = {
           fields = {
-            cmp.ItemField.Kind,
             cmp.ItemField.Abbr,
+            cmp.ItemField.Kind,
             cmp.ItemField.Menu,
           },
           format = lspkind.cmp_format {
+            with_text = false,
+            menu = {
+              buffer = "[buf]",
+              luasnip = "[snip]",
+              nvim_lsp = "[lsp]",
+              nvim_lsp_signature_help = "[sig]",
+              nvim_lua = "[api]",
+              npm = "[npm]",
+              path = "[path]",
+            },
             mode = "symbol_text",
-            maxwidth = 50,
+            -- maxwidth = 50,
             ellipsis_char = "...",
             show_labelDetails = true,
-            -- before = function (entry, vim_item)
-            --   local types = require("cmp.types")
-            --   local str = require("cmp.utils.str")
-            --
-            --   local word = entry:get_insert_text()
-            --   if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
-            --     word = str.get_word(word)
-            --   end
-            --
-            --   word = str.oneline(word)
-            --   if entry.completion_item.insertTextFormat then
-            --     word = word .. "~"
-            --   end
-            --
-            --   vim_item.abbr = word
-            --   return vim_item
-            -- end
+            before = function (entry, vim_item)
+              local types = require("cmp.types")
+              local str = require("cmp.utils.str")
+
+              local word = entry:get_insert_text()
+              if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+                word = str.get_word(word)
+              end
+
+              word = str.oneline(word)
+              if entry.completion_item.insertTextFormat then
+                word = word .. "~"
+              end
+
+              vim_item.abbr = word
+              return vim_item
+            end
           },
         },
         sources = {
+          { name = "npm", keyword_length = 3 },
           { name = "nvim_lsp" },
+          { name = "nvim_lua" },
           { name = "luasnip" },
           { name = "nvim_lsp_signature_help" },
-          { name = "npm", keyword_length = 4 },
-          -- { name = "buffer", keyword_length = 5, max_item_count = 5 },
           { name = "path" },
+          { name = "buffer", keyword_length = 5, max_item_count = 5 },
         },
         mapping = {
           ["<C-c>"] = cmp.mapping.complete {},
           ["<CR>"] = cmp.mapping.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace },
-          ["<Down>"] = cmp.mapping(function(fallback)
+          ["<M-Down>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
             else
               fallback()
             end
           end, { "i", "s" }),
-          ["<Up>"] = cmp.mapping(function(fallback)
+          ["<M-Up>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
             else
@@ -135,7 +154,7 @@ return {
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = "path " },
+          { name = "path" },
         }, {
           {
             name = "cmdline",

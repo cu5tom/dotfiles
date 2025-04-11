@@ -1,6 +1,103 @@
 ---@type LazySpec
 return {
   {
+    "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async" },
+    config = function()
+      require("ufo").setup {
+        provider_selector = function(--[[ bufnr, filetype, buftype ]]) return { "lsp", "indent" } end,
+      }
+
+      vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
+      vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
+      vim.keymap.set("n", "zK", function()
+        local winId = require("ufo").peekFoldedLinesUnderCursor()
+        if not winId then vim.lsp.buf.hover() end
+      end, { desc = "Peak fold" })
+    end,
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
+    config = function()
+      local ok, harpoon = pcall(require, "harpoon")
+      if not ok then return end
+
+      harpoon:setup {
+        global_settings = {
+          save_on_toggle = false,
+          save_on_change = true,
+          enter_on_sendcmd = false,
+          tmux_autoclose_windows = false,
+          excluded_filetypes = { "harpoon" },
+          mark_branch = true,
+          tabline = false,
+        },
+      }
+
+      local function normalize_list(list)
+        local normalized = {}
+        for _, v in pairs(list) do
+          if v ~= nil then table.insert(normalized, v) end
+        end
+
+        return normalized
+      end
+
+      local function harpoon_picker()
+        local items = {}
+        local list = normalize_list(harpoon:list().items)
+
+        for _, item in ipairs(list) do
+          table.insert(items, {
+            file = item.value,
+            text = item.value,
+          })
+        end
+
+        return items
+      end
+
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add" })
+      vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+      vim.keymap.set("n", "<leader>fh", function()
+        Snacks.picker {
+          title = "Harpoon",
+          finder = harpoon_picker,
+          win = {
+            input = {
+              keys = {
+                ["dd"] = { "harpoon_delete", mode = { "n", "x" } },
+              },
+            },
+            list = {
+              keys = {
+                ["dd"] = { "harpoon_delete", mode = { "n", "x" } },
+              },
+            },
+          },
+          actions = {
+            harpoon_delete = function(picker, item)
+              local to_be_removed = item or picker:selected()
+              harpoon:list():remove { value = to_be_removed.text }
+              harpoon:list().items = normalize_list(harpoon:list().items)
+              picker:find { refresh = true }
+            end,
+          },
+        }
+      end, { desc = "Harpoon" })
+    end,
+  },
+  {
+    "mbbill/undotree",
+    opts = {},
+    config = function() vim.g.undotree_WindowLayout = 4 end,
+    keys = {
+      { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Undotree Toggle" },
+    },
+  },
+  {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup {
@@ -91,14 +188,14 @@ return {
     event = "VimEnter",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local theme = {
-        fill = "TablineFill",
-        head = "Tabline",
-        current_tab = "TablineSel",
-        tab = "Tabline",
-        win = "Tabline",
-        tail = "Tabline",
-      }
+      -- local theme = {
+      --   fill = "TablineFill",
+      --   head = "Tabline",
+      --   current_tab = "TablineSel",
+      --   tab = "Tabline",
+      --   win = "Tabline",
+      --   tail = "Tabline",
+      -- }
 
       require("tabby").setup {
         preset = "active_wins_at_tail",
@@ -128,17 +225,17 @@ return {
     "nvim-lualine/lualine.nvim",
     config = function()
       local lazy_status = require "lazy.status"
-      local colors = {}
+      -- local colors = {}
 
       local mode = {
         "mode",
-        fmt = function(str) return str end,
+        fmt = function(str) return string.sub(str, 1, 1) end,
       }
 
       local filename = {
         "filename",
         file_status = true,
-        path = 0,
+        path = 1,
       }
 
       local hide_in_width = function() return vim.fn.winwidth(0) > 100 end
@@ -147,8 +244,8 @@ return {
         "diagnostics",
         sources = { "nvim_diagnostic" },
         sections = { "error", "warn" },
-        symbols = { error = "\u{ea87}", warn = "\u{f071}", info = "\u{f129}" },
-        colored = false,
+        symbols = { error = " ", warn = " ", info = " " },
+        colored = true,
         update_in_insert = false,
         always_visible = false,
         cond = hide_in_width,
@@ -156,28 +253,28 @@ return {
 
       local diff = {
         "diff",
-        colored = false,
-        symbols = { added = "\u{eadc}", modified = "\u{eade}", removed = "\u{eadf}" },
+        colored = true,
+        symbols = { added = " ", modified = " ", removed = " " },
         cond = hide_in_width,
       }
 
-      local lsp_clients = {
-        "lsp_clients",
-        fmt = function()
-          local bufnr = vim.api.nvim_get_current_buf()
-          local clients = vim.lsp.buf_get_clients(bufnr)
-          if next(clients) == nil then return "" end
-
-          local c = {}
-          for _, client in pairs(clients) do
-            table.insert(c, client.name)
-          end
-          return "\u{f085} " .. table.concat(c, ", ")
-        end,
-        update_in_insert = false,
-        always_visible = false,
-        cond = hide_in_width,
-      }
+      -- local lsp_clients = {
+      --   "lsp_clients",
+      --   fmt = function()
+      --     local bufnr = vim.api.nvim_get_current_buf()
+      --     local clients = vim.lsp.buf_get_clients(bufnr)
+      --     if next(clients) == nil then return "" end
+      --
+      --     local c = {}
+      --     for _, client in pairs(clients) do
+      --       table.insert(c, client.name)
+      --     end
+      --     return " " .. table.concat(c, ", ")
+      --   end,
+      --   update_in_insert = false,
+      --   always_visible = false,
+      --   cond = hide_in_width,
+      -- }
 
       require("lualine").setup {
         options = {
@@ -190,18 +287,21 @@ return {
         },
         sections = {
           lualine_a = { mode },
-          lualine_b = { "branch" },
+          lualine_b = { "branch", diff, diagnostics },
           lualine_c = { filename },
           lualine_x = {
-            lsp_clients,
-            diagnostics,
-            diff,
+            { "lsp_status", click = function() vim.cmd ":LspInfo" end },
+            -- lsp_clients,
+            -- diagnostics,
+            -- diff,
             {
               lazy_status.updates,
               cond = lazy_status.has_updates,
               color = { fg = "#ff9e64" },
+              click = function() vim.cmd ":Lazy" end,
             },
             { "encoding", cond = hide_in_width },
+            { "fileformat", cond = hide_in_width },
             { "filetype", cond = hide_in_width },
           },
           lualine_y = { "location" },
@@ -215,6 +315,23 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        inactive_winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+        extensions = { "lazy", "mason", "nvim-dap-ui", "oil", "quickfix", "trouble" },
       }
     end,
   },

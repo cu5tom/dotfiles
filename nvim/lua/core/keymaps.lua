@@ -12,11 +12,17 @@ vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 -- Save file
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr><Esc>", opts)
 
+-- Navigate quickfix list
+vim.keymap.set("n", "<M-x>", "<Cmd>cnext<CR>", vim.tbl_extend("force", opts, { desc = "Next Quickfix Item" }))
+vim.keymap.set("n", "<M-y>", "<Cmd>cprev<CR>", vim.tbl_extend("force", opts, { desc = "Prev Quickfix Item" }))
+
 -- Move window focus
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", opts)
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", opts)
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
+
+vim.keymap.set("n", "<Leader>bb", "<C-^>", vim.tbl_extend("force", opts, { desc = "Toggle buffers" }))
 
 -- Resize window (respecting `v:count`)
 vim.keymap.set(
