@@ -4,6 +4,20 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       -- NOTE: `opts = {}` is the same as calling `require("mason").setup({})`
+      {
+        -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+        -- used for completion, annotations and signatures of Neovim apis
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+          library = {
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "luvit-meta/library", words = { "vim%.uv" } },
+            { path = "/usr/share/awesome/lib/", words = { "awesome" } },
+          },
+        },
+      },
+      { "Bilal2453/luvit-meta", lazy = true },
       { "williamboman/mason.nvim", opts = {} },
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -176,6 +190,7 @@ return {
             },
           },
         },
+        -- TODO: Check lua lsp config
         lua_ls = {
           -- cmd = {...},
           -- filetypes = {...},
@@ -183,22 +198,28 @@ return {
           settings = {
             Lua = {
               runtime = {
-                version = "Lua 5.1" --[[ "LuaJIT" ]],
+                version = "LuaJIT"--[[ "Lua 5.1" ]],
+                -- path = {
+                --   'lua/?.lua',
+                --   'lua/?/init.lua',
+                -- },
               },
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  "${3rd}/luv/library",
-                  unpack(vim.api.nvim_get_runtime_file("", true)),
-                },
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
+              -- workspace = {
+              --   checkThirdParty = false,
+              --   library = {
+              --     vim.env.VIMRUNTIME,
+              --     -- vim.api.nvim_get_runtime_file("", true)
+              --     -- "${3rd}/luv/library",
+              --     -- unpack(vim.api.nvim_get_runtime_file("", true)),
+              --   },
+              -- },
+              -- completion = {
+              --   callSnippet = "Replace",
+              -- },
               telemetry = { enable = false },
               diagnostics = {
                 disable = { "missing-fields" },
-                globals = { "after_each", "before_each", "describe", "it", "vim" },
+                globals = { "after_each", "before_each", "describe", "it", "require", "vim" },
               },
             },
           },
