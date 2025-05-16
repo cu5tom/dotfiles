@@ -148,17 +148,17 @@ return {
             }
           },
         },
-        cssls = {
-          capabilities = {
-            textDocument = {
-              completion = {
-                completionItem = {
-                  snippetSupport = true
-                }
-              }
-            }
-          }
-        },
+        -- cssls = {
+        --   capabilities = {
+        --     textDocument = {
+        --       completion = {
+        --         completionItem = {
+        --           snippetSupport = true
+        --         }
+        --       }
+        --     }
+        --   }
+        -- },
         emmet_ls = {},
         eslint_d = {},
         html = {
@@ -288,7 +288,7 @@ return {
         "angular-language-server",
         "astro",
         "biome",
-        "cssls",
+        -- "cssls",
         "djlint",
         "eslint_d",
         "emmet_ls",
