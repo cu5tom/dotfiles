@@ -270,37 +270,37 @@ return {
         twiggy_language_server = {
           filetypes = { "html", "njk" },
         },
-        volar = {
-          init_options = {
-            vue = {
-              hybridMode = false,
-            },
-          },
-          filetypes = { "vue" },
-          settings = {
-            typescript = {
-              inlayHints = {
-                enumMemberValues = {
-                  enabled = true,
-                },
-                functionLikeReturnTypes = {
-                  enabled = true,
-                },
-                propertyDeclarationTypes = {
-                  enabled = true,
-                },
-                parameterTypes = {
-                  enabled = true,
-                  suppressWhenArgumentMatchesName = true,
-                },
-                variableTypes = {
-                  enabled = true,
-                },
-              },
-              telemetry = { enable = false },
-            },
-          },
-        },
+        -- volar = {
+        --   init_options = {
+        --     vue = {
+        --       hybridMode = false,
+        --     },
+        --   },
+        --   filetypes = { "vue" },
+        --   settings = {
+        --     typescript = {
+        --       inlayHints = {
+        --         enumMemberValues = {
+        --           enabled = true,
+        --         },
+        --         functionLikeReturnTypes = {
+        --           enabled = true,
+        --         },
+        --         propertyDeclarationTypes = {
+        --           enabled = true,
+        --         },
+        --         parameterTypes = {
+        --           enabled = true,
+        --           suppressWhenArgumentMatchesName = true,
+        --         },
+        --         variableTypes = {
+        --           enabled = true,
+        --         },
+        --       },
+        --       telemetry = { enable = false },
+        --     },
+        --   },
+        -- },
         yamlls = {},
       }
 
@@ -324,7 +324,7 @@ return {
         "somesass_ls",
         "stylua",
         "ts_ls",
-        "volar",
+        -- "volar",
       })
       require("mason-tool-installer").setup {
         ensure_installed = ensure_installed,
