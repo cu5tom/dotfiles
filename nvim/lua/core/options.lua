@@ -42,7 +42,7 @@ vim.opt.title = true
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.writebackup = false
 
 vim.wo.signcolumn = "yes"
