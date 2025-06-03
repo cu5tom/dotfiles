@@ -18,8 +18,8 @@ return {
         },
       },
       { "Bilal2453/luvit-meta", lazy = true },
-      { "williamboman/mason.nvim", opts = {} },
-      "williamboman/mason-lspconfig.nvim",
+      { "mason-org/mason.nvim", opts = {} },
+      "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "hrsh7th/cmp-nvim-lsp",
       {
@@ -43,11 +43,7 @@ return {
           ---@param method vim.lsp.protocol.Method
           ---@param bufnr? integer
           local function client_supports_method(client, method, bufnr)
-            if vim.fn.has "nvim-0.11" == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client:supports_method(method, { bufnr = bufnr })
-            end
+            return client:supports_method(method, bufnr)
           end
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -153,7 +149,7 @@ return {
       local capabilities =
         vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
-      local servers = {
+      local enabled_servers = {
         ["angular-language-server"] = {},
         astro = {
           init_options = {
@@ -162,17 +158,6 @@ return {
             }
           },
         },
-        -- cssls = {
-        --   capabilities = {
-        --     textDocument = {
-        --       completion = {
-        --         completionItem = {
-        --           snippetSupport = true
-        --         }
-        --       }
-        --     }
-        --   }
-        -- },
         emmet_ls = {},
         eslint_d = {},
         html = {
@@ -233,11 +218,8 @@ return {
             plugins = {
               {
                 name = "@vue/typescript-plugin",
-                location = vim.fn.stdpath "data"
-                  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
+                location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
                 languages = { "vue" },
-                configNamespace = "typescript",
-                enableForWorkspaceTypeScriptVersions = true,
               },
             },
           },
@@ -248,68 +230,26 @@ return {
             "typescriptreact",
             "vue",
           },
-          settings = {
-            typescript = {
-              tsserver = {
-                useSyntaxServer = false,
-              },
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-              telemetry = { enable = false },
-            },
-          },
         },
         twiggy_language_server = {
           filetypes = { "html", "njk" },
         },
-        -- volar = {
-        --   init_options = {
-        --     vue = {
-        --       hybridMode = false,
-        --     },
-        --   },
-        --   filetypes = { "vue" },
-        --   settings = {
-        --     typescript = {
-        --       inlayHints = {
-        --         enumMemberValues = {
-        --           enabled = true,
-        --         },
-        --         functionLikeReturnTypes = {
-        --           enabled = true,
-        --         },
-        --         propertyDeclarationTypes = {
-        --           enabled = true,
-        --         },
-        --         parameterTypes = {
-        --           enabled = true,
-        --           suppressWhenArgumentMatchesName = true,
-        --         },
-        --         variableTypes = {
-        --           enabled = true,
-        --         },
-        --       },
-        --       telemetry = { enable = false },
-        --     },
-        --   },
-        -- },
+        vue_ls = {},
         yamlls = {},
       }
+
+      local disabled_servers = {}
+
+      for server_name, server in pairs(enabled_servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+      end
 
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         "angular-language-server",
         "astro",
         "biome",
-        -- "cssls",
         "djlint",
         "eslint_d",
         "emmet_ls",
@@ -324,7 +264,7 @@ return {
         "somesass_ls",
         "stylua",
         "ts_ls",
-        -- "volar",
+        "vue_ls",
       })
       require("mason-tool-installer").setup {
         ensure_installed = ensure_installed,
@@ -332,15 +272,13 @@ return {
 
       require("mason-lspconfig").setup {
         ensure_installed = {},
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
+        automatic_enable= {
+          exclude = disabled_servers
         },
+        automatic_installation = false,
       }
+
+
     end,
   },
   {
