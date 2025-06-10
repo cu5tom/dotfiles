@@ -68,6 +68,7 @@ return {
           -- map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
           -- map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
 
+          map("<leader>cs", vim.lsp.buf.document_symbol, "Symbols")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
