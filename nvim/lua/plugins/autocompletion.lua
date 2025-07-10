@@ -22,11 +22,13 @@ return {
       {
         "David-Kunz/cmp-npm",
         dependencies = { "nvim-lua/plenary.nvim" },
+        lazy = false,
         ft = "json",
         config = function()
           require("cmp-npm").setup({})
         end
       },
+      { "roginfarrer/cmp-css-variables" }
     },
     opts = {},
     config = function()
@@ -113,6 +115,7 @@ return {
           { name = "nvim_lsp_signature_help" },
           { name = "path" },
           { name = "buffer", keyword_length = 5, max_item_count = 5 },
+          { name = "css-variables" },
         },
         mapping = {
           ["<C-c>"] = cmp.mapping.complete {},
