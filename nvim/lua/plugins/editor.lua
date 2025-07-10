@@ -5,7 +5,7 @@ return {
     dependencies = { "kevinhwang91/promise-async" },
     config = function()
       require("ufo").setup {
-        provider_selector = function(--[[ bufnr, filetype, buftype ]]) return { "lsp", "indent" } end,
+        provider_selector = function() return { "lsp", "indent" } end,
       }
 
       vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
@@ -115,101 +115,18 @@ return {
     keys = {
       { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
     },
-    -- config = function()
-    --   local todo_comments = require "todo-comments"
-    --
-    --   vim.keymap.set("n", "]t", function() todo_comments.jump_next() end, { desc = "Next todo comment" })
-    --   vim.keymap.set("n", "[t", function() todo_comments.jump_prev() end, { desc = "Previous todo comment" })
-    --
-    --   todo_comments.setup()
-    -- end,
   },
   {
     "RRethy/vim-illuminate",
   },
-  -- {
-  --   "willothy/nvim-cokeline",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-tree/nvim-web-devicons",
-  --     "stevearc/resession.nvim",
-  --   },
-  --   config = function()
-  --     local get_hex = require("cokeline.hlgroups").get_hl_attr
-  --     local yellow = vim.g.terminal_color_3
-  --
-  --     require("cokeline").setup {
-  --       default_hl = {
-  --         fg = function(buffer) return buffer.is_focused and get_hex("Normal", "fg") or get_hex("Comment", "fg") end,
-  --         bg = function() return get_hex("ColorColumn", "bg") end,
-  --       },
-  --       sidebar = {
-  --         filetype = { "NvimTree", "neo-tree" },
-  --         components = {
-  --           {
-  --             text = function(buf) return buf.filetype end,
-  --             fg = yellow,
-  --             bg = function() return get_hex("NvimTreeNormal", "bg") end,
-  --             bold = true,
-  --           },
-  --         },
-  --       },
-  --       components = {
-  --         {
-  --           text = function(buf) return (buf.index ~= 1) and "|" or "" end,
-  --         },
-  --         {
-  --           text = " ",
-  --         },
-  --         {
-  --           text = function(buf) return buf.devicon.icon end,
-  --           fg = function(buf) return buf.devicon.color end,
-  --         },
-  --         {
-  --           text = " ",
-  --         },
-  --         {
-  --           text = function(buf) return buf.filename .. " " end,
-  --           bold = function(buf) return buf.is_focused end,
-  --         },
-  --         {
-  --           text = "x",
-  --           on_click = function(_, _, _, _, buf) buf:delete() end,
-  --         },
-  --         {
-  --           text = " ",
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
   {
     "nanozuki/tabby.nvim",
     event = "VimEnter",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      -- local theme = {
-      --   fill = "TablineFill",
-      --   head = "Tabline",
-      --   current_tab = "TablineSel",
-      --   tab = "Tabline",
-      --   win = "Tabline",
-      --   tail = "Tabline",
-      -- }
 
       require("tabby").setup {
         preset = "active_wins_at_tail",
-        -- options = {
-        --   theme = theme,
-        --   nerdfont = true,
-        --   lualine_theme = nil,
-        --   tab_name = {
-        --     name_fallback = function(tabid) return tabid end,
-        --   },
-        --   buf_name = {
-        --     mode = "tail", -- "'unique'|'relative'|'tail'|'shorten'"
-        --   },
-        -- },
       }
 
       vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { desc = "New tab", noremap = true })
@@ -225,7 +142,6 @@ return {
     "nvim-lualine/lualine.nvim",
     config = function()
       local lazy_status = require "lazy.status"
-      -- local colors = {}
 
       local mode = {
         "mode",
@@ -258,24 +174,6 @@ return {
         cond = hide_in_width,
       }
 
-      -- local lsp_clients = {
-      --   "lsp_clients",
-      --   fmt = function()
-      --     local bufnr = vim.api.nvim_get_current_buf()
-      --     local clients = vim.lsp.buf_get_clients(bufnr)
-      --     if next(clients) == nil then return "" end
-      --
-      --     local c = {}
-      --     for _, client in pairs(clients) do
-      --       table.insert(c, client.name)
-      --     end
-      --     return " " .. table.concat(c, ", ")
-      --   end,
-      --   update_in_insert = false,
-      --   always_visible = false,
-      --   cond = hide_in_width,
-      -- }
-
       require("lualine").setup {
         options = {
           icons_enabled = true,
@@ -290,10 +188,7 @@ return {
           lualine_b = { "branch", diff, diagnostics },
           lualine_c = { filename },
           lualine_x = {
-            { "lsp_status", click = function() vim.cmd ":LspInfo" end },
-            -- lsp_clients,
-            -- diagnostics,
-            -- diff,
+            { "lsp_status", cond = hide_in_width, click = function() vim.cmd ":LspInfo" end },
             {
               lazy_status.updates,
               cond = lazy_status.has_updates,

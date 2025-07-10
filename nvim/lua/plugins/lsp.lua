@@ -52,22 +52,6 @@ return {
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
 
-          -- if client and client.server_capabilities.definitionProvider then
-          --   map("gd", builtin.lsp_definitions, "Goto Definition")
-          -- end
-          -- if client and client.server_capabilities.declarationProvider then
-          --   map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-          -- end
-          -- if client and client.server_capabilities.referencesProvider then
-          --   map("gr", builtin.lsp_references, "Goto References")
-          -- end
-          -- if client and client.server_capabilities.implementationProvider then
-          --   map("gI", builtin.lsp_implementations, "Goto Implementation")
-          -- end
-          -- map("<leader>cD", builtin.lsp_type_definitions, "Type Definition")
-          -- map("<leader>cs", builtin.lsp_document_symbols, "Document Symbols")
-          -- map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
-
           map("<leader>cs", vim.lsp.buf.document_symbol, "Symbols")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
@@ -75,31 +59,6 @@ return {
           map("wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
           map("wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
           map("wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace List Folders")
-
-          -- --if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
-          -- if client and client.server_capabilities.documentHighlightProvider then
-          --   local highlight_augroup = vim.api.nvim_create_augroup("nvim-lsp-highlight", { clear = false })
-          --
-          --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI"}, {
-          --     buffer = event.buf,
-          --     callback = vim.lsp.buf.document_highlight,
-          --     group = highlight_augroup
-          --   })
-          --
-          --   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI"}, {
-          --     buffer = event.buf,
-          --     callback = vim.lsp.buf.clear_references,
-          --     group = highlight_augroup
-          --   })
-          --
-          --   vim.api.nvim_create_autocmd("LspDetach", {
-          --     group = vim.api.nvim_create_augroup("nvim-lsp-detach", { clear = true }),
-          --     callback = function (event2)
-          --       vim.lsp.buf.clear_references()
-          --       vim.api.nvim_clear_autocmds({ group = "nvim-lsp-highlight", buffer = event2.buf })
-          --     end
-          --   })
-          -- end
 
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map(
@@ -144,7 +103,6 @@ return {
         },
       }
 
-      -- local cmp = require("cmp")
       local cmp_lsp = require "cmp_nvim_lsp"
 
       local capabilities =
@@ -159,6 +117,7 @@ return {
             }
           },
         },
+        ast_grep = {},
         emmet_ls = {},
         eslint_d = {},
         html = {
@@ -178,30 +137,11 @@ return {
         },
         -- TODO: Check lua lsp config
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes = {...},
-          -- capabilities = {},
           settings = {
             Lua = {
               runtime = {
                 version = "LuaJIT"--[[ "Lua 5.1" ]],
-                -- path = {
-                --   'lua/?.lua',
-                --   'lua/?/init.lua',
-                -- },
               },
-              -- workspace = {
-              --   checkThirdParty = false,
-              --   library = {
-              --     vim.env.VIMRUNTIME,
-              --     -- vim.api.nvim_get_runtime_file("", true)
-              --     -- "${3rd}/luv/library",
-              --     -- unpack(vim.api.nvim_get_runtime_file("", true)),
-              --   },
-              -- },
-              -- completion = {
-              --   callSnippet = "Replace",
-              -- },
               telemetry = { enable = false },
               diagnostics = {
                 disable = { "missing-fields" },
@@ -299,12 +239,4 @@ return {
       { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix List" },
     },
   },
-  -- {
-  --   "antosha417/nvim-lsp-file-operations",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-neo-tree/neo-tree.nvim",
-  --   },
-  --   config = function() require("lsp-file-operations").setup() end,
-  -- },
 }
