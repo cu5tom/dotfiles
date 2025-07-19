@@ -32,6 +32,7 @@ return {
           },
         },
       },
+      "saghen/blink.cmp"
     },
     config = function()
       -- local builtin = require "telescope.builtin"
@@ -103,121 +104,299 @@ return {
         },
       }
 
-      local cmp_lsp = require "cmp_nvim_lsp"
+      -- local cmp_lsp = require "cmp_nvim_lsp"
+      --
+      -- local capabilities =
+      --   vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
-      local capabilities =
-        vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
-
-      local enabled_servers = {
-        ["angular-language-server"] = {},
-        astro = {
-          init_options = {
-            typescript = {
-              sdk = "/usr/local/lib/node_modules/typescript/lib"
-            }
+      ---@class LspServersConfig
+      ---@field mason table<string, vim.lsp.Config>
+      ---@field others table<string, vim.lsp.Config>
+      local servers = {
+        mason = {
+          ["angular-language-server"] = {},
+          ast_grep = {},
+          emmet_ls = {},
+          eslint_d = {},
+          html = {
+            filetypes = { "html", "njk" },
           },
-        },
-        ast_grep = {},
-        emmet_ls = {},
-        eslint_d = {},
-        html = {
-          filetypes = { "html", "njk" },
-        },
-        jsonls = {
-          settings = {
-            json = {
-              schemas = {
-                {
-                  fileMatch = { "package.json" },
-                  url = "https://json.schemastore.org/package.json",
+          jsonls = {
+            settings = {
+              json = {
+                schemas = {
+                  {
+                    fileMatch = { "package.json" },
+                    url = "https://json.schemastore.org/package.json",
+                  },
                 },
               },
             },
           },
-        },
-        -- TODO: Check lua lsp config
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = {
-                version = "LuaJIT"--[[ "Lua 5.1" ]],
-              },
-              telemetry = { enable = false },
-              diagnostics = {
-                disable = { "missing-fields" },
-                globals = { "after_each", "before_each", "describe", "it", "require", "vim" },
-              },
-            },
-          },
-        },
-        marksman = {},
-        mdx_analyzer = {},
-        phpactor = {},
-        somesass_ls = {},
-        ts_ls = {
-          init_options = {
-            plugins = {
-              {
-                name = "@vue/typescript-plugin",
-                location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-                languages = { "vue" },
+          lua_ls = {
+            settings = {
+              Lua = {
+                runtime = {
+                  version = "LuaJIT"--[[ "Lua 5.1" ]],
+                },
+                telemetry = { enable = false },
+                diagnostics = {
+                  disable = { "missing-fields" },
+                  globals = { "after_each", "before_each", "describe", "it", "require", "vim" },
+                },
               },
             },
           },
-          filetypes = {
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact",
-            "vue",
+          marksman = {},
+          mdx_analyzer = {},
+          phpactor = {},
+          somesass_ls = {},
+          stylua = {},
+          twiggy_language_server = {
+            filetypes = { "html", "njk" },
+          },
+          vtsls = {
+            cmd = { "vtsls", "--stdio"},
+            root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
+            settings = {
+              vtsls = {
+                tsserver = {
+                  globalPlugins = {
+                    {
+                      name = "@vue/typescript-plugin",
+                      location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                      languages = { "javascript", "typescript", "vue" },
+                      configNamespace = "typescript",
+                      enableForWorkspaceTypescriptVersions = true,
+                    },
+                  }
+                }
+              }
+            },
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "javascript.jsx",
+              "typescript",
+              "typescriptreact",
+              "typescript.tsx",
+              "vue",
+            },
+          },
+          vue_ls = {
+            init_options = {
+              typescript = {
+                tsdk = ""
+              },
+            },
+            on_init = function(client)
+              client.handlers['tsserver/request'] = function(_, result, context)
+                local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+                if #clients == 0 then
+                  vim.notify('Could not find `vtsls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
+                  return
+                end
+                local ts_client = clients[1]
+
+                local param = unpack(result)
+                local id, command, payload = unpack(param)
+                ts_client:exec_cmd({
+                  title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+                  command = 'typescript.tsserverRequest',
+                  arguments = {
+                    command,
+                    payload,
+                  },
+                }, { bufnr = context.bufnr }, function(_, r)
+                    local response_data = { { id, r.body } }
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    client:notify('tsserver/response', response_data)
+                  end)
+              end
+            end,
           },
         },
-        twiggy_language_server = {
-          filetypes = { "html", "njk" },
-        },
-        vue_ls = {},
-        yamlls = {},
+        others = {}
       }
 
-      local disabled_servers = {}
+      local ensure_installed = vim.tbl_keys(servers.mason or {})
+      vim.list_extend(ensure_installed, {})
+      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-      for server_name, server in pairs(enabled_servers) do
-        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        vim.lsp.config(server_name, server)
+      for server, config in pairs(vim.tbl_extend('keep', servers.mason, servers.others)) do
+        if not vim.tbl_isempty(config) then
+          vim.lsp.config(server, config)
+        end
       end
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        "angular-language-server",
-        "astro",
-        "biome",
-        "djlint",
-        "eslint_d",
-        "emmet_ls",
-        "goimports",
-        "gomodifytags",
-        "gotests",
-        "html",
-        "jsonls",
-        "phpactor",
-        "php-cs-fixer",
-        "prettierd",
-        "somesass_ls",
-        "stylua",
-        "ts_ls",
-        "vue_ls",
-      })
-      require("mason-tool-installer").setup {
-        ensure_installed = ensure_installed,
-      }
-
-      require("mason-lspconfig").setup {
+      require("mason-lspconfig").setup({
         ensure_installed = {},
-        automatic_enable= {
-          exclude = disabled_servers
-        },
-        automatic_installation = false,
-      }
+        automatic_enable = true,
+      })
+
+      if not vim.tbl_isempty(servers.others) then
+        vim.lsp.enable(vim.tbl_keys(servers.others))
+      end
+      -- local enabled_servers = {
+      --   ["angular-language-server"] = {},
+      --   -- astro = {
+      --   --   init_options = {
+      --   --     typescript = {
+      --   --       sdk = "/usr/local/lib/node_modules/typescript/lib"
+      --   --     }
+      --   --   },
+      --   -- },
+      --   ast_grep = {},
+      --   emmet_ls = {},
+      --   eslint_d = {},
+      --   html = {
+      --     filetypes = { "html", "njk" },
+      --   },
+      --   jsonls = {
+      --     settings = {
+      --       json = {
+      --         schemas = {
+      --           {
+      --             fileMatch = { "package.json" },
+      --             url = "https://json.schemastore.org/package.json",
+      --           },
+      --         },
+      --       },
+      --     },
+      --   },
+      --   -- TODO: Check lua lsp config
+      --   lua_ls = {
+      --     settings = {
+      --       Lua = {
+      --         runtime = {
+      --           version = "LuaJIT"--[[ "Lua 5.1" ]],
+      --         },
+      --         telemetry = { enable = false },
+      --         diagnostics = {
+      --           disable = { "missing-fields" },
+      --           globals = { "after_each", "before_each", "describe", "it", "require", "vim" },
+      --         },
+      --       },
+      --     },
+      --   },
+      --   marksman = {},
+      --   mdx_analyzer = {},
+      --   phpactor = {},
+      --   somesass_ls = {},
+      --   -- ts_ls = {
+      --   --   init_options = {
+      --   --     plugins = {
+      --   --       {
+      --   --         name = "@vue/typescript-plugin",
+      --   --         location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+      --   --         languages = { "vue" },
+      --   --       },
+      --   --     },
+      --   --   },
+      --   --   filetypes = {
+      --   --     "javascript",
+      --   --     "javascriptreact",
+      --   --     "typescript",
+      --   --     "typescriptreact",
+      --   --     "vue",
+      --   --   },
+      --   -- },
+      --   twiggy_language_server = {
+      --     filetypes = { "html", "njk" },
+      --   },
+      --   vtsls = {
+      --     settings = {
+      --       vtsls = {
+      --         tsserver = {
+      --           globalPlugins = {
+      --             {
+      --               name = "@vue/typescript-plugin",
+      --               location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+      --               languages = { "vue" },
+      --               configNamespace = "typescript"
+      --             },
+      --           }
+      --         }
+      --       }
+      --     },
+      --     filetypes = {
+      --       "javascript",
+      --       "javascriptreact",
+      --       "typescript",
+      --       "typescriptreact",
+      --       "vue",
+      --     },
+      --   },
+      --   vue_ls = {
+      --     -- on_init = function (client)
+      --     --   client.handlers['tsserver/request'] = function (_, result, context)
+      --     --     local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+      --     --     if #clients == 0 then
+      --     --       vim.notify('Couls not find `vtsls` lsp client, but required by `vue_ls`.', vim.log.levels.ERROR)
+      --     --       return
+      --     --     end
+      --     --
+      --     --     local ts_client = clients[1]
+      --     --
+      --     --     local param = unpack(result)
+      --     --     local id, command, payload = unpack(param)
+      --     --     ts_client:exec_cmd({
+      --     --       title = 'vue_request_forward',
+      --     --       command = 'typescript.tsserverRequest',
+      --     --       argument = {
+      --     --         command,
+      --     --         payload,
+      --     --       },
+      --     --     }, { bufnr = context.bufnr }, function (_, r)
+      --     --       local response_data = { { id, r.body } }
+      --     --       client:notify('tsserver/response', response_data)
+      --     --     end)
+      --     --   end
+      --     -- end
+      --   },
+      --   yamlls = {},
+      -- }
+
+      -- local disabled_servers = {}
+      --
+      -- for server_name, server in pairs(enabled_servers) do
+      --   server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+      --   vim.lsp.config(server_name, server)
+      -- end
+      --
+      -- local ensure_installed = vim.tbl_keys(enabled_servers or {})
+      -- vim.list_extend(ensure_installed, {
+      --   "angular-language-server",
+      --   "astro",
+      --   "biome",
+      --   "djlint",
+      --   "eslint_d",
+      --   "emmet_ls",
+      --   "goimports",
+      --   "gomodifytags",
+      --   "gotests",
+      --   "html",
+      --   "jsonls",
+      --   "phpactor",
+      --   "php-cs-fixer",
+      --   "prettierd",
+      --   "somesass_ls",
+      --   "stylua",
+      --   "ts_ls",
+      --   "vtsls",
+      --   "vue_ls",
+      -- })
+      -- require("mason-tool-installer").setup {
+      --   ensure_installed = ensure_installed,
+      -- }
+      --
+      -- require("mason-lspconfig").setup {
+      --   ensure_installed = {},
+      --   automatic_enable= {
+      --     exclude = disabled_servers
+      --   },
+      --   automatic_installation = false,
+      -- }
 
 
     end,
