@@ -1,5 +1,3 @@
-vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Double escape from terminal" })
-
 local state = {
   floating = {
     buf = -1,

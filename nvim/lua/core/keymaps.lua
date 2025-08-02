@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Double escape from terminal" })
+
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 
