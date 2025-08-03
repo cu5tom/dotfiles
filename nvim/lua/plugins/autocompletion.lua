@@ -98,6 +98,16 @@ return {
       },
       term = {
         enabled = true,
+        keymap = { preset = "inherit" },
+        completion = {
+          menu = { auto_show = true },
+        },
+      },
+      cmdline = {
+        keymap = { preset = "inherit" },
+        completion = {
+          menu = { auto_show = true },
+        },
       },
       completion = {
         list = {
