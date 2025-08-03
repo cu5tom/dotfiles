@@ -225,6 +225,7 @@ return {
 
       for server, config in pairs(vim.tbl_extend('keep', servers.mason, servers.others)) do
         if not vim.tbl_isempty(config) then
+          config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
           vim.lsp.config(server, config)
         end
       end
