@@ -36,6 +36,7 @@ return {
         end,
       },
     },
+    version = "1.*",
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
@@ -126,10 +127,11 @@ return {
           border = "none",
           auto_show = true,
           draw = {
+            treesitter = { "lsp" },
             columns = {
               { "kind_icon" },
               { "label", gap = 1 },
-              { "source_name" },
+              { "source_id" },
             },
             components = {
               label = {
@@ -157,7 +159,7 @@ return {
         },
       },
       fuzzy = {
-        implementation = "lua",
+        implementation = "prefer_rust_with_warning",
       },
     },
   },
