@@ -8,7 +8,7 @@ return {
   {
     "saghen/blink.cmp",
     dependencies = {
-      "L3MON4D3/LuaSnip",
+      { "L3MON4D3/LuaSnip", version = "v2.*" },
       "rafamadriz/friendly-snippets",
       "alexandre-abrioux/blink-cmp-npm.nvim",
       "SergioRibera/cmp-dotenv",
@@ -96,6 +96,9 @@ return {
       },
       signature = {
         enabled = true,
+      },
+      snippets = {
+        preset = "luasnip"
       },
       term = {
         enabled = true,
