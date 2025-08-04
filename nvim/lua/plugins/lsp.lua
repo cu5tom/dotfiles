@@ -35,6 +35,7 @@ return {
       "saghen/blink.cmp"
     },
     config = function()
+      local lspUtil = require("lspconfig.util");
       -- local builtin = require "telescope.builtin"
 
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -114,7 +115,10 @@ return {
       ---@field others table<string, vim.lsp.Config>
       local servers = {
         mason = {
-          ["angular-language-server"] = {},
+          angularls = {
+            root_dir = lspUtil.root_pattern('angular.json'),
+            root_markers = { "angular.json", "nx.json" }
+          },
           ast_grep = {},
           emmet_ls = {},
           eslint_d = {},
