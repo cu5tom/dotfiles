@@ -8,8 +8,15 @@ return {
   {
     "saghen/blink.cmp",
     dependencies = {
-      { "L3MON4D3/LuaSnip", version = "v2.*" },
-      "rafamadriz/friendly-snippets",
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+        version = "v2.*",
+        build = "make install_jsregexp",
+        config = function ()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      },
       "alexandre-abrioux/blink-cmp-npm.nvim",
       "SergioRibera/cmp-dotenv",
       "mmolhoek/cmp-scss",
@@ -37,15 +44,12 @@ return {
       },
     },
     version = "1.*",
-    config = function ()
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end,
     ---@module "blink.cmp"
     ---@type blink.cmp.Config
     opts = {
       keymap = {
         preset = 'none',
-        ["<C-c>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
+        ["<C-Right>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
         ["<C-e>"] = { "hide" },
         ["<C-y>"] = { "select_and_accept" },
         ["<M-Up>"] = { "select_prev", "fallback" },
@@ -116,7 +120,18 @@ return {
         enabled = true,
       },
       snippets = {
-        preset = "luasnip"
+        expand = function (snippet)
+          require("luasnip").lsp_expand(snippet)
+        end,
+        active = function (filter)
+          if filter and filter.direction then
+            return require("luasnip").jumpable(filter.direction)
+          end
+          return require("luasnip").in_snippet()
+        end,
+        jump = function (direction)
+          require("luasnip").jump(direction)
+        end
       },
       term = {
         enabled = true,
@@ -180,6 +195,11 @@ return {
         },
       },
       fuzzy = {
+        sorts = {
+          "exact",
+          "score",
+          "sort_text"
+        },
         implementation = "prefer_rust_with_warning",
       },
     },
