@@ -61,8 +61,10 @@ vim.keymap.set("n", "n", "nzz", opts)
 vim.keymap.set("n", "N", "Nzz", opts)
 
 -- Indenting
-vim.keymap.set("v", "<", "<gv", opts)
-vim.keymap.set("v", ">", ">gv", opts)
+-- vim.keymap.set("v", "<", "<gv", opts)
+-- vim.keymap.set("v", ">", ">gv", opts)
+vim.keymap.set("v", "<M-Left>", "<gv", opts)
+vim.keymap.set("v", "<M-Right>", ">gv", opts)
 
 -- Keep last yanked when pasting
 vim.keymap.set("v", "p", '"_dP')
@@ -75,6 +77,7 @@ vim.keymap.set(
   vim.tbl_extend("force", opts, { desc = "Execute current buffer" })
 )
 
+vim.keymap.set("n", "<C-c>", "ciw", opts)
 -- Terminal
 -- local job_id = 0
 -- vim.keymap.set("n", "<space>Ts", function()
