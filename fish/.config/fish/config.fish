@@ -25,3 +25,4 @@ abbr gp 'git pull'
 abbr gP 'git push'
 
 starship init fish | source
+zoxide init fish | source
