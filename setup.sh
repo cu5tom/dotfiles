@@ -5,4 +5,11 @@ sudo apt install stow
 # TODO: Check if tmux-tpm is present
 git clone https://github.com/tmux-tpm/tpm ~/.tmux/plugins/tpm
 
-stow .
+stow bash
+stow fish
+stow ghostty
+stow lazygit
+stow nvim
+stow sesh
+stow starship
+stow tmux

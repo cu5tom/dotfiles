@@ -4,7 +4,13 @@ return {
     "stevearc/oil.nvim",
     cmd = "Oil",
     config = function()
-      require("oil").setup {}
+      require("oil").setup {
+        keymaps= {
+          ["H"] = function ()
+            require("oil.actions").toggle_hidden.callback()
+          end
+        }
+      }
 
       vim.api.nvim_create_autocmd("User", {
         pattern = "OilActionsPost",

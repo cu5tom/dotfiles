@@ -3,7 +3,8 @@
 # end
 
 # Tmux
-abbr t tmux
+abbr t 'sesh connect $(sesh list | fzf)'
+# abbr t tmux
 abbr tc 'tmux attach'
 abbr ta 'tmux attach -t'
 abbr tad 'tmux attach -d -t'
