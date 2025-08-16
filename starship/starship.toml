@@ -11,6 +11,13 @@ format = "[on](white) [$branch ]($style)"
 
 [git_status]
 style = "fg:red"
+untracked = "[~$count](bold green)"
+staged = "[$count](bold green)"
+stashed = "[$count](teal)"
+deleted = "[$count](bold red)"
+modified = "[$count](bold yellow)"
+ahead = "[$count](bold purple)"
+behind = "[$count](bold purple)"
 format = "([$all_status$ahead_behind]($style) )"
 
 [shell]
