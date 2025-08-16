@@ -21,11 +21,11 @@ return {
         -- layout = { preset = "ivy" },
         sources = {
           explorer = {
-            hidden = false,
-            ignored = false,
+            hidden = true,
+            ignored = true,
             exclude = {
-              "**/.git/*",
-              "**/node_modules/*",
+              -- "**/.git/*",
+              -- "**/node_modules/*",
               "**/.yarn/cache/*",
               "**/.yarn/releases/*",
               "**/.pnpm-store/*",
@@ -39,8 +39,8 @@ return {
             hidden = true,
             ignored = true,
             exclude = {
-              "**/.git/*",
-              "**/node_modules/*",
+              -- "**/.git/*",
+              -- "**/node_modules/*",
               "**/.yarn/cache/*",
               "**/.yarn/releases/*",
               "**/.pnpm-store/*",
