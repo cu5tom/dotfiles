@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
-# TODO: Check if stow is installed
-sudo apt install stow
+# Check if stow is installed
+if ! hash stow >/dev/null 2>&1 then
+  sudo apt install stow
+fi
 
-# TODO: Check if tmux-tpm is present
-git clone https://github.com/tmux-tpm/tpm ~/.tmux/plugins/tpm
+# Check if tmux-tpm is present
+if [ ! -f ~/.tmux/plugins/tpm/bin/install_plugins ]; then
+  git clone https://github.com/tmux-tpm/tpm ~/.tmux/plugins/tpm
+fi
 
-stow bash
-stow fish
-stow ghostty
-stow lazygit
-stow nvim
-stow sesh
-stow starship
-stow tmux
+stow -S bash fish ghostty lazygit nvim sesh starship tmux
