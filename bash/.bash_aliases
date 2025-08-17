@@ -1,5 +1,5 @@
 # Tmux
-alias t='sesh connect $(sesh list | fzf)'
+alias t='sesh connect $(sesh list --icons | fzf)'
 alias tc='tmux attach'
 alias ta='tmux attach -t'
 alias tad='tmux attach -d -t'
