@@ -1,3 +1,5 @@
+alias fd=fdfind
+
 # Tmux
 alias t='sesh connect $(sesh list --icons | fzf)'
 alias tc='tmux attach'
