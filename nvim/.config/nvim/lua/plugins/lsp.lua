@@ -121,7 +121,6 @@ return {
           },
           ast_grep = {},
           emmet_ls = {},
-          eslint_d = {},
           html = {
             filetypes = { "html", "njk" },
           },
@@ -153,6 +152,7 @@ return {
           },
           marksman = {},
           mdx_analyzer = {},
+          oxlint = {},
           phpactor = {},
           somesass_ls = {},
           stylua = {},
