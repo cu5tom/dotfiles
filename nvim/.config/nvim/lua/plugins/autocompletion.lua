@@ -27,21 +27,21 @@ return {
           "nvim-treesitter/nvim-treesitter",
         },
       },
-      {
-        "xzbdmw/colorful-menu.nvim",
-        config = function()
-          require("colorful-menu").setup {
-            ls = {
-              lua_ls = {
-                arguments_hl = "@comment",
-              },
-              vtsls = {
-                extra_info_hl = "@comment",
-              },
-            },
-          }
-        end,
-      },
+      -- {
+      --   "xzbdmw/colorful-menu.nvim",
+      --   config = function()
+      --     require("colorful-menu").setup {
+      --       ls = {
+      --         lua_ls = {
+      --           arguments_hl = "@comment",
+      --         },
+      --         vtsls = {
+      --           extra_info_hl = "@comment",
+      --         },
+      --       },
+      --     }
+      --   end,
+      -- },
     },
     version = "1.*",
     ---@module "blink.cmp"
@@ -169,28 +169,16 @@ return {
               { "label", gap = 1 },
               { "source_id" },
             },
-            components = {
-              label = {
-                text = function(ctx)
-                  local hl_info = require("colorful-menu").blink_highlights(ctx)
-                  if hl_info ~= nil then
-                    return hl_info.label
-                  else
-                    return ctx.label
-                  end
-                end,
-                highlight = function(ctx)
-                  local hls = {}
-                  local hl_info = require("colorful-menu").blink_highlights(ctx)
-                  if hl_info ~= nil then hls = hl_info.highlights end
-
-                  for _, idx in ipairs(ctx.label_matched_indices) do
-                    table.insert(hls, { idx, idx + 1, group = "BlinkCmpLabelMatch" })
-                  end
-                  return hls
-                end,
-              },
-            },
+            -- components = {
+            --   label = {
+            --     text = function(ctx)
+            --       return require("colorful-menu").blink_components_text(ctx)
+            --     end,
+            --     highlight = function(ctx)
+            --       return require("colorful-menu").blink_components_highlight(ctx)
+            --     end,
+            --   },
+            -- },
           },
         },
       },
