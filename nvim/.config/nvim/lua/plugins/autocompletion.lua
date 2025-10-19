@@ -7,6 +7,7 @@ return {
   },
   {
     "saghen/blink.cmp",
+    event = "InsertEnter",
     dependencies = {
       {
         "L3MON4D3/LuaSnip",
@@ -118,19 +119,37 @@ return {
       },
       signature = {
         enabled = true,
+        trigger = {
+          enabled = false,
+          show_on_keyword = false,
+          blocked_retrigger_characters = {},
+          blocked_trigger_characters = {},
+          show_on_insert = false,
+          show_on_trigger_character = true,
+        },
+        window = {
+          border = "rounded",
+          direction_priority = { "n", "s" },
+          show_documentation = true,
+          treesitter_highlighting = true,
+        },
       },
       snippets = {
+        preset = "luasnip",
         expand = function (snippet)
-          require("luasnip").lsp_expand(snippet)
+          vim.snippet.expand(snippet)
+          -- require("luasnip").lsp_expand(snippet)
         end,
         active = function (filter)
-          if filter and filter.direction then
-            return require("luasnip").jumpable(filter.direction)
-          end
-          return require("luasnip").in_snippet()
+          return vim.snippet.active(filter)
+          -- if filter and filter.direction then
+          --   return require("luasnip").jumpable(filter.direction)
+          -- end
+          -- return require("luasnip").in_snippet()
         end,
         jump = function (direction)
-          require("luasnip").jump(direction)
+          vim.snippet.jump(direction)
+          -- require("luasnip").jump(direction)
         end
       },
       term = {
@@ -141,32 +160,66 @@ return {
         },
       },
       cmdline = {
+        enabled = true,
         keymap = { preset = "inherit" },
         completion = {
           menu = { auto_show = true },
         },
+        sources = function()
+          local type = vim.fn.getcmdtype()
+          local res = {}
+
+          if type == "/" or type == "?" then
+            res = { "buffer" }
+          end
+
+          if type == ":" or type == "@" then
+            res = { "cmdline", "buffer" }
+          end
+
+          return res
+        end,
       },
       completion = {
         list = {
           selection = {
+            preselect = function ()
+              return require("blink.cmp").snippet_active({ direction = 1 })
+            end,
             auto_insert = false,
           },
+        },
+        keyword = { range = "full" },
+        trigger = {
+          show_in_snippet = true,
+          show_on_trigger_character = true,
         },
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 500,
+          update_delay_ms = 100,
+          treesitter_highlighting = true,
+          window = {
+            border = "rounded",
+            winblend = 0,
+            winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
+            direction_priority = {
+              menu_north = { "e", "w", "n", "s" },
+              menu_south = { "e", "w", "s", "n" },
+            },
+          },
         },
         ghost_text = {
           enabled = true,
         },
         menu = {
-          border = "none",
+          border = "rounded",
           auto_show = true,
           draw = {
             treesitter = { "lsp" },
             columns = {
               { "kind_icon" },
-              { "label", gap = 1 },
+              { "label", "label_description", gap = 1 },
               { "source_id" },
             },
             -- components = {
