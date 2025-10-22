@@ -267,4 +267,8 @@ return {
       { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble: Quickfix List" },
     },
   },
+  {
+    "antosha417/nvim-lsp-file-operations",
+    config = {}
+  },
 }
