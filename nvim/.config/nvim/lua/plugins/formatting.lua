@@ -34,6 +34,7 @@ return {
         scss = { "biome" },
         sass = { "biome" },
         typescript = { "biome" },
+        vue = { "biome" }
       },
     },
   },
