@@ -12,6 +12,7 @@ return {
       lint.linters_by_ft["javascriptreact"] = { "oxlint" }
       lint.linters_by_ft["typescript"] = { "oxlint" }
       lint.linters_by_ft["typescriptreact"] = { "oxlint" }
+      lint.linters_by_ft["vue"] = { "oxlint" }
 
       -- Disable default linters
       lint.linters_by_ft["clojure"] = nil
