@@ -181,6 +181,11 @@ return {
                     },
                   }
                 }
+              },
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                }
               }
             },
             filetypes = {
@@ -196,8 +201,11 @@ return {
           vue_ls = {
             init_options = {
               typescript = {
-                tsdk = ""
+                tsdk = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/typescript/lib"
               },
+              vue = {
+                hybridMode = true
+              }
             },
             on_init = function(client)
               client.handlers['tsserver/request'] = function(_, result, context)
