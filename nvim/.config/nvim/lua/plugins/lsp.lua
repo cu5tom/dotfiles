@@ -120,6 +120,7 @@ return {
             root_markers = { "angular.json", "nx.json" }
           },
           ast_grep = {},
+          biome = {},
           emmet_ls = {},
           html = {
             filetypes = { "html", "njk" },
