@@ -71,9 +71,9 @@ return {
             )
           end
 
-          if client and client.name == "vtsls" then
-            vim.notify("Typescript LSP started with incremental checking enabled", vim.log.levels.INFO)
-          end
+          -- if client and client.name == "vtsls" then
+          --   vim.notify("Typescript LSP started with incremental checking enabled", vim.log.levels.INFO)
+          -- end
         end,
       })
 
@@ -211,13 +211,13 @@ return {
                       configNamespace = "typescript",
                       enableForWorkspaceTypescriptVersions = true,
                     },
-                    maxTsServerMemory = 4096,
-                    enableProjectDiagnostics = true,
-                    disableAutomaticTypeAcquisition = false,
-                    experimental = {
-                      enableProjectDiagnostics = true,
-                    }
                   },
+                  maxTsServerMemory = 4096,
+                  enableProjectDiagnostics = true,
+                  disableAutomaticTypeAcquisition = false,
+                  experimental = {
+                    enableProjectDiagnostics = true,
+                  }
                 },
                 javascript = {
                   preferences = {
@@ -235,6 +235,7 @@ return {
                     functionLikeReturnTypes = {enable = true },
                     enumMemberValues = { enable = true },
                   },
+                },
                 typescript = {
                   preferences = {
                     includePackageJsonAutoImports = "auto",
@@ -251,14 +252,14 @@ return {
                     functionLikeReturnTypes = {enable = true },
                     enumMemberValues = { enable = true },
                   },
-                }
+                },
               },
               experimental = {
                 completion = {
                   enableServerSideFuzzyMatch = true,
                   enableProjectDiagnostics = true,
-                }
-              }
+                },
+              },
             },
             filetypes = {
               "javascript",
