@@ -187,6 +187,9 @@ return {
               typescript = {
                 tsserver = {
                   useSyntaxServer = false,
+                  experimental = {
+                    enableProjectDiagnostics = true
+                  }
                 },
                 inlayHints = {
                   includeInlayParameterNameHints = "all",
