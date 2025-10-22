@@ -31,10 +31,10 @@ return {
           },
         },
       },
-      "saghen/blink.cmp"
+      "saghen/blink.cmp",
     },
     config = function()
-      local lspUtil = require("lspconfig.util");
+      local lspUtil = require "lspconfig.util"
       -- local builtin = require "telescope.builtin"
 
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -43,9 +43,7 @@ return {
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
           ---@param bufnr? integer
-          local function client_supports_method(client, method, bufnr)
-            return client:supports_method(method, bufnr)
-          end
+          local function client_supports_method(client, method, bufnr) return client:supports_method(method, bufnr) end
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -122,8 +120,8 @@ return {
       local servers = {
         mason = {
           angularls = {
-            root_dir = lspUtil.root_pattern('angular.json'),
-            root_markers = { "angular.json", "nx.json" }
+            root_dir = lspUtil.root_pattern "angular.json",
+            root_markers = { "angular.json", "nx.json" },
           },
           ast_grep = {},
           biome = {},
@@ -151,7 +149,7 @@ return {
             settings = {
               Lua = {
                 runtime = {
-                  version = "LuaJIT"--[[ "Lua 5.1" ]],
+                  version = "LuaJIT" --[[ "Lua 5.1" ]],
                 },
                 telemetry = { enable = false },
                 diagnostics = {
@@ -167,97 +165,14 @@ return {
           phpactor = {},
           somesass_ls = {},
           stylua = {},
-          twiggy_language_server = {
-            filetypes = { "html", "njk" },
-          },
-          vtsls = {
-            cmd = { "vtsls", "--stdio"},
-            root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
+          ts_ls = {
             init_options = {
-              maxTsServerMemory = 4096,
-              preferences = {
-                allowIncompleteCompletions = true,
-                disableSuggestions = false,
-                displayPartsForJSDoc = true,
-                generateReturnInDocTemplate = true,
-                includeCompletionsForModuleExports = true,
-                includeCompletionsForImportStatements = true,
-                includeCompletionsWithClassMemberSnippet = true,
-                includeCompletionsWithInsertText = true,
-                includeCompletionsWithObjectLiteralMethodSnippet = true,
-                includeCompletionsWithSnippetText = true,
-                quotePreference = "auto",
-                useLabelDetailsInCompletionEntries = true,
-              }
-            },
-            on_new_config = function (new_config, new_root_dir)
-              new_config.settings.vtsls = vim.tbl_deep_extend("force", new_config.settings.vtsls or {}, {
-                javascript = {
-                  enableProjectDiagnostics = true,
-                },
-                typescript = {
-                  enableProjectDiagnostics = true,
-                },
-              })
-            end,
-            settings = {
-              vtsls = {
-                tsserver = {
-                  globalPlugins = {
-                    {
-                      name = "@vue/typescript-plugin",
-                      location = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-                      languages = { "javascript", "typescript", "vue" },
-                      configNamespace = "typescript",
-                      enableForWorkspaceTypescriptVersions = true,
-                    },
-                  },
-                  maxTsServerMemory = 4096,
-                  enableProjectDiagnostics = true,
-                  disableAutomaticTypeAcquisition = false,
-                  experimental = {
-                    enableProjectDiagnostics = true,
-                  }
-                },
-                javascript = {
-                  preferences = {
-                    includePackageJsonAutoImports = "auto",
-                  },
-                  suggest = {
-                    completeFunctionCalls = true,
-                    includeCompletionsForImportStatements = true,
-                    includeAutomaticOptionalChainCompletion = true,
-                  },
-                  inlayHints = {
-                    parameterNames = { enable = "all" },
-                    variableTypes = { enable = true },
-                    propertyDeclarationTypes = { enable = true },
-                    functionLikeReturnTypes = {enable = true },
-                    enumMemberValues = { enable = true },
-                  },
-                },
-                typescript = {
-                  preferences = {
-                    includePackageJsonAutoImports = "auto",
-                  },
-                  suggest = {
-                    completeFunctionCalls = true,
-                    includeCompletionsForImportStatements = true,
-                    includeAutomaticOptionalChainCompletion = true,
-                  },
-                  inlayHints = {
-                    parameterNames = { enable = "all" },
-                    variableTypes = { enable = true },
-                    propertyDeclarationTypes = { enable = true },
-                    functionLikeReturnTypes = {enable = true },
-                    enumMemberValues = { enable = true },
-                  },
-                },
-              },
-              experimental = {
-                completion = {
-                  enableServerSideFuzzyMatch = true,
-                  enableProjectDiagnostics = true,
+              plugins = {
+                {
+                  name = "@vue/typescript-plugin",
+                  location = vim.fn.stdpath "data"
+                    .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+                  languages = { "vue" },
                 },
               },
             },
@@ -270,71 +185,191 @@ return {
               "typescript.tsx",
               "vue",
             },
-          },
-          vue_ls = {
-            init_options = {
+            settings = {
               typescript = {
-                tsdk = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/typescript/lib"
-              },
-              vue = {
-                hybridMode = true
+                tsserver = {
+                  useSyntaxServer = false,
+                },
+                inlayHints = {
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameWhenArgumentMatchesName = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                  includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                }
               }
-            },
-            on_init = function(client)
-              client.handlers['tsserver/request'] = function(_, result, context)
-                local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
-                if #clients == 0 then
-                  vim.notify('Could not find `vtsls` lsp client, `vue_ls` would not work without it.', vim.log.levels.ERROR)
-                  return
-                end
-                local ts_client = clients[1]
-
-                local param = unpack(result)
-                local id, command, payload = unpack(param)
-                ts_client:exec_cmd({
-                  title = 'vue_request_forward', -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
-                  command = 'typescript.tsserverRequest',
-                  arguments = {
-                    command,
-                    payload,
-                  },
-                }, { bufnr = context.bufnr }, function(_, r)
-                    local response_data = { { id, r.body } }
-                    ---@diagnostic disable-next-line: param-type-mismatch
-                    client:notify('tsserver/response', response_data)
-                  end)
-              end
-            end,
+            }
           },
+          twiggy_language_server = {
+            filetypes = { "html", "njk" },
+          },
+          -- vtsls = {
+          --   cmd = { "vtsls", "--stdio" },
+          --   root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
+          --   init_options = {
+          --     maxTsServerMemory = 4096,
+          --     preferences = {
+          --       allowIncompleteCompletions = true,
+          --       disableSuggestions = false,
+          --       displayPartsForJSDoc = true,
+          --       generateReturnInDocTemplate = true,
+          --       includeCompletionsForModuleExports = true,
+          --       includeCompletionsForImportStatements = true,
+          --       includeCompletionsWithClassMemberSnippet = true,
+          --       includeCompletionsWithInsertText = true,
+          --       includeCompletionsWithObjectLiteralMethodSnippet = true,
+          --       includeCompletionsWithSnippetText = true,
+          --       quotePreference = "auto",
+          --       useLabelDetailsInCompletionEntries = true,
+          --     },
+          --   },
+          --   on_new_config = function(new_config, new_root_dir)
+          --     new_config.settings.vtsls = vim.tbl_deep_extend("force", new_config.settings.vtsls or {}, {
+          --       javascript = {
+          --         enableProjectDiagnostics = true,
+          --       },
+          --       typescript = {
+          --         enableProjectDiagnostics = true,
+          --       },
+          --     })
+          --   end,
+          --   settings = {
+          --     vtsls = {
+          --       autoUseWorkspaceTsdk = true,
+          --       tsserver = {
+          --         globalPlugins = {
+          --           {
+          --             name = "@vue/typescript-plugin",
+          --             location = vim.fn.stdpath "data"
+          --               .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+          --             languages = { "javascript", "typescript", "vue" },
+          --             configNamespace = "typescript",
+          --             enableForWorkspaceTypescriptVersions = true,
+          --           },
+          --         },
+          --         enableProjectDiagnostics = true,
+          --         disableAutomaticTypeAcquisition = false,
+          --       },
+          --       experimental = {
+          --         completion = {
+          --           enableServerSideFuzzyMatch = true,
+          --           entriesLimit = 15,
+          --         },
+          --       },
+          --     },
+          --     javascript = {
+          --       preferences = {
+          --         includePackageJsonAutoImports = "auto",
+          --       },
+          --       suggest = {
+          --         completeFunctionCalls = true,
+          --         includeCompletionsForImportStatements = true,
+          --         includeAutomaticOptionalChainCompletion = true,
+          --       },
+          --       inlayHints = {
+          --         parameterNames = { enable = "all" },
+          --         variableTypes = { enable = true },
+          --         propertyDeclarationTypes = { enable = true },
+          --         functionLikeReturnTypes = { enable = true },
+          --         enumMemberValues = { enable = true },
+          --       },
+          --     },
+          --     typescript = {
+          --       preferences = {
+          --         includePackageJsonAutoImports = "auto",
+          --       },
+          --       suggest = {
+          --         completeFunctionCalls = true,
+          --         includeCompletionsForImportStatements = true,
+          --         includeAutomaticOptionalChainCompletion = true,
+          --       },
+          --       inlayHints = {
+          --         parameterNames = { enable = "all" },
+          --         variableTypes = { enable = true },
+          --         propertyDeclarationTypes = { enable = true },
+          --         functionLikeReturnTypes = { enable = true },
+          --         enumMemberValues = { enable = true },
+          --       },
+          --     },
+          --   },
+          --   filetypes = {
+          --     "javascript",
+          --     "javascriptreact",
+          --     "javascript.jsx",
+          --     "typescript",
+          --     "typescriptreact",
+          --     "typescript.tsx",
+          --     "vue",
+          --   },
+          -- },
+          -- vue_ls = {
+          --   init_options = {
+          --     typescript = {
+          --       tsdk = vim.fn.stdpath "data" .. "/mason/packages/vue-language-server/node_modules/typescript/lib",
+          --     },
+          --     vue = {
+          --       hybridMode = true,
+          --     },
+          --   },
+          --   on_init = function(client)
+          --     client.handlers["tsserver/request"] = function(_, result, context)
+          --       local clients = vim.lsp.get_clients { bufnr = context.bufnr, name = "vtsls" }
+          --       if #clients == 0 then
+          --         vim.notify(
+          --           "Could not find `vtsls` lsp client, `vue_ls` would not work without it.",
+          --           vim.log.levels.ERROR
+          --         )
+          --         return
+          --       end
+          --       local ts_client = clients[1]
+          --
+          --       local param = unpack(result)
+          --       local id, command, payload = unpack(param)
+          --       ts_client:exec_cmd({
+          --         title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+          --         command = "typescript.tsserverRequest",
+          --         arguments = {
+          --           command,
+          --           payload,
+          --         },
+          --       }, { bufnr = context.bufnr }, function(_, r)
+          --         local response_data = { { id, r.body } }
+          --         ---@diagnostic disable-next-line: param-type-mismatch
+          --         client:notify("tsserver/response", response_data)
+          --       end)
+          --     end
+          --   end,
+          -- },
         },
-        others = {}
+        others = {},
       }
 
       local ensure_installed = vim.tbl_keys(servers.mason or {})
       vim.list_extend(ensure_installed, {})
-      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+      require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
-      for server, config in pairs(vim.tbl_extend('keep', servers.mason, servers.others)) do
+      for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
         if not vim.tbl_isempty(config) then
           config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
           config.capabilities.textDocument = config.capabilities.textDocument or {}
           config.capabilities.textDocument.publishDiagnostics = {
             relatedInformation = true,
             versionSupport = true,
-            tagSupport = { 1, 2 }
+            tagSupport = { 1, 2 },
           }
           vim.lsp.config(server, config)
         end
       end
 
-      require("mason-lspconfig").setup({
+      require("mason-lspconfig").setup {
         ensure_installed = {},
         automatic_enable = true,
-      })
+      }
 
-      if not vim.tbl_isempty(servers.others) then
-        vim.lsp.enable(vim.tbl_keys(servers.others))
-      end
+      if not vim.tbl_isempty(servers.others) then vim.lsp.enable(vim.tbl_keys(servers.others)) end
     end,
   },
   {
@@ -356,6 +391,6 @@ return {
   },
   {
     "antosha417/nvim-lsp-file-operations",
-    config = {}
+    config = {},
   },
 }
