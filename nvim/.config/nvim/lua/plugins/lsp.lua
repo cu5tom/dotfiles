@@ -109,6 +109,9 @@ return {
         },
       }
 
+      local ensure_installed_dependend_servers = {
+        "vue_ls"
+      }
       ---@class LspServersConfig
       ---@field mason table<string, vim.lsp.Config>
       ---@field others table<string, vim.lsp.Config>
@@ -206,7 +209,7 @@ return {
       }
 
       local ensure_installed = vim.tbl_keys(servers.mason or {})
-      vim.list_extend(ensure_installed, {})
+      vim.list_extend(ensure_installed, ensure_installed_dependend_servers)
       require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
       for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
