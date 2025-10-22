@@ -57,6 +57,7 @@ return {
           map("<leader>cs", vim.lsp.buf.document_symbol, "Symbols")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+          map("<leader>rs", ":LspRestart<CR>", "Restart Lsp")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
           map("wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
           map("wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
