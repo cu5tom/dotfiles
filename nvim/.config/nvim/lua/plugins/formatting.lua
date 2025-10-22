@@ -27,7 +27,7 @@ return {
       notify_on_error = false,
       format_on_save = false,
       formatters_by_ft = {
-        astro = { "prettierd" },
+        astro = { "biome" },
         css = { "biome" },
         javascript = { "biome" },
         lua = { "stylua" },
