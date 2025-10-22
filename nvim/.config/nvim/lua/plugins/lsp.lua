@@ -224,7 +224,7 @@ return {
                     includePackageJsonAutoImports = "auto",
                   },
                   suggest = {
-                    completeFunctionCall = true,
+                    completeFunctionCalls = true,
                     includeCompletionsForImportStatements = true,
                     includeAutomaticOptionalChainCompletion = true,
                   },
@@ -241,7 +241,7 @@ return {
                     includePackageJsonAutoImports = "auto",
                   },
                   suggest = {
-                    completeFunctionCall = true,
+                    completeFunctionCalls = true,
                     includeCompletionsForImportStatements = true,
                     includeAutomaticOptionalChainCompletion = true,
                   },
