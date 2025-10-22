@@ -70,11 +70,16 @@ return {
               "Toggle Inlay Hints"
             )
           end
+
+          if client and client.name == "vtsls" then
+            vim.notify("Typescript LSP started with incremental checking enabled", vim.log.levels.INFO)
+          end
         end,
       })
 
       vim.diagnostic.config {
         severity_sort = true,
+        update_in_insert = false,
         float = {
           border = "rounded",
           source = "if_many",
@@ -92,7 +97,7 @@ return {
         } or {},
         virtual_text = {
           source = "if_many",
-          spacing = 2,
+          spacing = 4,
           format = function(diagnostic)
             local diagnostic_message = {
               [vim.diagnostic.severity.ERROR] = diagnostic.message,
@@ -168,6 +173,33 @@ return {
           vtsls = {
             cmd = { "vtsls", "--stdio"},
             root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
+            init_options = {
+              maxTsServerMemory = 4096,
+              preferences = {
+                allowIncompleteCompletions = true,
+                disableSuggestions = false,
+                displayPartsForJSDoc = true,
+                generateReturnInDocTemplate = true,
+                includeCompletionsForModuleExports = true,
+                includeCompletionsForImportStatements = true,
+                includeCompletionsWithClassMemberSnippet = true,
+                includeCompletionsWithInsertText = true,
+                includeCompletionsWithObjectLiteralMethodSnippet = true,
+                includeCompletionsWithSnippetText = true,
+                quotePreference = "auto",
+                useLabelDetailsInCompletionEntries = true,
+              }
+            },
+            on_new_config = function (new_config, new_root_dir)
+              new_config.settings.vtsls = vim.tbl_deep_extend("force", new_config.settings.vtsls or {}, {
+                javascript = {
+                  enableProjectDiagnostics = true,
+                },
+                typescript = {
+                  enableProjectDiagnostics = true,
+                },
+              })
+            end,
             settings = {
               vtsls = {
                 tsserver = {
@@ -179,12 +211,52 @@ return {
                       configNamespace = "typescript",
                       enableForWorkspaceTypescriptVersions = true,
                     },
-                  }
+                    maxTsServerMemory = 4096,
+                    enableProjectDiagnostics = true,
+                    disableAutomaticTypeAcquisition = false,
+                    experimental = {
+                      enableProjectDiagnostics = true,
+                    }
+                  },
+                },
+                javascript = {
+                  preferences = {
+                    includePackageJsonAutoImports = "auto",
+                  },
+                  suggest = {
+                    completeFunctionCall = true,
+                    includeCompletionsForImportStatements = true,
+                    includeAutomaticOptionalChainCompletion = true,
+                  },
+                  inlayHints = {
+                    parameterNames = { enable = "all" },
+                    variableTypes = { enable = true },
+                    propertyDeclarationTypes = { enable = true },
+                    functionLikeReturnTypes = {enable = true },
+                    enumMemberValues = { enable = true },
+                  },
+                typescript = {
+                  preferences = {
+                    includePackageJsonAutoImports = "auto",
+                  },
+                  suggest = {
+                    completeFunctionCall = true,
+                    includeCompletionsForImportStatements = true,
+                    includeAutomaticOptionalChainCompletion = true,
+                  },
+                  inlayHints = {
+                    parameterNames = { enable = "all" },
+                    variableTypes = { enable = true },
+                    propertyDeclarationTypes = { enable = true },
+                    functionLikeReturnTypes = {enable = true },
+                    enumMemberValues = { enable = true },
+                  },
                 }
               },
               experimental = {
                 completion = {
                   enableServerSideFuzzyMatch = true,
+                  enableProjectDiagnostics = true,
                 }
               }
             },
@@ -244,6 +316,12 @@ return {
       for server, config in pairs(vim.tbl_extend('keep', servers.mason, servers.others)) do
         if not vim.tbl_isempty(config) then
           config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+          config.capabilities.textDocument = config.capabilities.textDocument or {}
+          config.capabilities.textDocument.publishDiagnostics = {
+            relatedInformation = true,
+            versionSupport = true,
+            tagSupport = { 1, 2 }
+          }
           vim.lsp.config(server, config)
         end
       end
