@@ -52,9 +52,10 @@ return {
           end
 
           map("S", vim.lsp.buf.signature_help, "Signature help")
-          map("<leader>cs", vim.lsp.buf.document_symbol, "Symbols")
+          map("<leader>cS", vim.lsp.buf.document_symbol, "Symbols")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+          map("<leader>cs", ":LspTypescriptSourceAction<CR>", "Source Action")
           map("<leader>rs", ":LspRestart<CR>", "Restart Lsp")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
           map("wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
