@@ -68,10 +68,6 @@ return {
               "Toggle Inlay Hints"
             )
           end
-
-          -- if client and client.name == "vtsls" then
-          --   vim.notify("Typescript LSP started with incremental checking enabled", vim.log.levels.INFO)
-          -- end
         end,
       })
 
@@ -94,6 +90,7 @@ return {
           },
         } or {},
         virtual_text = {
+          current_line = true,
           source = "if_many",
           spacing = 4,
           format = function(diagnostic)
@@ -161,6 +158,7 @@ return {
           mdx_analyzer = {},
           oxlint = {},
           phpactor = {},
+          prettierd = {},
           somesass_ls = {},
           stylua = {},
           ts_ls = {

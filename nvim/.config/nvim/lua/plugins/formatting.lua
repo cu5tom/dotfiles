@@ -28,11 +28,11 @@ return {
       format_on_save = false,
       formatters_by_ft = {
         astro = { "biome" },
-        css = { "biome" },
+        css = { "prettierd" },
         javascript = { "biome" },
         lua = { "stylua" },
-        scss = { "biome" },
-        sass = { "biome" },
+        scss = { "prettierd" },
+        sass = { "prettierd" },
         typescript = { "biome" },
         vue = { "biome" }
       },
