@@ -230,4 +230,13 @@ return {
       }
     end,
   },
+  {
+    "chrisgrieser/nvim-rip-substitute",
+    cmd = "RipSubstitute",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+    keys = {
+      { mode = { "n", "x" }, "<leader>fS", function() require("rip-substitute").sub() end, desc = "rip substitute" }
+    }
+  }
 }
