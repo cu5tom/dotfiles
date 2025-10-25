@@ -21,6 +21,7 @@ return {
       "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "hrsh7th/cmp-nvim-lsp",
+      "Fildo7525/pretty_hover",
       {
         "j-hui/fidget.nvim",
         opts = {
@@ -57,7 +58,7 @@ return {
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("<leader>cs", ":LspTypescriptSourceAction<CR>", "Source Action")
           map("<leader>rs", ":LspRestart<CR>", "Restart Lsp")
-          map("K", vim.lsp.buf.hover, "Hover Documentation")
+          map("K", function() require("pretty_hover").hover() end, "Hover Documentation")
           map("wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
           map("wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
           map("wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace List Folders")
