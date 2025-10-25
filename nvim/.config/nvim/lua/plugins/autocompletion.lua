@@ -21,6 +21,7 @@ return {
       "alexandre-abrioux/blink-cmp-npm.nvim",
       "SergioRibera/cmp-dotenv",
       "mmolhoek/cmp-scss",
+      "Fildo7525/pretty_hover",
       {
         "Jezda1337/nvim-html-css",
         dependencies = {
@@ -208,6 +209,14 @@ return {
               menu_south = { "e", "w", "s", "n" },
             },
           },
+          draw = function (opts)
+            if opts.item and opts.item.documentation then
+              local out = require("pretty_hover.parser").parse(opts.item.documentation.value)
+              opts.item.documentation.value = out:string()
+            end
+
+            opts.default_implementation(opts)
+          end
         },
         ghost_text = {
           enabled = true,
@@ -244,6 +253,11 @@ return {
         implementation = "prefer_rust_with_warning",
       },
     },
+  },
+  {
+    "Fildo7525/pretty_hover",
+    event = "LspAttach",
+    opts = {},
   },
   -- {
   --   "hrsh7th/nvim-cmp",
