@@ -29,6 +29,10 @@ return {
           "nvim-treesitter/nvim-treesitter",
         },
       },
+      {
+        "yus-works/csc.nvim",
+        opts = {}
+      },
       -- {
       --   "xzbdmw/colorful-menu.nvim",
       --   config = function()
