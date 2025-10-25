@@ -135,7 +135,7 @@ return {
       vim.api.nvim_set_keymap("n", "<leader>tn", ":$tabn<CR>", { desc = "Next tab", noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>tp", ":$tabp<CR>", { desc = "Previous tab", noremap = true })
       vim.api.nvim_set_keymap("n", "<leader>tmp", ":$-tabmove<CR>", { desc = "Move tab to the left", noremap = true })
-      vim.api.nvim_set_keymap("n", "<leader>tmn", ":$+tabmove<CR>", { desc = "New tab", noremap = true })
+      vim.api.nvim_set_keymap("n", "<leader>tmn", ":$+tabmove<CR>", { desc = "Move tab to the right", noremap = true })
     end,
   },
   {
