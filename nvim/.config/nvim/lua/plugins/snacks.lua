@@ -25,7 +25,8 @@ return {
             hidden = true,
             ignored = true,
             exclude = {
-              -- "**/.git/*",
+              "**/.git/*",
+              "**/.jj/*",
               -- "**/node_modules/*",
               "**/.yarn/cache/*",
               "**/.yarn/releases/*",
@@ -40,7 +41,8 @@ return {
             hidden = true,
             ignored = true,
             exclude = {
-              -- "**/.git/*",
+              "**/.git/*",
+              "**/.jj/*",
               -- "**/node_modules/*",
               "**/.yarn/cache/*",
               "**/.yarn/releases/*",
