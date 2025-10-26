@@ -98,14 +98,14 @@ return {
     },
   },
   {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup {
-        "*",
-        css = { rgb_fn = true },
-        html = { names = false },
-      }
-    end,
+  {
+    "brenoprata10/nvim-highlight-colors",
+    config = function ()
+      vim.o.termguicolors = true
+      require("nvim-highlight-colors").setup({
+        render = "virtual"
+      })
+    end
   },
   {
     "folke/todo-comments.nvim",
