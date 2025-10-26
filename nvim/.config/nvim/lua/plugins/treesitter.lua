@@ -4,7 +4,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
-      "windwp/nvim-ts-autotag",
+      {
+        "windwp/nvim-ts-autotag",
+        config = function ()
+          require("nvim-ts-autotag").setup({})
+        end
+      },
       {
         "nvim-treesitter/nvim-treesitter-textobjects"
       },
