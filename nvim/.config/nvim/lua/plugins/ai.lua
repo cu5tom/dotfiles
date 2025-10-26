@@ -2,6 +2,7 @@
 return {
   {
     "NickvanDyke/opencode.nvim",
+    event = "VeryLazy",
     dependencies = {
       { "folke/snacks.nvim", opts = { input = {}, picker = {} } },
     },
