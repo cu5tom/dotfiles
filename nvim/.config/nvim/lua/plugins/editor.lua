@@ -97,7 +97,22 @@ return {
       { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Undotree Toggle" },
     },
   },
+  ---@module "time-machine"
   {
+    "y3owk1n/time-machine.nvim",
+    cmd = {
+      "TimeMachineToggle",
+    },
+    ---@type TimeMachine.Config
+    opts = {},
+    keys = {
+      { "<leader>v", "", desc = "Time Machine" },
+      { "<leader>vt", "<cmd>TimeMachineToggle<CR>", desc = "[Time Machine] Toggle Tree" },
+      { "<leader>vx", "<cmd>TimeMachinePurgeCurrent<CR>", desc = "[Time Machine] Purge current" },
+      { "<leader>vX", "<cmd>TimeMachinePurgeAll<CR>", desc = "[Time Machine] Purge all" },
+      { "<leader>vl", "<cmd>TimeMachineLogShow<CR>", desc = "[Time Machine] Show log" },
+    }
+  },
   {
     "brenoprata10/nvim-highlight-colors",
     config = function ()
