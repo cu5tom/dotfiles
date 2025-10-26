@@ -26,21 +26,21 @@ return {
         "yus-works/csc.nvim",
         opts = {}
       },
-      -- {
-      --   "xzbdmw/colorful-menu.nvim",
-      --   config = function()
-      --     require("colorful-menu").setup {
-      --       ls = {
-      --         lua_ls = {
-      --           arguments_hl = "@comment",
-      --         },
-      --         vtsls = {
-      --           extra_info_hl = "@comment",
-      --         },
-      --       },
-      --     }
-      --   end,
-      -- },
+      {
+        "xzbdmw/colorful-menu.nvim",
+        config = function()
+          require("colorful-menu").setup {
+            -- ls = {
+            --   lua_ls = {
+            --     arguments_hl = "@comment",
+            --   },
+            --   vtsls = {
+            --     extra_info_hl = "@comment",
+            --   },
+            -- },
+          }
+        end,
+      },
     },
     version = "1.*",
     ---@module "blink.cmp"
@@ -230,16 +230,40 @@ return {
               { "label", "label_description", gap = 1 },
               { "source_id" },
             },
-            -- components = {
-            --   label = {
-            --     text = function(ctx)
-            --       return require("colorful-menu").blink_components_text(ctx)
-            --     end,
-            --     highlight = function(ctx)
-            --       return require("colorful-menu").blink_components_highlight(ctx)
-            --     end,
-            --   },
-            -- },
+            components = {
+              kind_icon = {
+                text = function (ctx)
+                  local icon = ctx.kind_icon
+
+                  if ctx.item.source_name == "LSP" then
+                    local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                    if color_item and color_item.abbr ~= "" then
+                      icon = color_item.abbr
+                    end
+                  end
+                  return icon .. ctx.icon_gap
+                end,
+                highlight = function (ctx)
+                  local highlight = "BlinkCmpKind" .. ctx.kind
+
+                  if ctx.item.source_name == "LSP" then
+                    local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                    if color_item and color_item.abbr_hl_group ~= "" then
+                      highlight = color_item.abbr_hl_group
+                    end
+                  end
+                  return highlight
+                end
+              },
+              label = {
+                text = function(ctx)
+                  return require("colorful-menu").blink_components_text(ctx)
+                end,
+                highlight = function(ctx)
+                  return require("colorful-menu").blink_components_highlight(ctx)
+                end,
+              },
+            },
           },
         },
       },
