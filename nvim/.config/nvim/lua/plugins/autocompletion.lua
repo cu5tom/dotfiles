@@ -9,10 +9,12 @@ return {
     "saghen/blink.cmp",
     event = "InsertEnter",
     dependencies = {
+      "rafamadriz/friendly-snippets",
       "alexandre-abrioux/blink-cmp-npm.nvim",
       "SergioRibera/cmp-dotenv",
       "mmolhoek/cmp-scss",
       "Fildo7525/pretty_hover",
+      "brenoprata10/nvim-highlight-colors",
       {
         "Jezda1337/nvim-html-css",
         dependencies = {
