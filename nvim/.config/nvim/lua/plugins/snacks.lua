@@ -17,7 +17,6 @@ return {
       },
       indent = {},
       input = {},
-      lazygit = {},
       picker = {
         -- layout = { preset = "ivy" },
         sources = {
