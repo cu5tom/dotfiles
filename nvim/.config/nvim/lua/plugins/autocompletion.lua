@@ -9,15 +9,6 @@ return {
     "saghen/blink.cmp",
     event = "InsertEnter",
     dependencies = {
-      {
-        "L3MON4D3/LuaSnip",
-        dependencies = { "rafamadriz/friendly-snippets" },
-        version = "v2.*",
-        build = "make install_jsregexp",
-        config = function ()
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end,
-      },
       "alexandre-abrioux/blink-cmp-npm.nvim",
       "SergioRibera/cmp-dotenv",
       "mmolhoek/cmp-scss",
@@ -140,22 +131,22 @@ return {
         },
       },
       snippets = {
-        preset = "luasnip",
-        expand = function (snippet)
-          vim.snippet.expand(snippet)
-          -- require("luasnip").lsp_expand(snippet)
-        end,
-        active = function (filter)
-          return vim.snippet.active(filter)
-          -- if filter and filter.direction then
-          --   return require("luasnip").jumpable(filter.direction)
-          -- end
-          -- return require("luasnip").in_snippet()
-        end,
-        jump = function (direction)
-          vim.snippet.jump(direction)
-          -- require("luasnip").jump(direction)
-        end
+        -- preset = "luasnip",
+        -- expand = function (snippet)
+        --   vim.snippet.expand(snippet)
+        --   -- require("luasnip").lsp_expand(snippet)
+        -- end,
+        -- active = function (filter)
+        --   -- return vim.snippet.active(filter)
+        --   if filter and filter.direction then
+        --     return require("luasnip").jumpable(filter.direction)
+        --   end
+        --   return require("luasnip").in_snippet()
+        -- end,
+        -- jump = function (direction)
+        --   -- vim.snippet.jump(direction)
+        --   require("luasnip").jump(direction)
+        -- end
       },
       term = {
         enabled = true,
