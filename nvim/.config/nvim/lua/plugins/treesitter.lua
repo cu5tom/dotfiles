@@ -14,6 +14,11 @@ return {
         "nvim-treesitter/nvim-treesitter-textobjects"
       },
     },
+    init = function ()
+      vim.wo.foldlevel = 99
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    end,
     config = function()
       local treesitter = require "nvim-treesitter.configs"
 
