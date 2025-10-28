@@ -1,0 +1,6 @@
+--dotfiles
+--ignore='.gitconfig'
+--ignore='.jj'
+--ignore='.stowrc'
+--ignore='setup.sh'
+--ignore='setup.fish'
