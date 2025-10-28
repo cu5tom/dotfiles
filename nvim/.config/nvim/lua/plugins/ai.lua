@@ -4,7 +4,7 @@ return {
     "NickvanDyke/opencode.nvim",
     event = "VeryLazy",
     dependencies = {
-      { "folke/snacks.nvim", opts = { input = {}, picker = {} } },
+      { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
     },
     config = function()
       vim.g.opencode_opts = {}
