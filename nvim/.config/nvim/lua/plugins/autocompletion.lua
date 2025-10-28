@@ -26,21 +26,21 @@ return {
         "yus-works/csc.nvim",
         opts = {}
       },
-      {
-        "xzbdmw/colorful-menu.nvim",
-        config = function()
-          require("colorful-menu").setup {
-            -- ls = {
-            --   lua_ls = {
-            --     arguments_hl = "@comment",
-            --   },
-            --   vtsls = {
-            --     extra_info_hl = "@comment",
-            --   },
-            -- },
-          }
-        end,
-      },
+      -- {
+      --   "xzbdmw/colorful-menu.nvim",
+      --   config = function()
+      --     require("colorful-menu").setup {
+      --       -- ls = {
+      --       --   lua_ls = {
+      --       --     arguments_hl = "@comment",
+      --       --   },
+      --       --   vtsls = {
+      --       --     extra_info_hl = "@comment",
+      --       --   },
+      --       -- },
+      --     }
+      --   end,
+      -- },
     },
     version = "1.*",
     ---@module "blink.cmp"
@@ -255,14 +255,14 @@ return {
                   return highlight
                 end
               },
-              label = {
-                text = function(ctx)
-                  return require("colorful-menu").blink_components_text(ctx)
-                end,
-                highlight = function(ctx)
-                  return require("colorful-menu").blink_components_highlight(ctx)
-                end,
-              },
+              -- label = {
+              --   text = function(ctx)
+              --     return require("colorful-menu").blink_components_text(ctx)
+              --   end,
+              --   highlight = function(ctx)
+              --     return require("colorful-menu").blink_components_highlight(ctx)
+              --   end,
+              -- },
             },
           },
         },
