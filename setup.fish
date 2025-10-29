@@ -9,3 +9,5 @@ end
 if test -e ~/.tmux/plugins/tpm/bin/install_plugins; else
   git clone https://github.com/tmux-tpm/tpm ~/.tmux/plugins/tpm
 end
+
+stow -S bash fish lazygit nvim sesh starship tmux
