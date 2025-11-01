@@ -1,0 +1,10 @@
+:root {
+  --c1: #123456;
+  --c2: #654321;
+}
+
+* {
+  border: 2px solid var(--c2);
+  color: var(--c1);
+}
+

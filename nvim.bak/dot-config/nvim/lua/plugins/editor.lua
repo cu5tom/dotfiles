@@ -1,5 +1,17 @@
 ---@type LazySpec
 return {
+  -- {
+  --   "xiyaowong/transparent.nvim",
+  --   opts = {}
+  -- },
+  -- {
+  --   "dstein64/nvim-scrollview",
+  --   opts = {},
+  -- },
+  {
+    "folke/zen-mode.nvim",
+    opts = {},
+  },
   {
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async" },
@@ -131,9 +143,9 @@ return {
       { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
     },
   },
-  {
-    "RRethy/vim-illuminate",
-  },
+  -- {
+  --   "RRethy/vim-illuminate",
+  -- },
   {
     "nanozuki/tabby.nvim",
     event = "VimEnter",

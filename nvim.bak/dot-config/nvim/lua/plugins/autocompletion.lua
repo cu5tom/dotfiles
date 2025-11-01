@@ -12,16 +12,16 @@ return {
       "rafamadriz/friendly-snippets",
       "alexandre-abrioux/blink-cmp-npm.nvim",
       "SergioRibera/cmp-dotenv",
-      "mmolhoek/cmp-scss",
+      -- "mmolhoek/cmp-scss",
       "Fildo7525/pretty_hover",
       "brenoprata10/nvim-highlight-colors",
-      {
-        "Jezda1337/nvim-html-css",
-        dependencies = {
-          "saghen/blink.cmp",
-          "nvim-treesitter/nvim-treesitter",
-        },
-      },
+      -- {
+      --   "Jezda1337/nvim-html-css",
+      --   dependencies = {
+      --     "saghen/blink.cmp",
+      --     "nvim-treesitter/nvim-treesitter",
+      --   },
+      -- },
       {
         "yus-works/csc.nvim",
         opts = {}
@@ -65,7 +65,7 @@ return {
         default = {
           "lsp",
           "snippets",
-          "scss",
+          -- "scss",
           "npm",
           "dotenv",
           "path",
@@ -99,15 +99,15 @@ return {
               only_latest_versions = false,
             },
           },
-          scss = {
-            name = "scss",
-            module = "blink.compat.source",
-            opts = {
-              folders = {
-                "./",
-              },
-            },
-          },
+          -- scss = {
+          --   name = "scss",
+          --   module = "blink.compat.source",
+          --   opts = {
+          --     folders = {
+          --       "./",
+          --     },
+          --   },
+          -- },
           dotenv = {
             name = "dotenv",
             module = "blink.compat.source",

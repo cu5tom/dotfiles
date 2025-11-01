@@ -42,7 +42,6 @@ vim.opt.title = true
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
-vim.opt.winborder = "rounded"
 vim.opt.wrap = true
 vim.opt.writebackup = false
 
@@ -55,6 +54,5 @@ vim.filetype.add({
 })
 
 vim.g.have_nerd_font = true
-vim.g.lazydev_enabled = true
--- vim.lsp.set_log_level("debug")
 
+-- vim.lsp.set_log_level("debug")

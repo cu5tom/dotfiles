@@ -1,0 +1,14 @@
+$c1: rebeccapurple;
+$c2: yellow;
+
+:root {
+  --c1: #{$c1};
+  --c2: #{$c2};
+}
+
+* {
+  background-color: var(--c1);
+  border: 2px solid var(--c2);
+  color: var(--c1);
+  background-color: red;
+}

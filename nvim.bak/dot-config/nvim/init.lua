@@ -1,7 +1,6 @@
 require("core.options")
 require("core.keymaps")
-require("core.augroups")
-require("core.config")
+require("core.snippets")
 
 local lazypath = vim.fn.stdpath("data") .. "lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -29,6 +28,5 @@ require("lazy").setup({
   },
   spec = {
     { import = "plugins" },
-    { import = "plugins.editor" },
   }
 }) ---[[@as LazyConfig]])
