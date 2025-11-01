@@ -8,6 +8,11 @@ return {
       vim.g.snacks_animate = false
     end,
     ---@type snacks.Config
-    opts = {}
+    opts = {
+      bigfile = {},
+      input = {},
+      picker = {},
+      notifier = {},
+    }
   },
 }

@@ -13,7 +13,7 @@ return {
 			require("mini.ai").setup({
 				use_nvim_treesitter = true,
 				custom_textobjects = {
-					f = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+					F = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
 					o = spec_treesitter({
 						a = { "@conditional.outer", "@loop.outer" },
 						i = { "@conditional.inner", "@loop.inner" },
@@ -22,7 +22,7 @@ return {
 						i = "@assignment.lhs",
 						a = "@assignment.rhs",
 					}),
-					a = spec_treesitter({
+					A = spec_treesitter({
 						i = "@attribute.inner",
 						a = "@attribute.outer",
 					}),
@@ -58,6 +58,15 @@ return {
 			require("mini.surround").setup()
 
 			require("mini.tabline").setup()
+		end,
+	},
+	{
+		"brenoprata10/nvim-highlight-colors",
+		config = function()
+			vim.o.termguicolors = true
+			require("nvim-highlight-colors").setup({
+				render = "virtual",
+			})
 		end,
 	},
 	{
@@ -145,6 +154,10 @@ return {
 		config = function()
 			local comment = require("Comment")
 			local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
+
+			local ft = require("Comment.ft")
+			ft.set({ "javascript", "typescript" }, { "//%s", "/*%s*/" })
+			ft.set("html", "<!--%s-->")
 
 			comment.setup({
 				pre_hook = ts_context_commentstring.create_pre_hook(),

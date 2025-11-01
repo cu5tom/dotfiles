@@ -1,8 +1,9 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     branch = "main",
-    event = { "BufReadPre", "BufNewFile" },
+    -- event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
     },
@@ -25,7 +26,6 @@ return {
           "go",
           "html",
           "javascript",
-          "javascriptreact",
           "json",
           "lua",
           "markdown",
@@ -38,7 +38,6 @@ return {
           "tsx",
           "twig",
           "typescript",
-          "typescriptreact",
           "vim",
           "vimdoc",
           "vue",
@@ -52,11 +51,10 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    event = { "BufReadPre", "BufNewFile" },
+    branch = "main",
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
-    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("treesitter-context").setup()
     end,

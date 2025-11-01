@@ -9,12 +9,26 @@ return {
 			},
 		},
 	},
+  {
+    "antosha417/nvim-lsp-file-operations",
+    config = {},
+  },
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+      {
+        "j-hui/fidget.nvim",
+        opts = {
+          notification = {
+            window = {
+              winblend = 0,
+            },
+          },
+        },
+      },
 		},
 		config = function()
 			local lspUtil = require("lspconfig.util")
@@ -194,7 +208,7 @@ return {
 
 			for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
 				if not vim.tbl_isempty(config) then
-					config.capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {})
+					config.capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 					config.capabilities.textDocument = config.capabilities.textDocument or {}
 					config.capabilities.textDocument.publishDiagnostics = {
 						relatedInformation = true,
