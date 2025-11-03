@@ -208,7 +208,8 @@ return {
 
 			for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
 				if not vim.tbl_isempty(config) then
-					config.capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+				  local capabilities = config.capabilities or {}
+					config.capabilities = require("blink.cmp").get_lsp_capabilities(vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), capabilities))
 					config.capabilities.textDocument = config.capabilities.textDocument or {}
 					config.capabilities.textDocument.publishDiagnostics = {
 						relatedInformation = true,
