@@ -8,6 +8,9 @@ vim.keymap.set({ "n", "x" }, "s", "<Nop>")
 
 local opts = { noremap = true, silent = true }
 
+vim.keymap.set("i", "jj", "<Esc>", opts)
+vim.keymap.set("i", "jk", "<Esc>", opts)
+
 -- Clear highlights
 vim.keymap.set("n", "<Esc>", ":noh<CR>", opts)
 
