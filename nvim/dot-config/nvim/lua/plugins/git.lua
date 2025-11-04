@@ -1,5 +1,14 @@
 return {
   {
+    "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
+    event = { "BufReadPre", "BufNewFile" },
+    ft = { "javascript", "typescript", "vue" },
+    cond = function ()
+      return vim.env.GITLAB_TOKEN ~= nil and vim.env.GITLAB_TOKEN ~= ""
+    end,
+    opts = {}
+  },
+  {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",
