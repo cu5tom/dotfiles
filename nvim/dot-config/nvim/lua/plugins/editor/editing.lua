@@ -1,26 +1,26 @@
 return {
-  {
-    "tris203/precognition.nvim",
-    event = "VeryLazy",
-    opts = {}
-  },
-  {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    }
-  },
+	{
+		"tris203/precognition.nvim",
+		event = "VeryLazy",
+		opts = {},
+	},
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
+	},
 	{
 		"nvim-mini/mini.nvim",
 		dependencies = {
@@ -74,6 +74,22 @@ return {
 			require("mini.operators").setup()
 
 			require("mini.pairs").setup()
+
+			local load_temp_rg = function(fn)
+				local rg_env = "RIPGREP_CONFIG_PATH"
+				local cached_rg_config = vim.uv.os_getenv(rg_env) or ""
+
+				vim.uv.os_setenv(rg_env, vim.fn.stdpath("config") .. "/.rg")
+				fn()
+				vim.uv.os_setenv(rg_env, cached_rg_config)
+			end
+
+			local pick = require("mini.pick")
+			pick.registry.gl = function()
+				load_temp_rg(function()
+					pick.builtin.grep_live({ tool = "rg" })
+				end)
+			end
 
 			require("mini.pick").setup()
 
