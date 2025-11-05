@@ -1,4 +1,7 @@
 --hidden
---glob=!.git/*
+--glob
+!.git/*
+--glob
+!.jj/*
 --smart-case
 --no-ignore
