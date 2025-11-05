@@ -51,11 +51,11 @@ return {
 
         map("n", "<leader>gB", function() gitsigns.blame_line { full = true } end, { desc = "Blame Line" })
 
-        -- map("n", "<leader>hd", gitsigns.diffthis, { desc = "Diff this" })
-        -- map("n", "<leader>hD", function() gitsigns.diffthis "~" end, { desc = "Diff this ~" })
+        map("n", "<leader>gd", gitsigns.diffthis, { desc = "Diff this" })
+        map("n", "<leader>gD", function() gitsigns.diffthis "~" end, { desc = "Diff this ~" })
 
-        map("n", "<leader>hQ", function() gitsigns.setqflist "all" end, { desc = "Set QFList all" })
-        map("n", "<leader>hq", gitsigns.setqflist, { desc = "Set QFList" })
+        map("n", "<leader>gQ", function() gitsigns.setqflist "all" end, { desc = "Set QFList all" })
+        map("n", "<leader>gq", gitsigns.setqflist, { desc = "Set QFList" })
 
         map("n", "<leader>gb", gitsigns.toggle_current_line_blame, { desc = "Toggle Current Line Blame" })
         -- map("n", "<leader>htw", gitsigns.toggle_word_diff, { desc = "Toggle Word Diff" })
