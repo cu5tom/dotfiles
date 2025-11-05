@@ -1,9 +1,9 @@
 return {
-	{
-		"tris203/precognition.nvim",
-		event = "VeryLazy",
-		opts = {},
-	},
+	-- {
+	-- 	"tris203/precognition.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- },
 	{
 		"christoomey/vim-tmux-navigator",
 		cmd = {
@@ -161,10 +161,10 @@ return {
 			},
 		},
 	},
-	{
-		"folke/zen-mode.nvim",
-		opts = {},
-	},
+	-- {
+	-- 	"folke/zen-mode.nvim",
+	-- 	opts = {},
+	-- },
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = { "kevinhwang91/promise-async" },
