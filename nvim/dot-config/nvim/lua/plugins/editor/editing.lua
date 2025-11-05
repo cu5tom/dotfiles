@@ -99,6 +99,11 @@ return {
 		end,
 	},
 	{
+	  "chentoast/marks.nvim",
+	  event = "VeryLazy",
+	  opts = {}
+	},
+	{
 		"brenoprata10/nvim-highlight-colors",
 		config = function()
 			vim.o.termguicolors = true
