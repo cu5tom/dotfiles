@@ -60,7 +60,7 @@ return {
                 local bufnr = MiniPick.get_picker_matches().current.bufnr
                 vim.api.nvim_buf_delete(bufnr, {})
                 vim.notify("Deleted buffer " .. bufnr, vim.log.levels.INFO)
-                MiniPick.refresh()
+                MiniPick.builtin.buffers()
               end
             }
           }
@@ -72,6 +72,7 @@ return {
       nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep live")
       nmap_leader("sG", "<Cmd>Pick grep pattern='<cword>'<CR>", "Grep current word")
       nmap_leader("sr", "<Cmd>Pick resume<CR>", "Resume")
+      nmap_leader("sh", "<Cmd>Pick help<CR>", "Help")
 
       nmap_leader("xd", "<Cmd>Pick diagnostic scope='all'<CR>", "Diagnostic workspace")
       nmap_leader("xD", "<Cmd>Pick diagnostic scope='current'<CR>", "Diagnostic buffer")
