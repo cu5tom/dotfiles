@@ -46,7 +46,7 @@ vim.opt.winborder = "rounded"
 vim.opt.wrap = true
 vim.opt.writebackup = false
 
-vim.wo.signcolumn = "auto:3"
+vim.wo.signcolumn = "yes:3"
 
 vim.filetype.add({
   extension = {
