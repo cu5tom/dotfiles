@@ -95,7 +95,12 @@ return {
 
 			require("mini.surround").setup()
 
-			require("mini.tabline").setup()
+			require("mini.tabline").setup({
+			  format = function (bufnr, label)
+			    local suffix = vim.bo[bufnr].modified and "+ " or "[" .. bufnr .. "]"
+			    return MiniTabline.default_format(bufnr, label) .. suffix
+			  end
+			})
 		end,
 	},
 	{
