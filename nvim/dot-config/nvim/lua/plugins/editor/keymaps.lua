@@ -33,6 +33,7 @@ return {
         { "<leader>d", group = "Debug" },
         { "<leader>f", group = "Find/Files" },
         { "<leader>g", group = "Git", mode = { "n", "v" } },
+        { "<leader>h", group = "Help"},
         { "<leader>s", group = "Search"},
         { "<leader>u", group = "UI" },
         { "<leader>x", group = "Diagnostics" },
@@ -55,6 +56,11 @@ return {
 
       nmap_leader("ff", "<Cmd>Pick files<CR>", "Files")
       nmap_leader("fk", "<Cmd>Pick keymaps<CR>", "Keymaps")
+
+      nmap_leader("hh", "<Cmd>lua Snacks.picker.help()<CR>", "Help pages")
+      nmap_leader("hm", "<Cmd>lua Snacks.picker.man()<CR>", "Man pages")
+
+      nmap_leader("n", "<Cmd>lua Snacks.picker.notifications()<CR>", "Notification history")
 
       nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep live")
       nmap_leader("sG", "<Cmd>Pick grep pattern='<cword>'<CR>", "Grep current word")
