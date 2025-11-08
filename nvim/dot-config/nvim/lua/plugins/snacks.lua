@@ -9,10 +9,11 @@ return {
     end,
     ---@type snacks.Config
     opts = {
-      bigfile = {},
-      input = {},
-      picker = {},
-      notifier = {},
+      bigfile = { enabled = true },
+      input = { enabled = true },
+      lazygit = { enabled = true },
+      picker = { enabled = true },
+      notifier = { enabled = true },
     }
   },
 }
