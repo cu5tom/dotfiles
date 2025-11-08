@@ -51,21 +51,8 @@ return {
       nmap_leader("cR", "<Cmd>Pick lsp scope='references'<CR>", "References")
       nmap_leader("ct", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition")
 
-      nmap_leader("fb", function()
-        MiniPick.builtin.buffers({}, {
-          mappings = {
-            wipeout = {
-              char = "<C-d>",
-              func = function()
-                local bufnr = MiniPick.get_picker_matches().current.bufnr
-                vim.api.nvim_buf_delete(bufnr, {})
-                vim.notify("Deleted buffer " .. bufnr, vim.log.levels.INFO)
-                MiniPick.builtin.buffers()
-              end
-            }
-          }
-        })
-      end, "Buffers")
+      nmap_leader("fb", "<Cmd>Pick buffers<CR>", "Buffers")
+
       nmap_leader("ff", "<Cmd>Pick files<CR>", "Files")
       nmap_leader("fk", "<Cmd>Pick keymaps<CR>", "Keymaps")
 

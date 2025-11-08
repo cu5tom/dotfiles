@@ -84,29 +84,65 @@ return {
 				vim.uv.os_setenv(rg_env, cached_rg_config)
 			end
 
-			local pick = require("mini.pick")
-			pick.registry.gl = function()
-				load_temp_rg(function()
-					pick.builtin.grep_live({ tool = "rg" })
-				end)
-			end
-
 			require("mini.pick").setup()
+
+			MiniPick.registry.buffers = function()
+				local ns_id = vim.api.nvim_create_namespace("pick-buffers")
+
+				local show = function(buf_id, items_to_show, query)
+					MiniPick.default_show(buf_id, items_to_show, query, { show_icons = true })
+
+					vim.api.nvim_buf_clear_namespace(buf_id, ns_id, 0, -1)
+					local opts = { virt_text = { { "[+]", "Special" } }, virt_text_pos = "inline" }
+					for i, item in ipairs(items_to_show) do
+						if vim.bo[item.bufnr].modified then
+							vim.api.nvim_buf_set_extmark(buf_id, ns_id, i - 1, 0, opts)
+						end
+					end
+				end
+
+				MiniPick.builtin.buffers(nil, {
+					mappings = {
+						wipeout = {
+							char = "<C-d>",
+							func = function()
+								local items = MiniPick.get_picker_items()
+								if not items then
+									return
+								end
+
+								local bufnr = MiniPick.get_picker_matches().current.bufnr
+								vim.api.nvim_buf_delete(bufnr, {})
+								for i, item in ipairs(items) do
+									if item.bufnr and item.bufnr == bufnr then
+										items[i] = nil
+									end
+								end
+
+								MiniPick.set_picker_items(items)
+
+								vim.notify("Deleted buffer " .. bufnr, vim.log.levels.INFO)
+							end,
+						},
+					},
+					source = { show = show },
+				})
+			end
 
 			require("mini.surround").setup()
 
 			require("mini.tabline").setup({
-			  format = function (bufnr, label)
-			    local suffix = vim.bo[bufnr].modified and "+ " or "[" .. bufnr .. "]"
-			    return MiniTabline.default_format(bufnr, label) .. suffix
-			  end
+				format = function(bufnr, label)
+					local suffix = vim.bo[bufnr].modified and "[+]" or "[" .. bufnr .. "]"
+					return MiniTabline.default_format(bufnr, label) .. suffix
+				end,
 			})
 		end,
 	},
 	{
-	  "chentoast/marks.nvim",
-	  event = "VeryLazy",
-	  opts = {}
+		"chentoast/marks.nvim",
+		event = "VeryLazy",
+		opts = {},
 	},
 	{
 		"brenoprata10/nvim-highlight-colors",
