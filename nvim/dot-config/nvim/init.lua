@@ -33,3 +33,10 @@ require("lazy").setup({
 		{ import = "plugins.editor" },
 	},
 }) ---[[@as LazyConfig]])
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "typescript", "vue" },
+	callback = function()
+		vim.treesitter.start()
+	end,
+})

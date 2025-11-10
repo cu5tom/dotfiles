@@ -3,7 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     branch = "main",
-    -- event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
     },
@@ -11,38 +11,38 @@ return {
       vim.wo.foldlevel = 99
       vim.wo.foldmethod = "expr"
       vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
     config = function()
       local treesitter = require "nvim-treesitter"
+      treesitter.install({
+        "bash",
+        "comment",
+        "css",
+        "dockerfile",
+        "gitignore",
+        "go",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "query",
+        "regex",
+        "scss",
+        "sql",
+        "toml",
+        "tsx",
+        "twig",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "vue",
+        "yaml",
+      })
 
       treesitter.setup {
-        auto_install = true,
-        ensure_installed = {
-          "bash",
-          "comment",
-          "css",
-          "dockerfile",
-          "gitignore",
-          "go",
-          "html",
-          "javascript",
-          "json",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "query",
-          "regex",
-          "scss",
-          "sql",
-          "toml",
-          "tsx",
-          "twig",
-          "typescript",
-          "vim",
-          "vimdoc",
-          "vue",
-          "yaml",
-        },
         highlight = {
           enable = true,
         },
