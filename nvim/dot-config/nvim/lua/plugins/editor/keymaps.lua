@@ -42,6 +42,7 @@ return {
       local utils = require("core.utils")
       local nmap_leader = utils.nmap_leader
 
+      nmap_leader("ba", ":bufdo bwipeout<CR>", "Delete all")
       nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
       nmap_leader("bD", "<Cmd>lua MiniBufremove.delete(0, true)<CR>", "Delete!")
 
