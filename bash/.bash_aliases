@@ -20,3 +20,5 @@ alias gb='git checkout -b'
 alias gc='git commit'
 alias gp='git pull'
 alias gP='git push'
+
+alias composer='php ~/.local/bin/composer.phar'
