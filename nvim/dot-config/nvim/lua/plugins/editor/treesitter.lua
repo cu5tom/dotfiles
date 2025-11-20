@@ -23,6 +23,7 @@ return {
         "gitignore",
         "go",
         "html",
+        "htmldjango",
         "javascript",
         "json",
         "lua",
