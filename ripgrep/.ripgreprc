@@ -1,7 +1,8 @@
---hidden
 --glob
 !.git/*
 --glob
 !.jj/*
+--glob
+!node_modules
 --smart-case
 --no-ignore
