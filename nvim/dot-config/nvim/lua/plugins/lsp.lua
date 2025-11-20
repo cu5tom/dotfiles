@@ -142,7 +142,9 @@ return {
 					marksman = {},
 					mdx_analyzer = {},
 					oxlint = {},
-					phpactor = {},
+					phpactor = {
+					  filetypes = { "php", "phtml" },
+					},
 					prettierd = {},
 					somesass_ls = {
 						filetypes = { "sass", "scss", "less", "css" },
