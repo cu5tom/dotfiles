@@ -1,1 +1,1 @@
-export EDITOR="/usr/local/bin/nvim"
+export EDITOR=nvim
