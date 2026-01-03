@@ -9,69 +9,55 @@ return {
 			},
 		},
 	},
-  {
-    "antosha417/nvim-lsp-file-operations",
-    config = {},
-  },
+	{
+		"antosha417/nvim-lsp-file-operations",
+		config = {},
+	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-      {
-        "j-hui/fidget.nvim",
-        opts = {
-          notification = {
-            window = {
-              winblend = 0,
-            },
-          },
-        },
-      },
+			{
+				"j-hui/fidget.nvim",
+				opts = {
+					notification = {
+						window = {
+							winblend = 0,
+						},
+					},
+				},
+			},
 		},
 		config = function()
 			local lspUtil = require("lspconfig.util")
 
 			vim.diagnostic.config({
+				float = false,
 				severity_sort = true,
-				update_in_insert = false,
-				float = {
-					border = "rounded",
-					source = "if_many",
-				},
-				underline = {
-					severity = vim.diagnostic.severity.ERROR,
-				},
 				signs = vim.g.have_nerd_font and {
 					text = {
 						[vim.diagnostic.severity.ERROR] = " ",
 						[vim.diagnostic.severity.WARN] = " ",
 						[vim.diagnostic.severity.INFO] = " ",
-						[vim.diagnostic.severity.HINT] = " ",
+						[vim.diagnostic.severity.HINT] = "󰌶 ",
 					},
 				} or {},
-				virtual_lines = false,
-				virtual_text = {
-					current_line = true,
-					source = "if_many",
-					spacing = 4,
-					format = function(diagnostic)
-						local diagnostic_message = {
-							[vim.diagnostic.severity.ERROR] = diagnostic.message,
-							[vim.diagnostic.severity.WARN] = diagnostic.message,
-							[vim.diagnostic.severity.INFO] = diagnostic.message,
-							[vim.diagnostic.severity.HINT] = diagnostic.message,
-						}
-
-						return diagnostic_message[diagnostic.severity]
-					end,
+				underline = {
+					severity = vim.diagnostic.severity.ERROR,
 				},
+				update_in_insert = false,
+				virtual_lines = {
+					current_line = true,
+				},
+				virtual_text = false,
 			})
 
 			local ensure_installed_dependend_servers = {
 				"vue_ls",
 			}
+
 			---@class LspServersConfig
 			---@field mason table<string, vim.lsp.Config>
 			---@field others table<string, vim.lsp.Config>
@@ -84,20 +70,21 @@ return {
 					ast_grep = {},
 					biome = {},
 					css_variables = {
-					  capabilities = {
-					    textDocument = {
-					      completion = {
-					        completionItem = {
-					          snippetSupport = true
-					        }
-					      }
-					    }
-					  }
+						capabilities = {
+							textDocument = {
+								completion = {
+									completionItem = {
+										snippetSupport = true,
+									},
+								},
+							},
+						},
 					},
 					emmet_ls = {},
 					html = {
-						filetypes = { "html", "njk" },
+						filetypes = { "html", "njk", "phtml" },
 					},
+					gopls = {},
 					jsonls = {
 						settings = {
 							json = {
@@ -120,22 +107,20 @@ return {
 						end,
 						settings = {
 							Lua = {
-								runtime = {
-									version = "LuaJIT" --[[ "Lua 5.1" ]],
-									path = vim.split(package.path, ";"),
-								},
+								-- runtime = {
+								-- 	version = "LuaJIT" --[[ "Lua 5.1" ]],
+								-- 	path = vim.split(package.path, ";"),
+								-- },
 								telemetry = { enable = false },
 								diagnostics = {
 									disable = { "missing-fields" },
 									globals = { "after_each", "before_each", "describe", "it", "require", "vim" },
 								},
 								workspace = {
-									ignoreSubmodules = true,
-									library = { vim.env.VIMRUNTIME },
-									checkThirdParty = false,
+									library = vim.api.nvim_get_runtime_file("", true),
 								},
-								format = { enable = false },
-								hint = { enable = true, setType = true },
+								-- format = { enable = false },
+								-- hint = { enable = true, setType = true },
 							},
 						},
 					},
@@ -143,7 +128,7 @@ return {
 					mdx_analyzer = {},
 					oxlint = {},
 					phpactor = {
-					  filetypes = { "php", "phtml" },
+						filetypes = { "php", "phtml" },
 					},
 					prettierd = {},
 					somesass_ls = {
@@ -151,10 +136,9 @@ return {
 					},
 					stylua = {},
 					tailwindcss = {
-					  root_dir = function (file)
-					    local util = require("lspconfig.util")
-					    return util.root_pattern("tailwind.config.js", "tailwind.config.ts")(file)
-					  end
+						-- root_dir = function (file)
+						--   return lspUtil.root_pattern("tailwind.config.js", "tailwind.config.ts")(file)
+						-- end
 					},
 					ts_ls = {
 						init_options = {
@@ -173,7 +157,6 @@ return {
 							"javascript.jsx",
 							"typescript",
 							"typescriptreact",
-							"typescript.tsx",
 							"vue",
 						},
 						settings = {
@@ -210,8 +193,10 @@ return {
 
 			for server, config in pairs(vim.tbl_extend("keep", servers.mason, servers.others)) do
 				if not vim.tbl_isempty(config) then
-				  local capabilities = config.capabilities or {}
-					config.capabilities = require("blink.cmp").get_lsp_capabilities(vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), capabilities))
+					local capabilities = config.capabilities or {}
+					config.capabilities = require("blink.cmp").get_lsp_capabilities(
+						vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), capabilities)
+					)
 					config.capabilities.textDocument = config.capabilities.textDocument or {}
 					config.capabilities.textDocument.publishDiagnostics = {
 						relatedInformation = true,
