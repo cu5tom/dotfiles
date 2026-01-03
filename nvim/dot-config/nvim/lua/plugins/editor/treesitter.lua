@@ -1,66 +1,88 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    lazy = false,
-    branch = "main",
-    event = { "BufReadPre", "BufNewFile" },
-    build = ":TSUpdate",
-    dependencies = {
-    },
-    init = function ()
-      vim.wo.foldlevel = 99
-      vim.wo.foldmethod = "expr"
-      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    end,
-    config = function()
-      local treesitter = require "nvim-treesitter"
-      treesitter.install({
-        "bash",
-        "comment",
-        "css",
-        "dockerfile",
-        "gitignore",
-        "go",
-        "html",
-        "htmldjango",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "php",
-        "phpdoc",
-        "query",
-        "regex",
-        "scss",
-        "sql",
-        "toml",
-        "tsx",
-        "twig",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "vue",
-        "yaml",
-      })
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
+		event = { "BufReadPre", "BufNewFile" },
+		build = ":TSUpdate",
+		dependencies = {},
+		init = function()
+			vim.wo.foldlevel = 99
+			vim.wo.foldmethod = "expr"
+			vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end,
+		-- opts = {
+		-- 	highlight = {
+		-- 		enable = true,
+		-- 	},
+		-- 	incremental_selection = {
+		-- 		enable = true,
+		-- 		keymaps = {
+		-- 			init_selection = "<M-space>",
+		-- 			node_incremental = "<M-space>",
+		-- 			scope_incremental = false,
+		-- 			node_decremental = "<Backspace>",
+		-- 		},
+		-- 	},
+		-- },
+		config = function()
+			local treesitter = require("nvim-treesitter")
 
-      treesitter.setup {
-        highlight = {
-          enable = true,
-        },
-      }
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    branch = "main",
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    config = function()
-      require("treesitter-context").setup()
-    end,
-  },
+			-- treesitter.setup({
+			-- 	highlight = {
+			-- 		enable = true,
+			-- 	},
+			-- 	incremental_selection = {
+			-- 		enable = true,
+			-- 		keymaps = {
+			-- 			init_selection = "<M-space>",
+			-- 			node_incremental = "<M-space>",
+			-- 			scope_incremental = false,
+			-- 			node_decremental = "<Backspace>",
+			-- 		},
+			-- 	},
+			-- })
+
+			treesitter.install({
+				"bash",
+				"comment",
+				"css",
+				"dockerfile",
+				"gitignore",
+				"go",
+				"html",
+				"htmldjango",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"php",
+				"phpdoc",
+				"query",
+				"regex",
+				"scss",
+				"sql",
+				"toml",
+				"tsx",
+				"twig",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"vue",
+				"yaml",
+			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		config = function()
+			require("treesitter-context").setup()
+		end,
+	},
 }
-
