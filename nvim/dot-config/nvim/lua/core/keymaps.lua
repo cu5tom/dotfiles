@@ -27,6 +27,23 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", opts)
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
 
+-- Disable arrow keys
+local modes = { "n", "i", "o", "v", "t", "s", "x" }
+local keys = { "<Up>", "<Down>", "<Left>", "<Right>" }
+
+for _, mode in ipairs(modes) do
+  for _, key in ipairs(keys) do
+    vim.keymap.set(mode, key, "<Nop>", opts)
+  end
+end
+
+local enabledModes = { "c", "i", "o", "t", "s", "x" }
+for _, mode in ipairs(modes) do
+  vim.keymap.set(mode, "<A-h>", "<Left>", opts)
+  vim.keymap.set(mode, "<A-j>", "<Down>", opts)
+  vim.keymap.set(mode, "<A-k>", "<Up>", opts)
+  vim.keymap.set(mode, "<A-l>", "<Right>", opts)
+end
 
 -- Resize window (respecting `v:count`)
 vim.keymap.set(
