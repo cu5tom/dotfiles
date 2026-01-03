@@ -11,6 +11,11 @@ return {
             types = "italic,bold",
           }
         },
+        palettes = {
+          nordfox = {
+            comment = "#71839b",
+          }
+        },
         specs = {
           nordfox = {
             syntax = {
