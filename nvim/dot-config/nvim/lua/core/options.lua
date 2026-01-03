@@ -1,7 +1,12 @@
+vim.g.have_nerd_font = true
+vim.g.lazydev_enabled = true
+
 vim.opt.autoindent = true
 vim.opt.backspace = vim.list_extend(vim.opt.backspace:get(), { "nostop" })
 vim.opt.breakindent = true
-vim.opt.clipboard = "unnamedplus"
+vim.schedule(function ()
+  vim.opt.clipboard = "unnamedplus"
+end)
 vim.opt.cmdheight = 1
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.confirm = true
@@ -21,6 +26,8 @@ vim.opt.iskeyword:append("-", "$", "@", "_")
 vim.opt.jumpoptions = {}
 vim.opt.laststatus = 3
 vim.opt.linebreak = true
+vim.opt.list = true
+vim.opt.listchars = { tab = "󰄾 ", trail = ".", nbsp = "󱁐" }
 vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.preserveindent = true
@@ -32,9 +39,13 @@ vim.opt.sessionoptions = "buffers,curdir,folds,globals,help,localoptions,tabpage
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })
+vim.opt.showmode = false
 vim.opt.showtabline = 2
+vim.opt.signcolumn = "yes:3"
 vim.opt.smartcase = true
-vim.opt.softtabstop = 4
+vim.opt.softtabstop = 2
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 300
@@ -46,15 +57,10 @@ vim.opt.winborder = "rounded"
 vim.opt.wrap = true
 vim.opt.writebackup = false
 
-vim.wo.signcolumn = "yes:3"
 
 vim.filetype.add({
   extension = {
     njk = "html",
   }
 })
-
-vim.g.have_nerd_font = true
-vim.g.lazydev_enabled = true
--- vim.lsp.set_log_level("debug")
 
