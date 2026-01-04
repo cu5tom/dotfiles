@@ -11,7 +11,7 @@ return {
 		dependencies = {
 			"L3MON4D3/LuaSnip",
 			"rafamadriz/friendly-snippets",
-      "SergioRibera/cmp-dotenv",
+			"SergioRibera/cmp-dotenv",
 		},
 		version = "1.*",
 		opts = {
@@ -39,11 +39,11 @@ return {
 					lua = { inherit_defaults = true, "lazydev" },
 				},
 				providers = {
-				  dotenv = {
-            name = "dotenv",
-            module = "blink.compat.source",
-            opts = {},
-				  },
+					dotenv = {
+						name = "dotenv",
+						module = "blink.compat.source",
+						opts = {},
+					},
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
