@@ -82,8 +82,8 @@ vim.keymap.set("n", "N", "Nzz", opts)
 -- Indenting
 -- vim.keymap.set("v", "<", "<gv", opts)
 -- vim.keymap.set("v", ">", ">gv", opts)
-vim.keymap.set("v", "<M-Left>", "<gv", opts)
-vim.keymap.set("v", "<M-Right>", ">gv", opts)
+-- vim.keymap.set("v", "<M-Left>", "<gv", opts)
+-- vim.keymap.set("v", "<M-Right>", ">gv", opts)
 
 -- Keep last yanked when pasting
 vim.keymap.set("v", "p", '"_dP')
