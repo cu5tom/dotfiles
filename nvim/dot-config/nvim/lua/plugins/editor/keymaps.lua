@@ -54,7 +54,6 @@ return {
       nmap_leader("ct", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition")
 
       nmap_leader("fb", "<Cmd>Pick buffers<CR>", "Buffers")
-
       nmap_leader("ff", "<Cmd>Pick files<CR>", "Files")
       nmap_leader("fk", "<Cmd>Pick keymaps<CR>", "Keymaps")
 
@@ -63,8 +62,10 @@ return {
 
       nmap_leader("n", "<Cmd>lua Snacks.picker.notifications()<CR>", "Notification history")
 
-      nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep live")
-      nmap_leader("sG", "<Cmd>Pick grep pattern='<cword>'<CR>", "Grep current word")
+      -- nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep live")
+      nmap_leader("sg", "<Cmd>lua Snacks.picker.grep()<CR>", "Grep live")
+      -- nmap_leader("sG", "<Cmd>Pick grep pattern='<cword>'<CR>", "Grep current word")
+      nmap_leader("sG", "<Cmd>lua Snacks.picker.grep_word()<CR>", "Grep current word")
       nmap_leader("sr", "<Cmd>Pick resume<CR>", "Resume")
       nmap_leader("sh", "<Cmd>Pick help<CR>", "Help")
 
