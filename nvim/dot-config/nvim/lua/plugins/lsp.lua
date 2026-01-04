@@ -107,10 +107,9 @@ return {
 						end,
 						settings = {
 							Lua = {
-								-- runtime = {
-								-- 	version = "LuaJIT" --[[ "Lua 5.1" ]],
-								-- 	path = vim.split(package.path, ";"),
-								-- },
+								runtime = {
+									version = "LuaJIT" --[[ "Lua 5.1" ]],
+								},
 								telemetry = { enable = false },
 								diagnostics = {
 									disable = { "missing-fields" },
@@ -119,8 +118,6 @@ return {
 								workspace = {
 									library = vim.api.nvim_get_runtime_file("", true),
 								},
-								-- format = { enable = false },
-								-- hint = { enable = true, setType = true },
 							},
 						},
 					},
