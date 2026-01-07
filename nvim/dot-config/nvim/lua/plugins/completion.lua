@@ -9,7 +9,6 @@ return {
 		"saghen/blink.cmp",
 		event = "InsertEnter",
 		dependencies = {
-			"L3MON4D3/LuaSnip",
 			"rafamadriz/friendly-snippets",
 			"SergioRibera/cmp-dotenv",
 		},
@@ -67,7 +66,7 @@ return {
 					treesitter_highlighting = true,
 				},
 			},
-			snippets = { preset = "luasnip" },
+			snippets = { },
 			term = {
 				enabled = true,
 				keymap = { preset = "inherit" },
