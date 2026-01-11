@@ -21,6 +21,8 @@ return {
 				css = { "prettierd" },
 				javascript = { "biome" },
 				lua = { "stylua" },
+				php = { "php-cs-fixer" },
+				phtml = { "php-cs-fixer" },
 				scss = { "prettierd" },
 				sass = { "prettierd" },
 				typescript = { "biome" },

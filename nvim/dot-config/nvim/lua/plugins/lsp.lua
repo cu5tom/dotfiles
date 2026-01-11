@@ -127,6 +127,7 @@ return {
 					phpactor = {
 						filetypes = { "php", "phtml" },
 					},
+					["php-cs-fixer"] = {},
 					prettierd = {},
 					somesass_ls = {
 						filetypes = { "sass", "scss", "less", "css" },
