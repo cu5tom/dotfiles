@@ -59,15 +59,15 @@ return {
 
          -- Custom prompts for dotfiles/config
          { mode = { "n", "x" }, lhs = "<leader>oda", rhs = function() opencode.prompt "dotfiles_audit" end, desc = "Audit dotfiles" },
-         { mode = { "n", "x" }, lhs = "<leader>oco", rhs = function() opencode.prompt "config_optimize" end, desc = "Optimize config" },
-         { mode = { "n", "x" }, lhs = "<leader>osh", rhs = function() opencode.prompt "shell_improve" end, desc = "Improve shell script" },
+         -- { mode = { "n", "x" }, lhs = "<leader>oco", rhs = function() opencode.prompt "config_optimize" end, desc = "Optimize config" },
+         -- { mode = { "n", "x" }, lhs = "<leader>osh", rhs = function() opencode.prompt "shell_improve" end, desc = "Improve shell script" },
 
          -- Development workflow prompts
          { mode = { "n", "x" }, lhs = "<leader>ogw", rhs = function() opencode.prompt "git_workflow" end, desc = "Analyze git workflow" },
-         { mode = { "n", "x" }, lhs = "<leader>ots", rhs = function() opencode.prompt "testing_strategy" end, desc = "Design testing strategy" },
+         -- { mode = { "n", "x" }, lhs = "<leader>ots", rhs = function() opencode.prompt "testing_strategy" end, desc = "Design testing strategy" },
 
          -- Code analysis prompts
-         { mode = { "n", "x" }, lhs = "<leader>osa", rhs = function() opencode.prompt "security_audit" end, desc = "Security audit" },
+         -- { mode = { "n", "x" }, lhs = "<leader>osa", rhs = function() opencode.prompt "security_audit" end, desc = "Security audit" },
          { mode = { "n", "x" }, lhs = "<leader>opp", rhs = function() opencode.prompt "performance_profile" end, desc = "Performance analysis" },
 
          -- Session management
