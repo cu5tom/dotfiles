@@ -105,7 +105,7 @@ return {
 					},
 					max_items = 50,
 				},
-				accept = { auto_brackets = { enabled = false } },
+				accept = { auto_brackets = { enabled = true } },
 				keyword = { range = "full" },
 				trigger = {
 					show_in_snippet = true,

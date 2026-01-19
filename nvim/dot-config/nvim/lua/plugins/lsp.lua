@@ -16,6 +16,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
+			"b0o/SchemaStore.nvim",
 			{ "mason-org/mason.nvim", opts = {} },
 			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -67,37 +68,30 @@ return {
 						root_dir = lspUtil.root_pattern("angular.json"),
 						root_markers = { "angular.json", "nx.json" },
 					},
-					ast_grep = {},
+					-- ast_grep = {},
 					biome = {},
 					css_variables = {
-						capabilities = {
-							textDocument = {
-								completion = {
-									completionItem = {
-										snippetSupport = true,
-									},
-								},
-							},
-						},
+						-- capabilities = {
+						-- 	textDocument = {
+						-- 		completion = {
+						-- 			completionItem = {
+						-- 				snippetSupport = true,
+						-- 			},
+						-- 		},
+						-- 	},
+						-- },
 					},
+					-- cssls = {},
 					emmet_ls = {},
 					html = {
-						filetypes = { "html", "njk", "phtml" },
+						filetypes = { "html", "phtml" },
 					},
 					gopls = {},
 					jsonls = {
 						settings = {
 							json = {
-								schemas = {
-									{
-										fileMatch = { "package.json" },
-										url = "https://json.schemastore.org/package.json",
-									},
-									{
-										fileMatch = { "tsconfig.json" },
-										url = "https://json.schemastore.org/tsconfig.json",
-									},
-								},
+								schemas = require("schemastore").json.schemas(),
+								validate = { enable = true },
 							},
 						},
 					},
@@ -134,9 +128,7 @@ return {
 					},
 					stylua = {},
 					tailwindcss = {
-						-- root_dir = function (file)
-						--   return lspUtil.root_pattern("tailwind.config.js", "tailwind.config.ts")(file)
-						-- end
+						root_dir = lspUtil.root_pattern("tailwind.config.js", "tailwind.config.ts"),
 					},
 					ts_ls = {
 						init_options = {
@@ -213,6 +205,20 @@ return {
 			if not vim.tbl_isempty(servers.others) then
 				vim.lsp.enable(vim.tbl_keys(servers.others))
 			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "html", "phtml" },
+				callback = function()
+					require("otter").activate()
+				end,
+			})
 		end,
+	},
+	{
+		"jmbuhr/otter.nvim",
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter", branch = "main" },
+		},
+		opts = {},
 	},
 }
