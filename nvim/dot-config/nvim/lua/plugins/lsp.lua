@@ -207,7 +207,7 @@ return {
 			end
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "html", "markdown", "phtml" },
+				pattern = { "html", "markdown", "php" },
 				callback = function()
 					require("otter").activate()
 				end,
