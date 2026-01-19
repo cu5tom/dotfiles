@@ -35,7 +35,7 @@ require("lazy").setup({
 }) ---[[@as LazyConfig]])
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "javascript", "html", "php", "typescript", "vue" },
+	pattern = { "css", "javascript", "html", "markdown", "php", "scss", "typescript", "vue" },
 	callback = function()
 		vim.treesitter.start()
 		vim.wo.foldlevel = 99
