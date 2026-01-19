@@ -44,15 +44,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- syntax highlighting for dontenv files
-vim.api.nvim_create_autocmd("BufRead", {
-	group = vim.api.nvim_create_augroup("dotenv_ft", {}),
-	pattern = { ".env", ",env.*" },
-	callback = function()
-		vim.bo.filetype = "dosini"
-	end,
-})
-
 -- restore cursor to file position in previous editing session
 vim.api.nvim_create_autocmd("BufReadPost", {
 	callback = function(args)
