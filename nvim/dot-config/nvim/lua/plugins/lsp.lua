@@ -69,7 +69,6 @@ return {
 						root_markers = { "angular.json", "nx.json" },
 					},
 					-- ast_grep = {},
-					biome = {},
 					css_variables = {
 						-- capabilities = {
 						-- 	textDocument = {
@@ -117,12 +116,12 @@ return {
 					},
 					marksman = {},
 					mdx_analyzer = {},
+					oxfmt = {},
 					oxlint = {},
 					phpactor = {
 						filetypes = { "php", "phtml" },
 					},
 					["php-cs-fixer"] = {},
-					prettierd = {},
 					somesass_ls = {
 						filetypes = { "sass", "scss", "less", "css" },
 					},
