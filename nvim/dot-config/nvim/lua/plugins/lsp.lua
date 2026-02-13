@@ -49,10 +49,10 @@ return {
 					severity = vim.diagnostic.severity.ERROR,
 				},
 				update_in_insert = false,
-				virtual_lines = {
+				virtual_lines = false,
+				virtual_text = {
 					current_line = true,
 				},
-				virtual_text = false,
 			})
 
 			local ensure_installed_dependend_servers = {
