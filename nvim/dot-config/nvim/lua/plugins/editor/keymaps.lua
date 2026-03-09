@@ -41,9 +41,11 @@ return {
 
 			local utils = require("core.utils")
 			local nmap_leader = utils.nmap_leader
+			local nmap = utils.nmap
 
-			nmap_leader("ba", ":bufdo bwipeout<CR>", "Delete all")
-			nmap_leader("bd", "<Cmd>lua MiniBufremove.delete()<CR>", "Delete")
+			nmap_leader("ba", "<Cmd>lua Snacks.bufdelete.all()<CR>", "Delete all")
+			nmap_leader("bo", "<Cmd>lua Snacks.bufdelete.other()<CR>", "Delete other")
+			nmap_leader("bd", "<Cmd>lua Snacks.bufdelete.delete()<CR>", "Delete")
 			nmap_leader("bD", "<Cmd>lua MiniBufremove.delete(0, true)<CR>", "Delete!")
 
 			nmap_leader("ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", "Actions")
@@ -53,21 +55,44 @@ return {
 			nmap_leader("cR", "<Cmd>Pick lsp scope='references'<CR>", "References")
 			nmap_leader("ct", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition")
 
-			nmap_leader("fb", "<Cmd>Pick buffers<CR>", "Buffers")
-			nmap_leader("ff", "<Cmd>Pick files<CR>", "Files")
-			nmap_leader("fk", "<Cmd>Pick keymaps<CR>", "Keymaps")
+			nmap("gd", function()
+				Snacks.picker.lsp_definitions()
+			end, "Goto Definition")
+			nmap("gD", function()
+				Snacks.picker.lsp_declarations()
+			end, "Goto Declaration")
+			nmap("gI", function()
+				Snacks.picker.lsp_implementations()
+			end, "Goto Implementation")
+			nmap("gR", function()
+				Snacks.picker.lsp_references()
+			end, "References")
+			nmap("gy", function()
+				Snacks.picker.lsp_type_definitions()
+			end, "Goto T[y]pe Definition")
+
+			nmap_leader("fb", "<Cmd>lua Snacks.picker.buffers()<CR>", "Buffers")
+			nmap_leader("fc", "<Cmd>lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })<CR>", "Config Files")
+			nmap_leader("ff", "<Cmd>lua Snacks.picker.files()<CR>", "Files")
+			nmap_leader("fk", "<Cmd>lua Snacks.picker.keymaps()<CR>", "Keymaps")
 
 			nmap_leader("hh", "<Cmd>lua Snacks.picker.help()<CR>", "Help pages")
 			nmap_leader("hm", "<Cmd>lua Snacks.picker.man()<CR>", "Man pages")
 
 			nmap_leader("n", "<Cmd>lua Snacks.picker.notifications()<CR>", "Notification history")
 
-			-- nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep live")
+			nmap_leader("sb", function()
+				Snacks.picker.grep_buffers()
+			end, "Grep open Buffers")
 			nmap_leader("sg", "<Cmd>lua Snacks.picker.grep()<CR>", "Grep live")
-			-- nmap_leader("sG", "<Cmd>Pick grep pattern='<cword>'<CR>", "Grep current word")
 			nmap_leader("sG", "<Cmd>lua Snacks.picker.grep_word()<CR>", "Grep current word")
-			nmap_leader("sr", "<Cmd>Pick resume<CR>", "Resume")
-			nmap_leader("sh", "<Cmd>Pick help<CR>", "Help")
+			nmap_leader("sr", "<Cmd>lua Snacks.picker.resume()<CR>", "Resume")
+			nmap_leader("sd", function()
+				Snacks.picker.diagnostics()
+			end, "Diagnostics")
+			nmap_leader("sD", function()
+				Snacks.picker.diagnostics_buffer()
+			end, "Buffer Diagnostics")
 
 			nmap_leader("xd", "<Cmd>Pick diagnostic scope='all'<CR>", "Diagnostic workspace")
 			nmap_leader("xD", "<Cmd>Pick diagnostic scope='current'<CR>", "Diagnostic buffer")
