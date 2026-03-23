@@ -1,4 +1,5 @@
 alias fd=fdfind
+alias rmnm='find . -type d -name node_modules -prune -exec rm -rf '{}' +'
 
 # Tmux
 alias t='sesh connect $(sesh list --icons | fzf)'
