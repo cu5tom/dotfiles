@@ -8,8 +8,11 @@ return {
         options = {
           styles = {
             comments = "italic",
+            constants = "bold",
+            -- keywords = "bold",
             types = "italic,bold",
-          }
+          },
+          -- transparent = true,
         },
         palettes = {
           nordfox = {
@@ -19,8 +22,9 @@ return {
         specs = {
           nordfox = {
             syntax = {
-              builtin = "orange",
-              conditional = "magenta.bright"
+              builtin = "orange.bright",
+              conditional = "magenta.bright",
+              keyword = "magenta.bright"
             }
           }
         }
