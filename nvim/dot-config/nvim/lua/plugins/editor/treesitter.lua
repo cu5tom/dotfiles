@@ -43,7 +43,6 @@ return {
 				"sql",
 				"tmux",
 				"toml",
-				"ts_query_ls",
 				"tsx",
 				"twig",
 				"typescript",
