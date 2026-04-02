@@ -7,11 +7,12 @@ vim.diagnostic.config({
       return string.format("%s %s", code, diagnostic.message)
     end,
   },
-  underline = false,
-  update_in_insert = true,
-  float = {
-    source = true
-  },
+  underline = true,
+  update_in_insert = false,
+  float = false,
+  -- float = {
+  --   source = true
+  -- },
   on_ready = function ()
     vim.cmd "highlight DiagnosticVirtualText guibg=NONE"
   end
