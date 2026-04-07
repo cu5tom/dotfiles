@@ -64,3 +64,4 @@ vim.filetype.add({
   }
 })
 
+vim.lsp.document_color.enable(true, nil, { style = "virtual" })
