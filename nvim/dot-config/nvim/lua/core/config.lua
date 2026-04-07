@@ -1,4 +1,4 @@
-vim.highlight.priorities.semantic_tokens = 95
+vim.hl.priorities.semantic_tokens = 95
 
 vim.diagnostic.config({
   virtual_text = {
