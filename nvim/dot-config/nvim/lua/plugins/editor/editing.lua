@@ -144,15 +144,15 @@ return {
 		event = "VeryLazy",
 		opts = {},
 	},
-	{
-		"brenoprata10/nvim-highlight-colors",
-		config = function()
-			vim.o.termguicolors = true
-			require("nvim-highlight-colors").setup({
-				render = "virtual",
-			})
-		end,
-	},
+	-- {
+	-- 	"brenoprata10/nvim-highlight-colors",
+	-- 	config = function()
+	-- 		vim.o.termguicolors = true
+	-- 		require("nvim-highlight-colors").setup({
+	-- 			render = "virtual",
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
