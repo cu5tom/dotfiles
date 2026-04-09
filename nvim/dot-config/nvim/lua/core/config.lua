@@ -18,3 +18,4 @@ vim.diagnostic.config({
   end
 })
 
+require("vim._core.ui2").enable({})
