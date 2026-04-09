@@ -1,1 +1,3 @@
 import = ["~/.sesh.toml"]
+
+cache = false
