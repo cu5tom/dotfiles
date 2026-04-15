@@ -8,7 +8,11 @@ vim.pack.add({
 })
 
 local neogit = require("neogit")
-neogit.setup({})
+neogit.setup({
+  integrations = {
+    snacks = true
+  }
+})
 
 vim.keymap.set("n", "<leader>gg", function()
 	neogit.open({ kind = "split" })
