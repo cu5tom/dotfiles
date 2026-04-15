@@ -11,7 +11,7 @@ local neogit = require("neogit")
 neogit.setup({})
 
 vim.keymap.set("n", "<leader>gg", function()
-	neogit.open({ kind = "floating" })
+	neogit.open({ kind = "split" })
 end, { silent = true, noremap = true, desc = "Neogit" })
 
 local load_gitsigns = function ()
