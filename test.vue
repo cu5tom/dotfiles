@@ -9,7 +9,7 @@ function t(a: string, b: string) {
   console.log(b, a);
   console.log(a, b);
 };
-// TODO:
+// TODO: testing stuff!!!
 // FIXME:
 const test = "testing!";
 
@@ -24,6 +24,7 @@ t("fsdfafasd", "42");
 </template>
 
 <style lang="scss">
+// TODO: more testing stuff another todo item
 $c1: rebeccapurple;
 $c2: yellow;
 :root {

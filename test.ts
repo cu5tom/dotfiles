@@ -1,9 +1,26 @@
-import { unlink, write } from "node:fs";
+import { unlink, write, writeSync } from "node:fs";
 
 function test(lol?: string, lul?: number) {
   console.log(lul);
   return "test" + lol;
 }
+
+class Test {
+  i: number;
+
+  constructor(i: number) {
+    this.i = i;
+  }
+
+  loop(): void {
+    for (let i = 0; i <= this.i; i++) {
+      console.log(i)
+    }
+  }
+}
+
+const lol = new Test(5);
+lol.loop();
 
 console.log(test("rofl"));
 console.log(test("rofl"));
@@ -18,14 +35,14 @@ for (const n of [1, 2, 3]) {
 }
 
 for (const i of []) {
- console.log(i);
+  console.log(i);
 }
 
 for (const i of [1, 2, 3]) {
   test("test", i)
 }
 
-for (const n of [1,2,3]) {
+for (const n of [1, 2, 3]) {
   console.log(n);
 }
 

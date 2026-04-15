@@ -1,0 +1,144 @@
+vim.pack.add({
+	"https://github.com/b0o/SchemaStore.nvim",
+	"https://github.com/neovim/nvim-lspconfig",
+	"https://github.com/mason-org/mason.nvim",
+	"https://github.com/mason-org/mason-lspconfig.nvim",
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+})
+
+require("mason").setup({})
+
+require("mason-lspconfig").setup({})
+
+require("mason-tool-installer").setup({
+	ensure_installed = {
+	  "css_variables",
+		"emmet_ls",
+		"html",
+		"jsonls",
+		"lua_ls",
+		"oxfmt",
+		"oxlint",
+		"php-cs-fixer",
+		"somesass_ls",
+		"stylua",
+		"ts_ls",
+		"vue_ls"
+	},
+})
+
+vim.lsp.config("jsonls", {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
+		},
+	},
+})
+
+vim.lsp.config("lua_ls", {
+	-- on_int = function(client)
+	-- 	client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
+	-- end,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+			telemetry = { enable = false },
+			runtime = {
+				version = "LuaJIT",
+				path = {
+					"?.lua",
+					"?/init.lua",
+				},
+			},
+			workspace = {
+				-- checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+					"Snacks",
+				},
+			},
+		},
+	},
+})
+
+vim.lsp.config("ts_ls", {
+	init_options = {
+		plugins = {
+			{
+				name = "@vue/typescript-plugin",
+				location = vim.fn.stdpath("data")
+					.. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+				languages = { "vue" },
+			},
+		},
+	},
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"vue",
+	},
+	settings = {
+		typescript = {
+			tsserver = {
+				useSyntaxServer = false,
+				experimental = {
+					enableProjectDiagnostics = true,
+				},
+			},
+			inlayHints = {
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameWhenArgumentMatchesName = true,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayVariableTypeHints = true,
+				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayEnumMemberValueHints = true,
+			},
+		},
+	},
+})
+
+vim.lsp.document_color.enable(true, nil, { style = "virtual" })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("LspAttachConfig", { clear = true }),
+  callback = function (event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if not client then
+      return
+    end
+
+    local bufnr = event.buf
+
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<leader>cd", function ()
+      vim.cmd("vsplit")
+      vim.lsp.buf.definition()
+    end, opts)
+    vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>cR", vim.lsp.buf.references, opts)
+
+    if client:supports_method("textDocument/codeAction", bufnr) then
+      vim.keymap.set("n", "<leader>coi", function ()
+        vim.lsp.buf.code_action({
+          context = { only = { "source.organizeImports" }, diagnostics = {}},
+          apply = true,
+        })
+
+        vim.defer_fn(function ()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end, 50)
+      end)
+    end
+  end
+})
