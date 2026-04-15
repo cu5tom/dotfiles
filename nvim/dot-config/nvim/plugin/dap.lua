@@ -49,7 +49,7 @@ vim.keymap.set("n", "<f8>", function()
 end)
 
 vim.keymap.set("n", "<f9>", function()
-	require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+	require("dap").set_breakpoint(vim.ui.input("Breakpoint condition: "))
 end)
 
 vim.keymap.set("n", "<f10>", function()
