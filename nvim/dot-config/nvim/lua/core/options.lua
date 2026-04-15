@@ -48,7 +48,6 @@ vim.opt.relativenumber = true
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")
 vim.opt.scrolloff = 5
 vim.opt.selection = "inclusive"
-vim.opt.sessionoptions = "buffers,curdir,folds,globals,help,localoptions,tabpages,terminal,winsize"
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })
