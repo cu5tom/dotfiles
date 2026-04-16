@@ -5,7 +5,7 @@
       "src": "https://github.com/numToStr/Comment.nvim"
     },
     "SchemaStore.nvim": {
-      "rev": "b2e84d00db4d5432f471d58898e796b478f075a7",
+      "rev": "0ce1f8aba51db6812382a4135f5b20a9f0c959ec",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "auto-session": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "d10ce09e42bb0ca8600fd610c3bb58676e61208d",
+      "rev": "b80f82f59544f0770981b5a6c7d129ca276dab36",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -130,6 +130,10 @@
     "oil.nvim": {
       "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "opencode.nvim": {
+      "rev": "b3cdd746a5ca321b6884badefa0ba22c86c3d45e",
+      "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
