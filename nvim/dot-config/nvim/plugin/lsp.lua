@@ -22,6 +22,7 @@ require("mason-tool-installer").setup({
 		"php-cs-fixer",
 		"somesass_ls",
 		"stylua",
+		"taplo",
 		"ts_ls",
 		"vue_ls"
 	},
@@ -37,9 +38,6 @@ vim.lsp.config("jsonls", {
 })
 
 vim.lsp.config("lua_ls", {
-	-- on_int = function(client)
-	-- 	client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
-	-- end,
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -56,12 +54,25 @@ vim.lsp.config("lua_ls", {
 			workspace = {
 				-- checkThirdParty = false,
 				library = {
-					vim.env.VIMRUNTIME,
-					"Snacks",
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.stdpath("config") .. "/lua"] = true,
 				},
 			},
 		},
 	},
+})
+
+vim.lsp.config("taplo", {
+  settings = {
+    taplo = {
+      schema = {
+        associations = {
+          [".*sesh\\.toml$"] = "https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json",
+          [".*flavor\\.toml$"] = "https://yazi-rs.github.io/schemas/theme.json",
+        }
+      }
+    }
+  }
 })
 
 vim.lsp.config("ts_ls", {
