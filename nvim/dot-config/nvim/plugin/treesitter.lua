@@ -22,6 +22,9 @@ require("nvim-treesitter-textobjects").setup({
 		selection_modes = {
 			["@parameter.outer"] = "v",
 			["@function.outer"] = "V",
+			["@class.outer"] = "V",
+			["@conditional.outer"] = "V",
+			["@loop.outer"] = "V",
 		},
 	},
 })
@@ -40,8 +43,32 @@ vim.keymap.set({ "x", "o" }, "aoc", function()
 	ts_select.select_textobject("@class.outer", "textobjects")
 end)
 
-vim.keymap.set({ "x", "o" }, "aoc", function()
+vim.keymap.set({ "x", "o" }, "ioc", function()
 	ts_select.select_textobject("@class.inner", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "aoi", function()
+	ts_select.select_textobject("@conditional.outer", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "ioi", function()
+	ts_select.select_textobject("@conditional.inner", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "aol", function()
+	ts_select.select_textobject("@loop.outer", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "iol", function()
+	ts_select.select_textobject("@loop.inner", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "aop", function()
+	ts_select.select_textobject("@parameter.outer", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "iop", function()
+	ts_select.select_textobject("@parameter.inner", "textobjects")
 end)
 
 require("nvim-treesitter").install({
