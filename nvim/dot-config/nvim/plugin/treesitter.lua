@@ -1,17 +1,48 @@
 vim.pack.add({
-  {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    version = "main",
-    build = ":TSUpdate"
-  },
-  {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-    version = "main",
-  },
-  "https://github.com/nvim-treesitter/nvim-treesitter-context"
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		version = "main",
+		build = ":TSUpdate",
+	},
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+		version = "main",
+	},
+	"https://github.com/nvim-treesitter/nvim-treesitter-context",
 })
 
 require("treesitter-context").setup()
+
+require("nvim-treesitter-textobjects").setup({
+	move = {
+		set_jumps = true,
+	},
+	select = {
+		lookahead = true,
+		selection_modes = {
+			["@parameter.outer"] = "v",
+			["@function.outer"] = "V",
+		},
+	},
+})
+
+local ts_select = require("nvim-treesitter-textobjects.select")
+
+vim.keymap.set({ "x", "o" }, "aof", function()
+	ts_select.select_textobject("@function.outer", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "iof", function()
+	ts_select.select_textobject("@function.inner", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "aoc", function()
+	ts_select.select_textobject("@class.outer", "textobjects")
+end)
+
+vim.keymap.set({ "x", "o" }, "aoc", function()
+	ts_select.select_textobject("@class.inner", "textobjects")
+end)
 
 require("nvim-treesitter").install({
 	"angular",
