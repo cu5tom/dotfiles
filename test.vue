@@ -13,6 +13,8 @@ function t(a: string, b: string) {
 // FIXME:
 const test = "testing!";
 
+const __ = test === true ? "a" : "b";
+
 t("fsdfafasd", "42");
 </script>
 
@@ -41,5 +43,9 @@ $c2: yellow;
 <style lang="scss">
 .test {
   border: 2px solid $c1;
-} 
+
+  &:before {
+    content: '';
+  }
+}
 </style>

@@ -5,7 +5,17 @@ function test(lol?: string, lul?: number) {
   return "test" + lol;
 }
 
-class Test {
+interface MyInterface {
+  i: number;
+}
+
+interface MyOtherInterface extends MyInterface {
+  loop: () => void;
+}
+
+const MY_CONST = "test";
+
+class Test implements MyOtherInterface {
   i: number;
 
   constructor(i: number) {
@@ -19,12 +29,19 @@ class Test {
   }
 }
 
+function* myGen() {
+  yield 42;
+  return 13;
+}
+
+const gen = myGen();
+const res = gen.next();
+console.log(res.value);
+
 const lol = new Test(5);
 lol.loop();
 
-console.log(test("rofl"));
-console.log(test("rofl"));
-console.log(test("rofl"));
+console.log(test(MY_CONST));
 
 if (true) {
   console.log("it's true!");
@@ -54,4 +71,6 @@ const _b = {
   c: "b",
   d: ["a", "b", "c"],
 };
+
+const _c = null;
 // { ( {  } ) }
