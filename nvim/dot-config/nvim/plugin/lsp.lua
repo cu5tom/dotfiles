@@ -12,6 +12,7 @@ require("mason-lspconfig").setup({})
 
 require("mason-tool-installer").setup({
 	ensure_installed = {
+	  "clangd",
 	  "css_variables",
 		"emmet_ls",
 		"html",
