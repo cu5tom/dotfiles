@@ -12,5 +12,12 @@ loader.later(function()
 				opts = { skip = true },
 			},
 		},
+		views = {
+			mini = {
+				position = {
+					row = -2,
+				},
+			},
+		},
 	})
 end)
