@@ -18,6 +18,7 @@ require("mason-tool-installer").setup({
 		"stylua",
 		"taplo",
 		"ts_ls",
+		-- "tsgo",
 		"vue_ls",
 	},
 })
@@ -121,6 +122,15 @@ vim.lsp.config("ts_ls", {
 		},
 	},
 })
+
+-- vim.lsp.config("tsgo", {
+--   filetypes = {
+-- 		"javascript",
+-- 		"javascriptreact",
+-- 		"typescript",
+-- 		"typescriptreact",
+--   },
+-- })
 
 vim.lsp.config("wc_ls", {})
 
