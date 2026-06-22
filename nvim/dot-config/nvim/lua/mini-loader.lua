@@ -1,3 +1,5 @@
+vim.pack.add({ "https://github.com/nvim-mini/mini.misc" })
+
 local misc = require("mini.misc")
 
 local M = {}
