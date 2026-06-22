@@ -1,3 +1,4 @@
+vim.g.netrw_banner = 0
 vim.g.have_nerd_font = true
 vim.g.lazydev_enabled = true
 
@@ -10,9 +11,9 @@ vim.opt.breakindent = true
 vim.schedule(function()
 	vim.opt.clipboard:append("unnamedplus")
 end)
-vim.opt.cmdheight = 1
--- vim.opt.colorcolumn = "120"
-vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+vim.opt.cmdheight = 0
+vim.opt.colorcolumn = "0"
+vim.opt.completeopt = { "menuone", "noinsert", "noselect", "nosort" }
 vim.opt.concealcursor = ""
 vim.opt.conceallevel = 0
 vim.opt.confirm = true
@@ -30,6 +31,7 @@ vim.opt.ignorecase = true
 vim.opt.inccommand = "split"
 vim.opt.incsearch = true
 vim.opt.infercase = true
+vim.opt.isfname:append("@-@")
 vim.opt.iskeyword:append("-", "$", "@", "_")
 vim.opt.jumpoptions = {}
 vim.opt.laststatus = 3
@@ -43,6 +45,7 @@ vim.opt.path:append("**")
 vim.opt.preserveindent = true
 vim.opt.pumheight = 10
 vim.opt.pumblend = 10
+vim.opt.pumborder = "rounded"
 vim.opt.redrawtime = 10000
 vim.opt.relativenumber = true
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")
@@ -50,7 +53,8 @@ vim.opt.scrolloff = 5
 vim.opt.selection = "inclusive"
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 2
-vim.opt.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })
+-- vim.opt.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })
+vim.opt.shortmess:append("c")
 vim.opt.showmatch = true
 vim.opt.showmode = false
 vim.opt.showtabline = 0
@@ -65,6 +69,7 @@ vim.opt.tabstop = 2
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 500
 vim.opt.title = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "block"
