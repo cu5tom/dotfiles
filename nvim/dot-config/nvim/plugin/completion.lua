@@ -1,3 +1,12 @@
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   callback = function(ev)
+--     local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+--     if client:supports_method("textDocument/completion") then
+--       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+--     end
+--   end
+-- })
+
 local loading = require("mini-loader")
 
 local load_plugins = function()
@@ -15,7 +24,7 @@ local load_plugins = function()
 			preset = "none",
 			["<C-y>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
 			["<C-e>"] = { "hide", "fallback" },
-			["<C-j>"] = { "select_and_accept", "fallback" },
+			["<Tab>"] = { "select_and_accept", "fallback" },
 			["<C-p>"] = { "select_prev", "fallback" },
 			["<C-n>"] = { "select_next", "fallback" },
 			["<C-b>"] = { "scroll_documentation_up", "fallback" },
@@ -102,6 +111,25 @@ local load_plugins = function()
 				"path",
 				"buffer",
 			},
+			providers = {
+			  lsp = {
+			    min_keyword_length = 1,
+			    score_offset = 0,
+			  },
+			  path = {
+			    min_keyword_length = 2,
+			    opts = {
+			      get_cwd = function()
+			        return vim.fn.getcwd()
+			      end
+			    }
+			  },
+			  buffer = { min_keyword_length = 2 },
+			  snippets = {
+			    min_keyword_length = 2,
+			    score_offset = 200,
+			  }
+			}
 		},
 		term = {
 			enabled = true,
@@ -133,26 +161,23 @@ local load_plugins = function()
 		},
 		signature = {
 			enabled = true,
-			trigger = {
-				enabled = true,
-				show_on_keyword = true,
-				blocked_retrigger_characters = {},
-				blocked_trigger_characters = {},
-				show_on_insert = false,
-				show_on_trigger_character = false,
-			},
+			-- trigger = {
+			-- 	enabled = true,
+			-- 	show_on_keyword = false,
+			-- 	blocked_retrigger_characters = {},
+			-- 	blocked_trigger_characters = {},
+			-- 	show_on_insert = false,
+			-- 	show_on_trigger_character = false,
+			-- },
 			window = {
 				direction_priority = { "n", "s" },
-				show_documentation = true,
+				show_documentation = false,
 				treesitter_highlighting = true,
 			},
 		},
 	})
-
-	vim.lsp.config("*", {
-		capabilities = require("blink.cmp").get_lsp_capabilities(),
-	})
 end
 
-loading.on_event("CmdLineEnter", load_plugins)
-loading.on_event("InsertEnter", load_plugins)
+load_plugins()
+-- loading.on_event("CmdLineEnter", load_plugins)
+-- loading.on_event("InsertEnter", load_plugins)
