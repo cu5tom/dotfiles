@@ -2,7 +2,7 @@ vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 
 require("conform").setup({
 	notify_on_error = false,
-	format_on_save = true,
+	format_on_save = false,
 	formatters_by_ft = {
 		astro = { "oxfmt" },
 		css = { "oxfmt" },
