@@ -6,29 +6,29 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-	callback = function()
-		for _, winId in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-			if vim.api.nvim_win_get_config(winId).zindex then
-				return
-			end
-		end
-
-		vim.diagnostic.open_float({
-			scope = "cursor",
-			focusable = true,
-			close_events = {
-				"CursorMoved",
-				"CursorMovedI",
-				"BufHidden",
-				"InsertCharPre",
-				"WinLeave",
-			},
-		})
-	end,
-	group = vim.api.nvim_create_augroup("LspDiagnosticsHold", {}),
-	pattern = "*",
-})
+-- vim.api.nvim_create_autocmd({ "CursorHold" }, {
+-- 	callback = function()
+-- 		for _, winId in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+-- 			if vim.api.nvim_win_get_config(winId).zindex then
+-- 				return
+-- 			end
+-- 		end
+--
+-- 		vim.diagnostic.open_float({
+-- 			scope = "cursor",
+-- 			focusable = true,
+-- 			close_events = {
+-- 				"CursorMoved",
+-- 				"CursorMovedI",
+-- 				"BufHidden",
+-- 				"InsertCharPre",
+-- 				"WinLeave",
+-- 			},
+-- 		})
+-- 	end,
+-- 	group = vim.api.nvim_create_augroup("LspDiagnosticsHold", {}),
+-- 	pattern = "*",
+-- })
 
 -- open help in vertical split
 vim.api.nvim_create_autocmd("FileType", {

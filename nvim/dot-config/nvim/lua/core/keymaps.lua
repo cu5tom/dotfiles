@@ -88,18 +88,21 @@ vim.keymap.set("n", "N", "Nzz", opts)
 -- Keep last yanked when pasting
 vim.keymap.set("v", "p", '"_dP')
 
--- Execute current buffer
-vim.keymap.set(
-  "n",
-  "<Space><Space>x",
-  "<cmd>w<cr><cmd>source %<cr>",
-  vim.tbl_extend("force", opts, { desc = "Execute current buffer" })
-)
+vim.keymap.set("n", "<Tab>", ":bnext<cr>", opts)
+vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", opts)
 
-vim.keymap.set("n", "H", function ()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-  vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay hints enabled" or "Inlay hints disabled")
-end)
+-- Execute current buffer
+-- vim.keymap.set(
+--   "n",
+--   "<Space><Space>x",
+--   "<cmd>w<cr><cmd>source %<cr>",
+--   vim.tbl_extend("force", opts, { desc = "Execute current buffer" })
+-- )
+--
+-- vim.keymap.set("n", "H", function ()
+--   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+--   vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay hints enabled" or "Inlay hints disabled")
+-- end)
 
 -- vim.keymap.set("n", "<C-c>", "ciw", opts)
 -- Terminal

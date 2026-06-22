@@ -54,11 +54,11 @@ return {
 				enabled = true,
 				trigger = {
 					enabled = true,
-					show_on_keyword = true,
+					show_on_keyword = false,
 					blocked_retrigger_characters = {},
 					blocked_trigger_characters = {},
-					show_on_insert = true,
-					show_on_trigger_character = true,
+					show_on_insert = false,
+					show_on_trigger_character = false,
 				},
 				window = {
 					direction_priority = { "n", "s" },

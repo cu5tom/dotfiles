@@ -1,6 +1,7 @@
 vim.g.have_nerd_font = true
 vim.g.lazydev_enabled = true
 
+vim.o.autocomplete = false
 vim.opt.autoindent = true
 vim.opt.backspace = vim.list_extend(vim.opt.backspace:get(), { "nostop" })
 vim.opt.breakindent = true
@@ -40,7 +41,7 @@ vim.opt.shiftround = true
 vim.opt.shiftwidth = 2
 vim.opt.shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { s = true, I = true })
 vim.opt.showmode = false
-vim.opt.showtabline = 2
+vim.opt.showtabline = 0
 vim.opt.signcolumn = "yes:3"
 vim.opt.smartcase = true
 vim.opt.softtabstop = 2
@@ -64,4 +65,3 @@ vim.filetype.add({
   }
 })
 
-vim.lsp.document_color.enable(true, nil, { style = "virtual" })

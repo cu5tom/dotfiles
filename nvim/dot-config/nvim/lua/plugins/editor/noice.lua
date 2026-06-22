@@ -7,6 +7,13 @@ return {
 	},
 	config = function()
 		require("noice").setup({
+		  lsp = {
+		    signature = {
+		      auto_open = {
+		        enabled = false
+		      }
+		    }
+		  },
 			routes = {
 				{
 					filter = {

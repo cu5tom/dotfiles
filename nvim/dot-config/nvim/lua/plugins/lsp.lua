@@ -34,8 +34,13 @@ return {
 		config = function()
 			local lspUtil = require("lspconfig.util")
 
+      vim.lsp.document_color.enable(true, nil, { style = "virtual" })
+
 			vim.diagnostic.config({
 				float = false,
+        on_ready = function ()
+          vim.cmd "highlight DiagnosticVirtualText guibg=NONE"
+        end,
 				severity_sort = true,
 				signs = vim.g.have_nerd_font and {
 					text = {
@@ -52,6 +57,10 @@ return {
 				virtual_lines = false,
 				virtual_text = {
 					current_line = true,
+          format = function (diagnostic)
+            local code = diagnostic.code and string.format("[%s]", diagnostic.code) or ""
+            return string.format("%s %s", code, diagnostic.message)
+          end,
 				},
 			})
 
@@ -65,8 +74,8 @@ return {
 			local servers = {
 				mason = {
 					angularls = {
-						root_dir = lspUtil.root_pattern("angular.json"),
-						root_markers = { "angular.json", "nx.json" },
+						-- root_dir = lspUtil.root_pattern("angular.json"),
+						-- root_markers = { "angular.json", "nx.json" },
 					},
 					-- ast_grep = {},
 					css_variables = {
