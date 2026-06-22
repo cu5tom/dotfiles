@@ -12,22 +12,34 @@ require("mason-lspconfig").setup({})
 
 require("mason-tool-installer").setup({
 	ensure_installed = {
-	  "clangd",
-	  "css_variables",
+		"clangd",
+		"css_variables",
 		"emmet_ls",
 		"html",
 		"jsonls",
 		"lua_ls",
 		"oxfmt",
 		"oxlint",
+		"phpactor",
 		"php-cs-fixer",
 		"somesass_ls",
 		"stylua",
 		"taplo",
 		"ts_ls",
-		"vue_ls"
+		"vue_ls",
 	},
 })
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, true))
+
+vim.lsp.config("*", {
+	capabilities = capabilities,
+})
+
+vim.lsp.document_color.enable(true, nil, { style = "virtual" })
 
 vim.lsp.config("jsonls", {
 	settings = {
@@ -64,20 +76,21 @@ vim.lsp.config("lua_ls", {
 })
 
 vim.lsp.config("taplo", {
-  settings = {
-    taplo = {
-      schema = {
-        associations = {
-          [".*sesh\\.toml$"] = "https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json",
-          [".*flavor\\.toml$"] = "https://yazi-rs.github.io/schemas/theme.json",
-        }
-      }
-    }
-  }
+	settings = {
+		taplo = {
+			schema = {
+				associations = {
+					[".*sesh\\.toml$"] = "https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json",
+					[".*flavor\\.toml$"] = "https://yazi-rs.github.io/schemas/theme.json",
+				},
+			},
+		},
+	},
 })
 
 vim.lsp.config("ts_ls", {
 	init_options = {
+		hostInfo = "neovim",
 		plugins = {
 			{
 				name = "@vue/typescript-plugin",
@@ -117,40 +130,40 @@ vim.lsp.config("ts_ls", {
 	},
 })
 
-vim.lsp.document_color.enable(true, nil, { style = "virtual" })
+vim.lsp.config("wc_ls", {})
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("LspAttachConfig", { clear = true }),
-  callback = function (event)
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if not client then
-      return
-    end
-
-    local bufnr = event.buf
-
-    local opts = { noremap = true, silent = true, buffer = bufnr }
-
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>cd", function ()
-      vim.cmd("vsplit")
-      vim.lsp.buf.definition()
-    end, opts)
-    vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "<leader>cR", vim.lsp.buf.references, opts)
-
-    if client:supports_method("textDocument/codeAction", bufnr) then
-      vim.keymap.set("n", "<leader>coi", function ()
-        vim.lsp.buf.code_action({
-          context = { only = { "source.organizeImports" }, diagnostics = {}},
-          apply = true,
-        })
-
-        vim.defer_fn(function ()
-          vim.lsp.buf.format({ bufnr = bufnr })
-        end, 50)
-      end)
-    end
-  end
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = vim.api.nvim_create_augroup("LspAttachConfig", { clear = true }),
+--   callback = function (event)
+--     local client = vim.lsp.get_client_by_id(event.data.client_id)
+--     if not client then
+--       return
+--     end
+--
+--     local bufnr = event.buf
+--
+--     local opts = { noremap = true, silent = true, buffer = bufnr }
+--
+--     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+--     vim.keymap.set("n", "<leader>cd", function ()
+--       vim.cmd("vsplit")
+--       vim.lsp.buf.definition()
+--     end, opts)
+--     vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, opts)
+--     vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
+--     vim.keymap.set("n", "<leader>cR", vim.lsp.buf.references, opts)
+--
+--     if client:supports_method("textDocument/codeAction", bufnr) then
+--       vim.keymap.set("n", "<leader>coi", function ()
+--         vim.lsp.buf.code_action({
+--           context = { only = { "source.organizeImports" }, diagnostics = {}},
+--           apply = true,
+--         })
+--
+--         vim.defer_fn(function ()
+--           vim.lsp.buf.format({ bufnr = bufnr })
+--         end, 50)
+--       end)
+--     end
+--   end
+-- })
