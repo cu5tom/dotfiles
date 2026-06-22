@@ -1,5 +1,3 @@
-vim.pack.add({ "https://github.com/nvim-lualine/lualine.nvim" })
-
 local mode = {
 	"mode",
 	fmt = function(str)

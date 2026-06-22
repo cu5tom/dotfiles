@@ -1,14 +1,3 @@
-vim.pack.add({
-	"https://github.com/mason-org/mason.nvim",
-	"https://github.com/jay-babu/mason-nvim-dap.nvim",
-	"https://github.com/nvim-neotest/nvim-nio",
-	"https://github.com/rcarriga/nvim-dap-ui",
-	"https://github.com/mxsdev/nvim-dap-vscode-js",
-	"https://github.com/mfussenegger/nvim-dap",
-})
-
-require("mason").setup({})
-
 require("mason-nvim-dap").setup({
 	handlers = {},
 	ensure_installed = {

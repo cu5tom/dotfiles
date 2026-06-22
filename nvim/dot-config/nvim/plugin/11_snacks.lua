@@ -1,5 +1,3 @@
-vim.pack.add({ "https://github.com/folke/snacks.nvim" })
-
 vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "@diff.plus" })
 vim.g.snacks_animate = false
 
