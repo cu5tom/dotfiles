@@ -36,7 +36,7 @@ vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "@comment" })
 
 require("mini.move").setup()
 
-require("mini.operators").setup()
+-- require("mini.operators").setup()
 
 require("mini.pairs").setup()
 
