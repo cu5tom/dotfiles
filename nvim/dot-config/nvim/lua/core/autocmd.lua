@@ -2,8 +2,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.hl.on_yank()
 	end,
-	group = vim.api.nvim_create_augroup("YankHighlight", {}),
-	pattern = "*",
 })
 
 -- open help in vertical split
