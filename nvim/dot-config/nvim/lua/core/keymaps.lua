@@ -70,3 +70,5 @@ vim.keymap.set("n", "<Tab>", ":bnext<cr>", opts)
 vim.keymap.set("n", "<S-Tab>", ":bprevious<cr>", opts)
 
 vim.keymap.set("n", "x", '"_x', opts)
+
+vim.keymap.set("n", "<C-a>", "<C-]>", opts)
