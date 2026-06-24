@@ -5,7 +5,7 @@
       "src": "https://github.com/numToStr/Comment.nvim"
     },
     "SchemaStore.nvim": {
-      "rev": "c73e2b170a4927d1dc1b48e878bba6cf0ed9b07c",
+      "rev": "e3a2fc3862fa750603b7067789cb4b90578bcd07",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "auto-session": {
@@ -66,11 +66,11 @@
       "src": "https://github.com/nvim-mini/mini.misc"
     },
     "mini.nvim": {
-      "rev": "1345d191bb3da9c7b0e977f4387c5761f9bff68d",
+      "rev": "c594be5b095204e99473825ec2dee872e7409a4d",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "neogit": {
-      "rev": "828dd073e6ad180fdb5c1603c7ad7f68a384c40b",
+      "rev": "43ea1a0854052e583f647e0b35879f0158a70a78",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nightfox.nvim": {
@@ -109,6 +109,10 @@
       "rev": "21f5324bfac14e22ba26553caf69ec76ae8a7662",
       "src": "https://github.com/nvim-neotest/nvim-nio"
     },
+    "nvim-tmux-navigation": {
+      "rev": "4898c98702954439233fdaf764c39636681e2861",
+      "src": "https://github.com/alexghergh/nvim-tmux-navigation"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -132,7 +136,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "opencode.nvim": {
-      "rev": "a940486a2ceb39db546f233c58112d0471fe3e73",
+      "rev": "e43a41f7278680b1b362e8e07609803bf9d01684",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "plenary.nvim": {
