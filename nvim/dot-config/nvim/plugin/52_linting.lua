@@ -2,8 +2,10 @@ local lint = require("lint")
 
 lint.linters_by_ft = lint.linters_by_ft or {}
 
+lint.linters_by_ft["htmldjango"] = { "djlint" }
 lint.linters_by_ft["javascript"] = { "oxlint" }
 lint.linters_by_ft["javascriptreact"] = { "oxlint" }
+lint.linters_by_ft["jinja"] = { "djlint" }
 lint.linters_by_ft["typescript"] = { "oxlint" }
 lint.linters_by_ft["typescriptreact"] = { "oxlint" }
 lint.linters_by_ft["vue"] = { "oxlint" }

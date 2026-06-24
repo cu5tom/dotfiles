@@ -6,8 +6,10 @@ require("conform").setup({
 	formatters_by_ft = {
 		astro = { "oxfmt" },
 		css = { "oxfmt" },
+		htmldjango = { "djlint" },
 		javascript = { "oxfmt" },
 		javascriptreact = { "oxfmt" },
+		jinja = { "djlint" },
 		json = { "oxfmt" },
 		lua = { "stylua" },
 		php = { "php-cs-fixer" },

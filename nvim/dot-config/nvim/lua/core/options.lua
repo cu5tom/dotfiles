@@ -11,7 +11,7 @@ vim.opt.breakindent = true
 vim.schedule(function()
 	vim.opt.clipboard:append("unnamedplus")
 end)
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.colorcolumn = "0"
 vim.opt.completeopt = { "menuone", "noinsert", "noselect", "nosort" }
 vim.opt.concealcursor = ""

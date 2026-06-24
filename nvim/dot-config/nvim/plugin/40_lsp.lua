@@ -4,10 +4,13 @@ require("mason-lspconfig").setup({})
 
 require("mason-tool-installer").setup({
 	ensure_installed = {
+		"angularls",
 		"clangd",
+		"cssls",
 		"css_variables",
 		"emmet_ls",
 		"html",
+		"jinja_lsp",
 		"jsonls",
 		"lua_ls",
 		"oxfmt",
@@ -20,6 +23,7 @@ require("mason-tool-installer").setup({
 		"ts_ls",
 		-- "tsgo",
 		"vue_ls",
+		"wc_ls",
 	},
 })
 
@@ -33,6 +37,11 @@ vim.lsp.config("*", {
 })
 
 vim.lsp.document_color.enable(true, nil, { style = "virtual" })
+
+vim.lsp.config("jinja_lsp", {
+  filetypes = { "nunjucks", "njk", "jinja", "html.jinja" },
+  root_markers = { "package.json", ".git" },
+})
 
 vim.lsp.config("jsonls", {
 	settings = {
@@ -67,6 +76,8 @@ vim.lsp.config("lua_ls", {
 		},
 	},
 })
+
+vim.lsp.config("oxlint", {})
 
 vim.lsp.config("taplo", {
 	settings = {
@@ -169,3 +180,9 @@ vim.lsp.config("wc_ls", {})
 --     end
 --   end
 -- })
+
+vim.filetype.add({
+  extension = {
+    njk = "html.jinja"
+  }
+})
