@@ -8,6 +8,7 @@ require("mason-tool-installer").setup({
 		"clangd",
 		"cssls",
 		"css_variables",
+		"djlint",
 		"emmet_ls",
 		"html",
 		"jinja_lsp",
