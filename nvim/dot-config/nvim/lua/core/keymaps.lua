@@ -32,8 +32,8 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
 
 -- Indentation
-vim.keymap.set("v", "<", "<gv", opts);
-vim.keymap.set("v", ">", ">gv", opts);
+vim.keymap.set("v", "<", "<gv", opts)
+vim.keymap.set("v", ">", ">gv", opts)
 
 -- Join lines without moving cursor
 vim.keymap.set("n", "J", "mzJ`z")
@@ -42,9 +42,9 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Native undotree
-vim.keymap.set("n", "<leader>u", function ()
-  vim.cmd.packadd("nvim.undotree")
-  require("undotree").open()
+vim.keymap.set("n", "<leader>u", function()
+	vim.cmd.packadd("nvim.undotree")
+	require("undotree").open()
 end)
 
 -- Disable arrow keys
