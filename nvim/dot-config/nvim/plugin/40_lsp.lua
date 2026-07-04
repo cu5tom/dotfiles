@@ -31,7 +31,7 @@ require("mason-tool-installer").setup({
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, true))
+capabilities =require("blink.cmp").get_lsp_capabilities(capabilities)
 
 vim.lsp.config("*", {
 	capabilities = capabilities,
