@@ -92,8 +92,8 @@ require("blink.cmp").setup({
 		},
 		providers = {
 			lsp = {
-			  min_keyword_length = 1,
-			  score_offset = 0,
+			  -- min_keyword_length = 1,
+			  -- score_offset = 300,
 			},
 			path = {
 			  min_keyword_length = 2,
@@ -105,8 +105,8 @@ require("blink.cmp").setup({
 			},
 			buffer = { min_keyword_length = 2 },
 			snippets = {
-			  min_keyword_length = 2,
-			  score_offset = 200,
+			  -- min_keyword_length = 4,
+			  -- score_offset = 100,
 			}
 		}
 	},
