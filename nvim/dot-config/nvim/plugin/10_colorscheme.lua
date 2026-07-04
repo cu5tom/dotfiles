@@ -17,7 +17,7 @@ require("nightfox").setup({
 			  ident = "yellow.dim",
 			 --  field = "blue",
 			  func = "blue.dim",
-			  keyword = "magenta.dim",
+			  keyword = "magenta.bright",
 			  statement = "black",
 				type = "yellow.bright",
 				-- variable = "white.bright"
