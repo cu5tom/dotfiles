@@ -1,7 +1,8 @@
 local mode = {
 	"mode",
 	fmt = function(str)
-		return string.sub(str, 1, 1)
+	  return str
+		-- return string.sub(str, 1, 1)
 	end,
 }
 
