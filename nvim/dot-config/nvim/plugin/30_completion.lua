@@ -110,6 +110,9 @@ require("blink.cmp").setup({
 			}
 		}
 	},
+	snippets = {
+	  preset = "luasnip"
+	},
 	term = {
 		enabled = true,
 		keymap = { preset = "inherit" },
@@ -155,3 +158,5 @@ require("blink.cmp").setup({
 		},
 	},
 })
+
+require("luasnip.loaders.from_vscode").lazy_load()
