@@ -9,7 +9,7 @@
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
     "SchemaStore.nvim": {
-      "rev": "6ff1f21b2e2b77ec59f7433ce2d9fbc052d908ac",
+      "rev": "19adbfb1c4d4049b691be0d840936b109de0f5ea",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "auto-session": {
@@ -74,7 +74,7 @@
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "neogit": {
-      "rev": "43ea1a0854052e583f647e0b35879f0158a70a78",
+      "rev": "6fc2fa890bd2031ed999c074daab0fb4feff20a5",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nightfox.nvim": {
