@@ -9,7 +9,7 @@ require("nightfox").setup({
 	},
 	palettes = {
 		nordfox = {
-			comment = "#767677",
+			comment = "#878788",
 		},
 	},
 	specs = {
