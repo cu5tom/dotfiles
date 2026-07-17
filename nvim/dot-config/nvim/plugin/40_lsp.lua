@@ -31,7 +31,7 @@ require("mason-tool-installer").setup({
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities =require("blink.cmp").get_lsp_capabilities(capabilities)
+capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 vim.lsp.config("*", {
 	capabilities = capabilities,
@@ -40,8 +40,8 @@ vim.lsp.config("*", {
 vim.lsp.document_color.enable(true, nil, { style = "virtual" })
 
 vim.lsp.config("jinja_lsp", {
-  filetypes = { "nunjucks", "njk", "jinja", "html.jinja" },
-  root_markers = { "package.json", ".git" },
+	filetypes = { "nunjucks", "njk", "jinja", "html.jinja" },
+	root_markers = { "package.json", ".git" },
 })
 
 vim.lsp.config("jsonls", {
@@ -183,7 +183,7 @@ vim.lsp.config("wc_ls", {})
 -- })
 
 vim.filetype.add({
-  extension = {
-    njk = "html.jinja"
-  }
+	extension = {
+		njk = "html.jinja",
+	},
 })
