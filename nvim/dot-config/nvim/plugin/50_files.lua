@@ -23,4 +23,12 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
-vim.keymap.set("n", "-", "<cmd>Oil --float<cr>")
+-- vim.keymap.set("n", "-", "<cmd>Oil --float<cr>")
+
+vim.keymap.set('n', '-', function ()
+  if vim.w.is_oil_win then
+    require('oil').close()
+  else
+    require('oil').open_float(nil, { preview = {} })
+  end
+end)
