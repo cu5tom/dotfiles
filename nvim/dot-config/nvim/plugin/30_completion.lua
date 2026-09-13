@@ -3,7 +3,7 @@ require("blink.cmp").setup({
 		preset = "none",
 		["<C-y>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
 		["<C-e>"] = { "hide", "fallback" },
-		["<Tab>"] = { "select_and_accept", "fallback" },
+		["<C-Space>"] = { "select_and_accept", "fallback" },
 		["<C-p>"] = { "select_prev", "fallback" },
 		["<C-n>"] = { "select_next", "fallback" },
 		["<C-b>"] = { "scroll_documentation_up", "fallback" },

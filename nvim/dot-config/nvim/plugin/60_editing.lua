@@ -10,6 +10,7 @@ require("mini.bracketed").setup()
 require("mini.cursorword").setup()
 
 require("mini.icons").setup()
+require("mini.icons").mock_nvim_web_devicons()
 
 require("mini.indentscope").setup({
 	draw = {
@@ -20,17 +21,11 @@ vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "@comment" })
 
 require("mini.move").setup()
 
--- require("mini.operators").setup()
-
 require("mini.pairs").setup()
 
 require("mini.surround").setup()
 
 require("mini.trailspace").setup()
 
--- require("mini.tabline").setup({
--- 	format = function(bufnr, label)
--- 		local suffix = vim.bo[bufnr].modified and "[+]" or "[" .. bufnr .. "]"
--- 		return MiniTabline.default_format(bufnr, label) .. suffix
--- 	end,
--- })
+require("modicator").setup()
+require("tabout").setup()

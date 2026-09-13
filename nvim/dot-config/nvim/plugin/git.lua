@@ -42,3 +42,8 @@ gitsigns.setup({
 		end)
 	end,
 })
+
+local zdiff = require("zdiff")
+vim.keymap.set("n", "<leader>gd", function ()
+  zdiff.open()
+end)

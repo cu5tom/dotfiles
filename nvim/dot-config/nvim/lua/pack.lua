@@ -40,6 +40,11 @@ vim.pack.add({
 		version = "main",
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-context",
+	-- Editor
+	"https://github.com/mawkler/modicator.nvim",
+	"https://github.com/abecodes/tabout.nvim",
+	-- Diagnostics
+	"https://github.com/artemave/workspace-diagnostics.nvim",
 	-- Quickfix
 	"https://github.com/stevearc/quicker.nvim",
 	-- Notification
@@ -59,6 +64,7 @@ vim.pack.add({
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/sindrets/diffview.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/martindur/zdiff.nvim",
 	-- Markdown
 	"https://github.com/MeanderingProgrammer/render-markdown.nvim",
 	-- Flash
