@@ -37,16 +37,16 @@ capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 vim.lsp.config("*", {
 	capabilities = capabilities,
-	on_attach = function(c, bufnr)
-		local client = vim.lsp.get_client_by_id(c.id)
-		if client then
-			if client:supports_method("workspace/diagnostic", bufnr) then
-				vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
-			else
-				require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
-			end
-		end
-	end,
+	-- on_attach = function(c, bufnr)
+	-- 	local client = vim.lsp.get_client_by_id(c.id)
+	-- 	if client then
+	-- 		if client:supports_method("workspace/diagnostic", bufnr) then
+	-- 			vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
+	-- 		else
+	-- 			require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+	-- 		end
+	-- 	end
+	-- end,
 })
 
 vim.lsp.document_color.enable(true, nil, { style = "virtual" })
