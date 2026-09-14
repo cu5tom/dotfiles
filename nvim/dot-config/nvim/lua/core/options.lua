@@ -19,7 +19,7 @@ vim.opt.conceallevel = 0
 vim.opt.confirm = true
 vim.opt.copyindent = true
 vim.opt.cursorline = true
-vim.opt.diffopt = vim.list_extend(vim.opt.diffopt:get(), { "algorithm:histogram", "linematch:60" })
+-- vim.opt.diffopt = vim.list_extend(vim.opt.diffopt:get(), { "algorithm:histogram", "linematch:60" })
 vim.opt.expandtab = true
 vim.opt.fileencoding = "utf-8"
 vim.opt.fillchars = { eob = " " }
