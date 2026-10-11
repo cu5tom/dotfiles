@@ -1,8 +1,8 @@
 vim.pack.add({
-	{ src = "https://github.com/nickvandyke/opencode.nvim", version = vim.version.range("*") },
+	{ src = "https://github.com/nickvandyke/opencode.nvim" },
 })
 
-local opencode_cmd = "opencode --port"
+local opencode_cmd = "opencode"
 
 local snacks_terminal_opts = {
   win = {
