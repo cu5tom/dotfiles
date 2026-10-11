@@ -18,6 +18,11 @@ require("mini.indentscope").setup({
 	},
 })
 vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { link = "@comment" })
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function (args)
+    vim.b[args.buf].minianimate_disable = true
+  end
+})
 
 require("mini.move").setup()
 
