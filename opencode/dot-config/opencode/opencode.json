@@ -8,8 +8,8 @@
         "baseURL": "http://127.0.0.1:8012/v1"
       },
       "models": {
-        "qwen3.5-9B": {
-          "name": "Qwen3.5: 9B (local)"
+        "qwen3.8-27B": {
+          "name": "Qwen3.8: 27B (local)"
         }
       }
     }
