@@ -26,10 +26,10 @@ vim.keymap.set("n", "n", "nzzzv", opts)
 vim.keymap.set("n", "N", "Nzzzv", opts)
 
 -- Move window focus
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", opts)
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", opts)
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
+-- vim.keymap.set("n", "<C-h>", "<C-w><C-h>", opts)
+-- vim.keymap.set("n", "<M-l>", "<C-w><C-l>", opts)
+-- vim.keymap.set("n", "<C-j>", "<C-w><C-j>", opts)
+-- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", opts)
 
 -- Indentation
 vim.keymap.set("v", "<", "<gv", opts)
