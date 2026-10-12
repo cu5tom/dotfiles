@@ -24,7 +24,7 @@ require("mason-tool-installer").setup({
 		"ts_ls",
 		-- "tsgo",
 		"vue_ls",
-		"wc_ls",
+		-- "wc_ls",
 	},
 })
 
@@ -156,7 +156,7 @@ vim.lsp.config("ts_ls", {
 --   },
 -- })
 
-vim.lsp.config("wc_ls", {})
+-- vim.lsp.config("wc_ls", {})
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
 --   group = vim.api.nvim_create_augroup("LspAttachConfig", { clear = true }),
